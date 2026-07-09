@@ -7,6 +7,7 @@ from typing import Any, Dict, List
 from .journal import JOURNAL_BOUNDARIES
 from .maturity import RATIONALE, SCORES
 from .model import BOUNDARIES
+from .asset import HEALTH_FILES
 from .release import DEMO_FILES, REGENERATE_COMMANDS
 from .render import esc, write_json
 
@@ -17,7 +18,7 @@ EVIDENCE_FILES = [
     Path("demo/evidence/evidence_hub.html"),
 ]
 
-EVIDENCE_INPUTS = [path for path in DEMO_FILES if not path.as_posix().startswith("demo/evidence/")] + [
+EVIDENCE_INPUTS = [path for path in DEMO_FILES if not path.as_posix().startswith("demo/evidence/")] + HEALTH_FILES + [
     Path("demo/maturity/maturity_report.json"),
     Path("demo/maturity/maturity_report.md"),
     Path("release/manifest.json")
@@ -200,6 +201,27 @@ ARTIFACT_CLASSIFICATION = {
         "release hash authority",
         "promotion audit input",
     ),
+    "demo/health/asset_health.json": (
+        "asset-health-json",
+        "Does the source package, public artifacts, private-reference scan, and release checklist pass?",
+        "engineering",
+        "asset health authority",
+        "release and promotion checklist input",
+    ),
+    "demo/health/asset_health.md": (
+        "asset-health-markdown",
+        "Can release health be reviewed without parsing JSON?",
+        "showcase",
+        "human-readable asset health evidence",
+        "release and promotion checklist narrative",
+    ),
+    "demo/health/asset_health.html": (
+        "asset-health-html",
+        "Can release health be scanned as static no-JavaScript HTML?",
+        "showcase",
+        "static HTML asset health evidence",
+        "visual release health surface",
+    ),
 }
 
 
@@ -288,6 +310,7 @@ def command_to_regenerate(path_key: str) -> str:
         "demo/ledger/": REGENERATE_COMMANDS[4],
         "demo/journal/": REGENERATE_COMMANDS[5],
         "demo/maturity/": REGENERATE_COMMANDS[6],
+        "demo/health/": REGENERATE_COMMANDS[13],
         "demo/gallery.html": REGENERATE_COMMANDS[7],
         "demo/visual/": REGENERATE_COMMANDS[8],
         "demo/walkthrough/": REGENERATE_COMMANDS[9],

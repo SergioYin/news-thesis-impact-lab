@@ -13,10 +13,12 @@
       "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
       "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
       "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
-      "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle"
+      "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
+      "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health"
     ],
     "verify": [
       "python -m pytest -q",
+      "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
       "PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal",
       "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
       "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
@@ -29,18 +31,18 @@
   },
   "distributions": [
     {
-      "bytes": 50360,
+      "bytes": 57255,
       "exists": true,
       "kind": "wheel",
-      "path": "dist/news_thesis_impact_lab-0.9.0-py3-none-any.whl",
-      "sha256": "f215009434a478b6483e666e1d2d7bc6cf315a0b000f4cde96708648eaff4080"
+      "path": "dist/news_thesis_impact_lab-1.0.0-py3-none-any.whl",
+      "sha256": "3f9570bfa85cfbda38e1390966f5ca25c70669ba22b5f47994516b29fb8d0bbc"
     },
     {
-      "bytes": 49789,
+      "bytes": 56784,
       "exists": true,
       "kind": "sdist",
-      "path": "dist/news_thesis_impact_lab-0.9.0.tar.gz",
-      "sha256": "73137ff7b75f585d55eeaddcc400264e44d35adb8c3822611c8e99ce4bea721d"
+      "path": "dist/news_thesis_impact_lab-1.0.0.tar.gz",
+      "sha256": "7ca5ab83c4c96c1cdff8a1702c1da8c547263ce7483a2b7137df95ece19deaee"
     }
   ],
   "finance_safety_boundaries": [
@@ -52,28 +54,28 @@
   "generated_at": "2026-07-10",
   "key_artifacts": [
     {
-      "bytes": 11437,
+      "bytes": 12106,
       "exists": true,
       "path": "README.md",
-      "sha256": "9496789fc57b27ba9ba99382b91ec1e683d7d3bc1c07354a779911b557cddad5"
+      "sha256": "5e26b98336813580ad4f2928927da82c5d6e01e69909ae8d24af70224b249e3c"
     },
     {
-      "bytes": 5173,
+      "bytes": 6008,
       "exists": true,
       "path": "CHANGELOG.md",
-      "sha256": "a8f4230151c6bfabfaec9a45f94c5b5be340466f8dcc324d62fac0bdf9655095"
+      "sha256": "4562aac749d5992046d90b3a94f68ab7600d286ba764cbb9334234412bf27b91"
     },
     {
-      "bytes": 876,
+      "bytes": 888,
       "exists": true,
       "path": "pyproject.toml",
-      "sha256": "007682d763ac183af1233c8b73be9d1186ad2090f83f976f13466d5dd688a721"
+      "sha256": "b9db8d43871a08a843c7e2812dab741b16e89ddb0c5ead850d1faa1cb8b3fe7e"
     },
     {
-      "bytes": 9380,
+      "bytes": 10459,
       "exists": true,
       "path": "docs/review-packet.md",
-      "sha256": "65503527962dd75bce9ff24b12b598f81452beea01ba5dfdb4b26ca423379f34"
+      "sha256": "ee13a48124637dd9e041aff3ba613e78b3d28ea060669057d9e68b533fa8f231"
     },
     {
       "bytes": 5780,
@@ -94,10 +96,10 @@
       "sha256": "593b6e4647d7b56f3f78cb4f6d4b73d80ce647bc729d61370029f2ee6906a10b"
     },
     {
-      "bytes": 6380,
+      "bytes": 6673,
       "exists": true,
       "path": "demo/gallery.html",
-      "sha256": "568975fc278dc08b0600637f4cc7b185de52ed3bf294e36154765f410fadc785"
+      "sha256": "481c202fdc8db31080490a1327f1fc34685fed71d711feb139f6ad2a9c0e6509"
     },
     {
       "bytes": 1439,
@@ -187,13 +189,13 @@
       "bytes": 4518,
       "exists": true,
       "path": "demo/visual/visual_receipt.json",
-      "sha256": "f0a1b45f82659c11a190a2e23f76030b95cdae0c3a7d8a37a201443987e0b786"
+      "sha256": "20d97d23f586a0d62267a25f679fe91b118cd117535bd96951aeffd36ac0c3c2"
     },
     {
       "bytes": 3310,
       "exists": true,
       "path": "demo/visual/visual_receipt.md",
-      "sha256": "e888e1a16306d3851b3549e101ef874f10db8188054737d6f7fcaaa0f97ce40e"
+      "sha256": "aa4f287a5cbb83ba97e6fd15bd0768a846d40fd29104f10fa2a4ed6372f61bfe"
     },
     {
       "bytes": 5932,
@@ -206,6 +208,24 @@
       "exists": true,
       "path": "demo/walkthrough/walkthrough.md",
       "sha256": "b10c47ca31b5336b02dfaafa5b10bd6ee5db94b8ec3d1b2f69ce88da5b2a141d"
+    },
+    {
+      "bytes": 20248,
+      "exists": true,
+      "path": "demo/health/asset_health.json",
+      "sha256": "3feff4d2c28d683afb05e7c5ea5a4ae4bb97d861d354a6ec626392862e616efb"
+    },
+    {
+      "bytes": 2827,
+      "exists": true,
+      "path": "demo/health/asset_health.md",
+      "sha256": "0806ade9b1c0ea06acbc4f7bb5f1f5287dc93537776addbdc80d57afce78b152"
+    },
+    {
+      "bytes": 5136,
+      "exists": true,
+      "path": "demo/health/asset_health.html",
+      "sha256": "ce04a227066ad582b133075cd669fe83881d422d7b932e02d1e808445ee4461c"
     },
     {
       "bytes": 1410,
@@ -268,7 +288,7 @@
   ],
   "package": {
     "name": "news-thesis-impact-lab",
-    "version": "0.9.0"
+    "version": "1.0.0"
   },
   "schema_version": "1.0"
 }

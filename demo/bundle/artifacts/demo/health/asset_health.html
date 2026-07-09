@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asset Health</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 2rem; color: #17202a; background: #f7f8fa; }
+    main { max-width: 1200px; margin: 0 auto; }
+    h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+    h2 { font-size: 1.2rem; margin-top: 1.75rem; }
+    table { border-collapse: collapse; width: 100%; background: white; margin: 0.75rem 0 1.25rem; }
+    th, td { border: 1px solid #d8dee8; padding: 0.6rem; vertical-align: top; text-align: left; }
+    th { background: #e9eef5; }
+    code { white-space: normal; overflow-wrap: anywhere; }
+    .note { background: #fff; border: 1px solid #d8dee8; padding: 1rem; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Asset Health</h1>
+  <p>Package news-thesis-impact-lab 1.0.0; generated 2026-07-10.</p>
+  <section class="note">
+    <h2>Final Readiness</h2>
+    <p>release_ready: true<br>promote_ready: true</p>
+  </section>
+  <h2>Release/Promote Checklist</h2>
+  <table><thead><tr><th>Gate</th><th>Check</th><th>OK</th></tr></thead><tbody><tr><td>release</td><td>package_metadata_version_1_0_0</td><td>true</td></tr><tr><td>release</td><td>zero_runtime_dependencies</td><td>true</td></tr><tr><td>release</td><td>console_script_configured</td><td>true</td></tr><tr><td>release</td><td>advertised_commands_documented</td><td>true</td></tr><tr><td>release</td><td>generated_artifacts_fresh</td><td>true</td></tr><tr><td>release</td><td>asset_health_artifacts_present</td><td>true</td></tr><tr><td>release</td><td>validate_release_passes</td><td>true</td></tr><tr><td>release</td><td>repo_skill_ready</td><td>true</td></tr><tr><td>release</td><td>local_neutral_docs</td><td>true</td></tr><tr><td>release</td><td>private_ref_scan_clean</td><td>true</td></tr><tr><td>release</td><td>finance_boundaries_covered</td><td>true</td></tr><tr><td>promote</td><td>wheel_present</td><td>true</td></tr><tr><td>promote</td><td>sdist_present</td><td>true</td></tr><tr><td>promote</td><td>installed_metadata_matches_when_available</td><td>true</td></tr></tbody></table>
+  <h2>Advertised Commands</h2>
+  <table><thead><tr><th>Command</th><th>CLI</th><th>README</th><th>Skill</th></tr></thead><tbody><tr><td><code>build-packet</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>compare</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>trend-history</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>scenario-stress</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>review-ledger</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>decision-journal</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>selfcheck</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>validate-release</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>maturity-report</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>release-manifest</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>demo-gallery</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>visual-receipt</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>cold-start-walkthrough</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>evidence-hub</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>bundle-export</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>bundle-inspect</code></td><td>true</td><td>true</td><td>true</td></tr><tr><td><code>asset-health</code></td><td>true</td><td>true</td><td>true</td></tr></tbody></table>
+  <h2>Distributions</h2>
+  <table><thead><tr><th>Kind</th><th>Path</th><th>Exists</th><th>SHA-256</th><th>Bytes</th></tr></thead><tbody><tr><td>wheel</td><td><code>dist/news_thesis_impact_lab-1.0.0-py3-none-any.whl</code></td><td>true</td><td><code>3f9570bfa85cfbda38e1390966f5ca25c70669ba22b5f47994516b29fb8d0bbc</code></td><td>57255</td></tr><tr><td>sdist</td><td><code>dist/news_thesis_impact_lab-1.0.0.tar.gz</code></td><td>true</td><td><code>7ca5ab83c4c96c1cdff8a1702c1da8c547263ce7483a2b7137df95ece19deaee</code></td><td>56784</td></tr></tbody></table>
+  <h2>Private Reference Scan</h2>
+  <p>ok: true; files scanned: 75; findings: 0.</p>
+  <h2>Finance Safety Boundaries</h2>
+  <ul><li>Static local research notes only; no live market data is fetched.</li><li>Not investment advice and not a buy, sell, hold, or allocation recommendation.</li><li>No broker integration, order routing, execution, or account access.</li><li>Scores are deterministic review aids for human research triage.</li></ul>
+  <h2>Notes</h2>
+  <ul><li>Health checks inspect local source and generated files only; they do not fetch live data.</li><li>Distribution records report wheel and sdist presence for the current package version.</li><li>Private-reference scanning skips the scanner implementation so regex definitions are not counted as findings.</li></ul>
+</main>
+</body>
+</html>

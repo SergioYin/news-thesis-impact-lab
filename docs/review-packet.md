@@ -76,6 +76,17 @@ The packet is designed for local research triage. It links static catalyst notes
 - `bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json|md`: validates copied files exist and hashes match, summarizes missing or changed artifacts, and exits nonzero on mismatch.
 - Safety tags preserve the no-live-data, non-advice, no-broker, no-orders, and human-review boundaries; the bundle contains no private references or live data integrations.
 
+`asset-health --out demo/health` writes `asset_health.json`, `asset_health.md`, and no-JavaScript `asset_health.html`.
+
+- `package`: source and installed package metadata, version match status, zero-dependency status, and console script configuration.
+- `advertised_commands`: checks that public CLI commands are present in the CLI, README, and repo skill.
+- `generated_artifact_freshness`: summarizes deterministic artifact checks from release validation.
+- `distributions`: reports current-version wheel and sdist presence or placeholders.
+- `repo_skill` and `local_neutral_docs`: checks that reuse docs stay local, static, and boundary-aware.
+- `private_ref_scan_summary`: scans public source files while ignoring `scripts/privacy_scan.py` regex definitions so the scanner does not flag itself.
+- `finance_boundary_coverage`: summarizes boundary coverage across public artifacts.
+- `readiness_checklist`: final release/promote checklist for public showcase review.
+
 ## Review Flow
 
 1. Read boundaries first.
@@ -91,8 +102,9 @@ The packet is designed for local research triage. It links static catalyst notes
 11. Generate `cold-start-walkthrough --out demo/walkthrough` and confirm the first-user path still matches the public artifacts.
 12. Generate `release-manifest --out release`, then `evidence-hub --out demo/evidence`, and confirm the hub includes hashes, gate relevance, no-script status, boundary coverage, and limitations.
 13. Generate `bundle-export --out demo/bundle`, then run `bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json` to confirm copied public artifacts are intact for agent reuse.
-14. Run `validate-release` before publishing to confirm demo artifacts remain deterministic and retain the research boundaries.
+14. Generate `asset-health --out demo/health` and inspect the final release/promote checklist.
+15. Run `validate-release` before publishing to confirm demo artifacts remain deterministic and retain the research boundaries.
 
 ## Release Readiness
 
-`maturity-report --out demo/maturity` writes Markdown and JSON scoring for product, runnable, user-value, evidence, engineering, showcase, and risk dimensions. The report includes release and promotion gate booleans derived from those scores and the release validation result, which now requires the evidence hub and bundle inspection gates.
+`maturity-report --out demo/maturity` writes Markdown and JSON scoring for product, runnable, user-value, evidence, engineering, showcase, and risk dimensions. The report includes release and promotion gate booleans derived from those scores and the release validation result, which now requires the evidence hub, bundle inspection, and asset health gates.

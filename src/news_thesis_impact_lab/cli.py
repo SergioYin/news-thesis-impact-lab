@@ -5,6 +5,7 @@ import json
 import sys
 from pathlib import Path
 
+from .asset import write_asset_health
 from .evidence import write_evidence_hub
 from .engine import build_packet, compare_packets
 from .journal import write_decision_journal
@@ -102,6 +103,9 @@ def main(argv: list[str] | None = None) -> int:
     bundle = subparsers.add_parser("bundle-export", help="Write plain-file bundle manifest and copied public artifacts.")
     bundle.add_argument("--out", required=True)
 
+    health = subparsers.add_parser("asset-health", help="Write release and promotion asset health artifacts.")
+    health.add_argument("--out", default="demo/health")
+
     inspect = subparsers.add_parser("bundle-inspect", help="Validate a plain-file bundle manifest and copied artifacts.")
     inspect.add_argument("--manifest", required=True)
     inspect.add_argument("--format", choices=["json", "md"], default="json")
@@ -140,6 +144,8 @@ def main(argv: list[str] | None = None) -> int:
             return command_bundle_export(args)
         if args.command == "bundle-inspect":
             return command_bundle_inspect(args)
+        if args.command == "asset-health":
+            return command_asset_health(args)
     except Exception as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
@@ -334,6 +340,15 @@ def command_bundle_inspect(args: argparse.Namespace) -> int:
     else:
         print(render_bundle_inspection_markdown(inspection))
     return 0 if inspection["ok"] else 1
+
+
+def command_asset_health(args: argparse.Namespace) -> int:
+    out = Path(args.out)
+    health = write_asset_health(Path.cwd(), out)
+    print(f"wrote {out / 'asset_health.json'}")
+    print(f"wrote {out / 'asset_health.md'}")
+    print(f"wrote {out / 'asset_health.html'}")
+    return 0 if health["final_readiness"]["release_ready"] else 1
 
 
 def read_json(path: Path):

@@ -4,7 +4,7 @@
 
 It is for analysts, builders, and agent workflows that need deterministic review packets from local JSON inputs without live market data, broker access, or private services.
 
-## 11-Command Quickstart
+## 12-Command Quickstart
 
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo
@@ -16,6 +16,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/i
 PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
 PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
 PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle
+PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health
 PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 ```
@@ -34,6 +35,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - [Evidence hub](demo/evidence/evidence_hub.md): reviewer-facing matrix with artifact purpose, rubric area, release and promotion gate relevance, regeneration command, SHA-256, no-JavaScript status, boundary coverage, and limitations.
 - [Bundle manifest](demo/bundle/bundle_manifest.md): plain-file agent reuse bundle manifest with copied public artifacts, SHA-256 hashes, roles, regenerate commands, package boundary tags, and safety boundary tags.
 - [Bundle copy list](demo/bundle/bundle_copy_list.json): deterministic copy list for the bundle files under `demo/bundle/artifacts/`.
+- [Asset health](demo/health/asset_health.md): release and promotion checklist across package metadata, advertised commands, generated artifact freshness, wheel/sdist presence, repo skill, local-neutral docs, private-reference scan summary, and finance boundary coverage.
 - [Maturity report](demo/maturity/maturity_report.md): release and promotion readiness gates.
 - [Release manifest](release/manifest.md): package version, hashes, regeneration commands, verification commands, boundaries, and distribution placeholders.
 
@@ -96,6 +98,7 @@ news-thesis-impact-lab cold-start-walkthrough --out demo/walkthrough
 news-thesis-impact-lab release-manifest --out release
 news-thesis-impact-lab evidence-hub --out demo/evidence
 news-thesis-impact-lab bundle-export --out demo/bundle
+news-thesis-impact-lab asset-health --out demo/health
 news-thesis-impact-lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json
 ```
 
@@ -121,6 +124,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
 - `demo/evidence/evidence_hub.json`, `demo/evidence/evidence_hub.md`, and `demo/evidence/evidence_hub.html`: deterministic reviewer evidence matrix over generated demo artifacts and `release/manifest.json`.
 - `demo/bundle/bundle_manifest.json`, `demo/bundle/bundle_manifest.md`, `demo/bundle/bundle_manifest.html`, and `demo/bundle/bundle_copy_list.json`: deterministic plain-file bundle metadata for agent reuse.
 - `demo/bundle/artifacts/`: copied public demo, example, release, documentation, and agent skill artifacts referenced by the bundle manifest.
+- `demo/health/asset_health.json`, `demo/health/asset_health.md`, and `demo/health/asset_health.html`: deterministic asset health report with final release/promote readiness checklist.
 - `demo/gallery.html`: static no-JavaScript gallery that links the public demo and release artifacts.
 - `release/manifest.json` and `release/manifest.md`: deterministic release manifest with hashes and build placeholders.
 
@@ -145,6 +149,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out dem
 PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity
 PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
 PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle
+PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health
 PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json
 python scripts/privacy_scan.py
 git diff --check

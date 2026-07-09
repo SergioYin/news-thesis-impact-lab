@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "news-thesis-impact-lab"
-version = "0.9.0"
+version = "1.0.0"
 description = "Zero-dependency local CLI for mapping static news catalysts to finance thesis review packets."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -12,7 +12,7 @@ license = "MIT"
 authors = [{name = "news-thesis-impact-lab maintainers"}]
 keywords = ["finance", "research", "markdown", "portfolio", "static-analysis"]
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 5 - Production/Stable",
   "Environment :: Console",
   "Intended Audience :: Financial and Insurance Industry",
   "Programming Language :: Python :: 3",

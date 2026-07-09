@@ -54,6 +54,7 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
    PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
    PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
    PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle
+   PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health
    PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json
    PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
    PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
@@ -70,6 +71,7 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
    news-thesis-impact-lab evidence-hub --out demo/evidence
    news-thesis-impact-lab demo-gallery --out demo/gallery.html
    news-thesis-impact-lab bundle-export --out demo/bundle
+   news-thesis-impact-lab asset-health --out demo/health
    news-thesis-impact-lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json
    ```
 
@@ -88,6 +90,8 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
 - `demo/evidence/evidence_hub.json`, `demo/evidence/evidence_hub.md`, and `demo/evidence/evidence_hub.html` are deterministic release audit artifacts with artifact classification, user question answered, maturity rubric category, release and promotion gate relevance, regeneration command, SHA-256, no-JavaScript status, boundary coverage, and limitations.
 - `demo/bundle/bundle_manifest.json`, `demo/bundle/bundle_manifest.md`, `demo/bundle/bundle_manifest.html`, and `demo/bundle/bundle_copy_list.json` are deterministic plain-file agent reuse bundle metadata over copied public artifacts under `demo/bundle/artifacts/`.
 - `bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json|md` reports missing or changed bundle artifacts and exits nonzero on mismatch.
+- `demo/health/asset_health.json`, `demo/health/asset_health.md`, and `demo/health/asset_health.html` are deterministic asset health artifacts with package/source metadata, advertised command coverage, generated artifact freshness, wheel/sdist status, repo skill status, local-neutral docs, private-reference scan summary, finance boundary coverage, and a final release/promote checklist.
+- `asset-health --out demo/health` exits successfully when release readiness passes and reports promote readiness separately when wheel and sdist files are present.
 - `validate-release --format json` passes after public artifacts are generated.
 - Tests, selfcheck, privacy scan, and `git diff --check` pass.
 - No runtime dependencies, workflow files, private references, live data fetches, broker actions, or investment advice are introduced.
@@ -95,3 +99,8 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
 ## Boundaries
 
 Outputs are research notes only. Do not turn review prompts into buy, sell, hold, allocation, execution, or broker instructions.
+
+- Static local research notes only; no live market data is fetched.
+- Not investment advice and not a buy, sell, hold, or allocation recommendation.
+- No broker integration, order routing, execution, or account access.
+- Scores are deterministic review aids for human research triage.

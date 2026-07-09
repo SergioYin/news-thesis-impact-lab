@@ -89,7 +89,7 @@
         "missing_count": 0,
         "present_count": 4
       },
-      "bytes": 6380,
+      "bytes": 6673,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
       "exists": true,
       "known_limitations": [
@@ -101,7 +101,7 @@
       "path": "demo/gallery.html",
       "promotion_gate_relevance": "promotion entry point",
       "release_gate_relevance": "artifact navigation evidence",
-      "sha256": "568975fc278dc08b0600637f4cc7b185de52ed3bf294e36154765f410fadc785",
+      "sha256": "481c202fdc8db31080490a1327f1fc34685fed71d711feb139f6ad2a9c0e6509",
       "user_question_answered": "Where does a reviewer start when inspecting the public artifact set?"
     },
     {
@@ -438,7 +438,7 @@
       "path": "demo/visual/visual_receipt.json",
       "promotion_gate_relevance": "promotion safety evidence",
       "release_gate_relevance": "no-JavaScript and boundary evidence",
-      "sha256": "f0a1b45f82659c11a190a2e23f76030b95cdae0c3a7d8a37a201443987e0b786",
+      "sha256": "20d97d23f586a0d62267a25f679fe91b118cd117535bd96951aeffd36ac0c3c2",
       "user_question_answered": "Which static HTML pages prove no-script and boundary coverage?"
     },
     {
@@ -460,7 +460,7 @@
       "path": "demo/visual/visual_receipt.md",
       "promotion_gate_relevance": "promotion safety narrative",
       "release_gate_relevance": "promotion receipt evidence",
-      "sha256": "e888e1a16306d3851b3549e101ef874f10db8188054737d6f7fcaaa0f97ce40e",
+      "sha256": "aa4f287a5cbb83ba97e6fd15bd0768a846d40fd29104f10fa2a4ed6372f61bfe",
       "user_question_answered": "Can visual review checks be audited without running a browser?"
     },
     {
@@ -508,6 +508,73 @@
       "user_question_answered": "Can the cold-start path be followed without interpreting CLI internals?"
     },
     {
+      "artifact_type": "asset-health-json",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 20248,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "engineering",
+      "no_js": null,
+      "path": "demo/health/asset_health.json",
+      "promotion_gate_relevance": "release and promotion checklist input",
+      "release_gate_relevance": "asset health authority",
+      "sha256": "3feff4d2c28d683afb05e7c5ea5a4ae4bb97d861d354a6ec626392862e616efb",
+      "user_question_answered": "Does the source package, public artifacts, private-reference scan, and release checklist pass?"
+    },
+    {
+      "artifact_type": "asset-health-markdown",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 2827,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": null,
+      "path": "demo/health/asset_health.md",
+      "promotion_gate_relevance": "release and promotion checklist narrative",
+      "release_gate_relevance": "human-readable asset health evidence",
+      "sha256": "0806ade9b1c0ea06acbc4f7bb5f1f5287dc93537776addbdc80d57afce78b152",
+      "user_question_answered": "Can release health be reviewed without parsing JSON?"
+    },
+    {
+      "artifact_type": "asset-health-html",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 5136,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness.",
+        "Static no-script check does not execute a browser layout engine."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": true,
+      "path": "demo/health/asset_health.html",
+      "promotion_gate_relevance": "visual release health surface",
+      "release_gate_relevance": "static HTML asset health evidence",
+      "sha256": "ce04a227066ad582b133075cd669fe83881d422d7b932e02d1e808445ee4461c",
+      "user_question_answered": "Can release health be scanned as static no-JavaScript HTML?"
+    },
+    {
       "artifact_type": "maturity-json",
       "boundary_coverage": {
         "all_present": false,
@@ -520,7 +587,7 @@
         "missing_count": 4,
         "present_count": 0
       },
-      "bytes": 1657,
+      "bytes": 1699,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
       "exists": true,
       "known_limitations": [
@@ -531,7 +598,7 @@
       "path": "demo/maturity/maturity_report.json",
       "promotion_gate_relevance": "promotion gate summary",
       "release_gate_relevance": "release gate summary",
-      "sha256": "ec56221999ebcb5b2c70f864b401085a13873ddf435b5915efcf038c0a8c16cb",
+      "sha256": "72cca030fdbee061bfd64f7bdc66e9689e3be6a77f5012c7acc10f4245fbb649",
       "user_question_answered": "Do release and promotion gates pass by rubric area?"
     },
     {
@@ -547,7 +614,7 @@
         "missing_count": 4,
         "present_count": 0
       },
-      "bytes": 1434,
+      "bytes": 1476,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
       "exists": true,
       "known_limitations": [
@@ -558,7 +625,7 @@
       "path": "demo/maturity/maturity_report.md",
       "promotion_gate_relevance": "promotion gate narrative",
       "release_gate_relevance": "human-readable gate summary",
-      "sha256": "6eb8a3f0e663c27c714437abea4e2aca6228642f24db570e1addaa688059ba8d",
+      "sha256": "2f7194d1f2afae3080651353f13a5655df3123cf77a0d0a1ad57670627a622d7",
       "user_question_answered": "Can readiness scoring be reviewed without parsing JSON?"
     },
     {
@@ -569,7 +636,7 @@
         "missing_count": 0,
         "present_count": 4
       },
-      "bytes": 10503,
+      "bytes": 11209,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
       "exists": true,
       "known_limitations": [
@@ -581,7 +648,7 @@
       "path": "release/manifest.json",
       "promotion_gate_relevance": "promotion audit input",
       "release_gate_relevance": "release hash authority",
-      "sha256": "1609b2d25b8b1d0538a96c2645b6ea2ca288f6e9f977a8984d7758682a3ff65d",
+      "sha256": "7203f753d4de9588363ec4195c4faef4f4564374c6959e5aeb60b4253bd7b765",
       "user_question_answered": "Which public artifacts, commands, hashes, and package metadata define this release?"
     }
   ],
@@ -608,6 +675,9 @@
     "demo/visual/visual_receipt.md",
     "demo/walkthrough/walkthrough.json",
     "demo/walkthrough/walkthrough.md",
+    "demo/health/asset_health.json",
+    "demo/health/asset_health.md",
+    "demo/health/asset_health.html",
     "demo/maturity/maturity_report.json",
     "demo/maturity/maturity_report.md",
     "release/manifest.json"
@@ -635,19 +705,22 @@
     "demo/visual/visual_receipt.md",
     "demo/walkthrough/walkthrough.json",
     "demo/walkthrough/walkthrough.md",
+    "demo/health/asset_health.json",
+    "demo/health/asset_health.md",
+    "demo/health/asset_health.html",
     "demo/maturity/maturity_report.json",
     "demo/maturity/maturity_report.md",
     "release/manifest.json"
   ],
   "rubric_scores": {
     "engineering": {
-      "artifact_count": 3,
+      "artifact_count": 4,
       "rationale": "Typed dataclasses, deterministic rendering, focused CLI surface, and no runtime dependencies.",
       "score": 4
     },
     "evidence": {
       "artifact_count": 3,
-      "rationale": "Includes deterministic demo JSON/Markdown/HTML, compare, trend, scenario stress, review ledger, decision journal outputs, visual receipt, walkthrough, evidence hub, tests, and release validation.",
+      "rationale": "Includes deterministic demo JSON/Markdown/HTML, compare, trend, scenario stress, review ledger, decision journal outputs, visual receipt, walkthrough, evidence hub, asset health, tests, and release validation.",
       "score": 4
     },
     "product": {
@@ -662,12 +735,12 @@
     },
     "runnable": {
       "artifact_count": 2,
-      "rationale": "Stdlib-only commands, examples, demo artifacts, scenario stress review, repeated-use review ledger, decision journal draft, visual receipt, cold-start walkthrough, tests, selfcheck, and privacy scan.",
+      "rationale": "Stdlib-only commands, examples, demo artifacts, scenario stress review, repeated-use review ledger, decision journal draft, visual receipt, cold-start walkthrough, asset health, tests, selfcheck, and privacy scan.",
       "score": 5
     },
     "showcase": {
-      "artifact_count": 11,
-      "rationale": "Demo packet, compare packet, trend history, scenario stress review, review ledger, decision journal, visual receipt, cold-start walkthrough, evidence hub, review doc, and agent skill show the intended workflow.",
+      "artifact_count": 13,
+      "rationale": "Demo packet, compare packet, trend history, scenario stress review, review ledger, decision journal, visual receipt, cold-start walkthrough, evidence hub, asset health, review doc, and agent skill show the intended workflow.",
       "score": 4
     },
     "user_value": {

@@ -13,6 +13,7 @@ from news_thesis_impact_lab.scenario import build_scenario_stress, load_scenario
 from news_thesis_impact_lab.ledger import build_review_ledger
 from news_thesis_impact_lab.evidence import build_evidence_hub
 from news_thesis_impact_lab.journal import build_decision_journal
+from news_thesis_impact_lab.asset import build_asset_health, private_ref_scan_summary
 
 
 def run_cli(*args):
@@ -316,6 +317,9 @@ def test_validate_release_json_reports_expected_checks():
     assert checks["demo_artifacts_deterministic"]["ok"] is True
     assert checks["release_manifest_deterministic"]["ok"] is True
     assert checks["evidence_hub_artifacts_exist"]["ok"] is True
+    assert checks["asset_health_artifacts_exist"]["ok"] is True
+    assert checks["asset_health_no_js"]["ok"] is True
+    assert checks["asset_health_deterministic"]["ok"] is True
     assert checks["bundle_artifacts_exist"]["ok"] is True
     assert checks["bundle_manifest_no_js"]["ok"] is True
     assert checks["decision_journal_no_js"]["ok"] is True
@@ -335,6 +339,7 @@ def test_validate_release_json_reports_expected_checks():
     assert "demo/journal/decision_journal.json" not in checks["demo_artifacts_exist"]["missing"]
     assert "examples/review_ledger_previous.json" not in checks["example_files_exist"]["missing"]
     assert "demo/evidence/evidence_hub.json" not in checks["evidence_hub_artifacts_exist"]["missing"]
+    assert "demo/health/asset_health.json" not in checks["asset_health_artifacts_exist"]["missing"]
 
 
 def test_maturity_report_writes_markdown_and_json(tmp_path):
@@ -370,13 +375,14 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     readme_bytes = (ROOT / "README.md").read_bytes()
 
     assert "wrote" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.9.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "1.0.0"}
     assert artifacts["README.md"]["sha256"] == hashlib.sha256(readme_bytes).hexdigest()
     assert artifacts["demo/gallery.html"]["exists"] is True
     assert artifacts["demo/trend/trend_history.json"]["exists"] is True
     assert artifacts["demo/scenario/scenario_stress.json"]["exists"] is True
     assert artifacts["demo/ledger/review_ledger.json"]["exists"] is True
     assert artifacts["demo/journal/decision_journal.json"]["exists"] is True
+    assert artifacts["demo/health/asset_health.json"]["exists"] is True
     assert artifacts["examples/scenarios.json"]["exists"] is True
     assert artifacts["examples/review_ledger_previous.json"]["exists"] is True
     assert artifacts["demo/visual/visual_receipt.json"]["exists"] is True
@@ -391,6 +397,8 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     assert "cold-start-walkthrough --out demo/walkthrough" in "\n".join(manifest["commands"]["regenerate"])
     assert "evidence-hub --out demo/evidence" in "\n".join(manifest["commands"]["regenerate"])
     assert "bundle-export --out demo/bundle" in "\n".join(manifest["commands"]["regenerate"])
+    assert "asset-health --out demo/health" in "\n".join(manifest["commands"]["regenerate"])
+    assert "asset-health --out demo/health" in "\n".join(manifest["commands"]["verify"])
     assert "evidence-hub --out demo/evidence" in "\n".join(manifest["commands"]["verify"])
     assert "bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json" in "\n".join(manifest["commands"]["verify"])
     assert "validate-release --format json" in "\n".join(manifest["commands"]["verify"])
@@ -409,13 +417,14 @@ def test_bundle_export_manifest_contents_and_no_js_html(tmp_path):
     artifacts = {item["source_path"]: item for item in manifest["artifacts"]}
 
     assert "copied" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.9.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "1.0.0"}
     assert manifest["bundle_type"] == "plain-file-agent-reuse-packet"
     assert artifacts["demo/impact_packet.json"]["role"] == "primary demo artifact"
     assert artifacts["demo/impact_packet.json"]["bundle_path"] == "artifacts/demo/impact_packet.json"
     assert artifacts["demo/impact_packet.json"]["sha256"] == hashlib.sha256((ROOT / "demo/impact_packet.json").read_bytes()).hexdigest()
     assert artifacts["demo/impact_packet.json"]["regenerate_command"].endswith("--out demo")
     assert artifacts["demo/journal/decision_journal.json"]["role"] == "research meeting decision journal draft"
+    assert artifacts["demo/health/asset_health.json"]["role"] == "asset health and release promotion checklist"
     assert "non-advice" in artifacts["demo/journal/decision_journal.json"]["safety_boundary_tags"]
     assert artifacts["examples/events.json"]["package_boundary"] == "examples"
     assert "no-live-data" in artifacts["examples/events.json"]["safety_boundary_tags"]
@@ -492,9 +501,11 @@ def test_demo_gallery_writes_static_landing_page(tmp_path):
     assert "visual/visual_receipt.md" in html
     assert "walkthrough/walkthrough.md" in html
     assert "evidence/evidence_hub.md" in html
+    assert "health/asset_health.md" in html
     assert "maturity/maturity_report.md" in html
     assert "../release/manifest.md" in html
     assert "release-manifest --out release" in html
+    assert "asset-health --out demo/health" in html
     assert "Not investment advice" in html
 
 
@@ -604,3 +615,52 @@ def test_evidence_hub_cli_outputs_no_js_and_is_deterministic(tmp_path):
     assert (first / "evidence_hub.json").read_bytes() == (second / "evidence_hub.json").read_bytes()
     assert (first / "evidence_hub.md").read_bytes() == (second / "evidence_hub.md").read_bytes()
     assert (first / "evidence_hub.html").read_bytes() == (second / "evidence_hub.html").read_bytes()
+
+
+def test_asset_health_scoring_private_scan_and_boundaries():
+    health = build_asset_health(ROOT)
+    checklist = {item["name"]: item for item in health["readiness_checklist"]}
+    commands = {item["command"]: item for item in health["advertised_commands"]}
+
+    assert health["package"]["source"]["version"] == "1.0.0"
+    assert health["package"]["source"]["zero_runtime_dependencies"] is True
+    assert health["scores"]["release"]["score"] == 100.0
+    assert health["final_readiness"]["release_ready"] is True
+    assert checklist["package_metadata_version_1_0_0"]["ok"] is True
+    assert checklist["private_ref_scan_clean"]["ok"] is True
+    assert checklist["finance_boundaries_covered"]["ok"] is True
+    assert commands["asset-health"]["advertised_in_cli"] is True
+    assert commands["asset-health"]["advertised_in_readme"] is True
+    assert commands["asset-health"]["advertised_in_skill"] is True
+    assert health["private_ref_scan_summary"]["finding_count"] == 0
+    assert "scripts/privacy_scan.py" in health["private_ref_scan_summary"]["ignored_files"]
+    assert health["finance_boundary_coverage"]["ok"] is True
+    assert "Not investment advice" in "\n".join(health["finance_safety_boundaries"])
+
+
+def test_asset_health_cli_outputs_no_js_and_is_deterministic(tmp_path):
+    first = tmp_path / "first"
+    second = tmp_path / "second"
+    run_cli("asset-health", "--out", str(first))
+    run_cli("asset-health", "--out", str(second))
+
+    health = json.loads((first / "asset_health.json").read_text(encoding="utf-8"))
+    markdown = (first / "asset_health.md").read_text(encoding="utf-8")
+    html = (first / "asset_health.html").read_text(encoding="utf-8")
+
+    assert health["schema_version"] == "1.0"
+    assert health["final_readiness"]["release_ready"] is True
+    assert "Release/Promote Checklist" in markdown
+    assert "<script" not in html.lower()
+    assert "No broker integration" in html
+    assert (first / "asset_health.json").read_bytes() == (second / "asset_health.json").read_bytes()
+    assert (first / "asset_health.md").read_bytes() == (second / "asset_health.md").read_bytes()
+    assert (first / "asset_health.html").read_bytes() == (second / "asset_health.html").read_bytes()
+
+
+def test_private_ref_summary_ignores_privacy_scan_regex_definitions():
+    summary = private_ref_scan_summary(ROOT)
+
+    assert summary["ok"] is True
+    assert summary["finding_count"] == 0
+    assert "scripts/privacy_scan.py" in summary["ignored_files"]

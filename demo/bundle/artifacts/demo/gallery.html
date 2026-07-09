@@ -41,6 +41,7 @@
     <a class="card" href="evidence/evidence_hub.md"><strong>Evidence Hub</strong>Reviewer matrix with artifact purpose, gates, hashes, no-script checks, boundary coverage, and limitations.</a>
     <a class="card" href="bundle/bundle_manifest.md"><strong>Bundle Manifest</strong>Plain-file agent reuse bundle with hashes, roles, regenerate commands, package boundaries, and safety tags.</a>
     <a class="card" href="bundle/bundle_copy_list.json"><strong>Bundle Copy List</strong>Deterministic copy list for public artifacts under the bundle artifacts directory.</a>
+    <a class="card" href="health/asset_health.md"><strong>Asset Health</strong>Release and promotion checklist across metadata, commands, artifacts, docs, private-reference scan, boundaries, and distributions.</a>
     <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>
     <a class="card" href="../release/manifest.md"><strong>Release Manifest</strong>Hashes, commands, boundaries, and distribution placeholders.</a>
   </section>
@@ -57,6 +58,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out dem
 PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
 PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
 PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle
+PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health
 PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json</code></pre>
 

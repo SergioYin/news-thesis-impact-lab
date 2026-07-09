@@ -17,7 +17,7 @@
     },
     {
       "boundaries_present": true,
-      "bytes": 6380,
+      "bytes": 6673,
       "capture_command": "static read demo/gallery.html",
       "exists": true,
       "missing_boundaries": [],
@@ -26,7 +26,7 @@
       "review_notes": "Confirm first-screen artifact links, quickstart, and finance boundaries are visible without JavaScript.",
       "role": "artifact gallery entry point",
       "route": "demo/gallery.html",
-      "sha256": "568975fc278dc08b0600637f4cc7b185de52ed3bf294e36154765f410fadc785",
+      "sha256": "481c202fdc8db31080490a1327f1fc34685fed71d711feb139f6ad2a9c0e6509",
       "title": "news-thesis-impact-lab Demo Gallery"
     },
     {

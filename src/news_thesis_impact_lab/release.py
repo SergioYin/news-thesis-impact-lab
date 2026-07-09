@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List
 
 from . import __version__
+from .asset import HEALTH_FILES
 from .engine import build_packet, compare_packets
 from .journal import JOURNAL_BOUNDARIES, build_decision_journal, render_decision_journal_html, render_decision_journal_markdown
 from .ledger import build_review_ledger
@@ -107,6 +108,7 @@ KEY_ARTIFACTS = [
     Path("demo/visual/visual_receipt.md"),
     Path("demo/walkthrough/walkthrough.json"),
     Path("demo/walkthrough/walkthrough.md"),
+    *HEALTH_FILES,
     *EXAMPLE_FILES,
 ]
 BUNDLE_SOURCE_FILES = sorted(
@@ -118,6 +120,7 @@ BUNDLE_SOURCE_FILES = sorted(
         Path("skills/agent/news-thesis-impact-lab/SKILL.md"),
         *DEMO_FILES,
         *EVIDENCE_FILES,
+        *HEALTH_FILES,
         *RELEASE_FILES,
         *EXAMPLE_FILES,
     },
@@ -137,9 +140,11 @@ REGENERATE_COMMANDS = [
     "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
     "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
     "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
+    "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
 ]
 VERIFY_COMMANDS = [
     "python -m pytest -q",
+    "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
     "PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal",
     "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
     "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
@@ -151,7 +156,7 @@ VERIFY_COMMANDS = [
 ]
 
 
-def validate_release(root: Path) -> Dict[str, Any]:
+def validate_release(root: Path, include_asset_health: bool = True) -> Dict[str, Any]:
     root = root.resolve()
     checks = [
         check_files_exist(root, "demo_artifacts_exist", DEMO_FILES),
@@ -165,12 +170,20 @@ def validate_release(root: Path) -> Dict[str, Any]:
         check_journal_no_js(root),
         check_journal_no_recommendation_language(root),
         check_demo_deterministic(root),
-        check_evidence_hub_deterministic(root),
-        check_release_manifest_deterministic(root),
-        check_bundle_deterministic(root),
         check_bundle_inspect(root),
         check_referenced_example_files(root),
     ]
+    if include_asset_health:
+        checks.extend(
+            [
+                check_evidence_hub_deterministic(root),
+                check_release_manifest_deterministic(root),
+                check_bundle_deterministic(root),
+                check_files_exist(root, "asset_health_artifacts_exist", HEALTH_FILES),
+                check_asset_health_no_js(root),
+                check_asset_health_deterministic(root),
+            ]
+        )
     passed = all(check["ok"] for check in checks)
     return {"ok": passed, "checks": checks}
 
@@ -339,6 +352,17 @@ def check_bundle_no_js(root: Path) -> Dict[str, Any]:
     }
 
 
+def check_asset_health_no_js(root: Path) -> Dict[str, Any]:
+    html_path = root / "demo/health/asset_health.html"
+    if not html_path.is_file():
+        return {"name": "asset_health_no_js", "ok": False, "path": "demo/health/asset_health.html"}
+    return {
+        "name": "asset_health_no_js",
+        "ok": "<script" not in html_path.read_text(encoding="utf-8").lower(),
+        "path": "demo/health/asset_health.html",
+    }
+
+
 def check_bundle_deterministic(root: Path) -> Dict[str, Any]:
     with tempfile.TemporaryDirectory(prefix="news-thesis-impact-lab-bundle-") as tmp:
         tmp_path = Path(tmp)
@@ -349,6 +373,20 @@ def check_bundle_deterministic(root: Path) -> Dict[str, Any]:
             if not (root / path).is_file() or (root / path).read_bytes() != (tmp_path / path.relative_to("demo/bundle")).read_bytes()
         ]
     return {"name": "bundle_artifacts_deterministic", "ok": not changed, "changed": changed}
+
+
+def check_asset_health_deterministic(root: Path) -> Dict[str, Any]:
+    from .asset import write_asset_health
+
+    with tempfile.TemporaryDirectory(prefix="news-thesis-impact-lab-health-") as tmp:
+        tmp_path = Path(tmp)
+        write_asset_health(root, tmp_path)
+        changed = [
+            path.as_posix()
+            for path in HEALTH_FILES
+            if not (root / path).is_file() or (root / path).read_bytes() != (tmp_path / path.name).read_bytes()
+        ]
+    return {"name": "asset_health_deterministic", "ok": not changed, "changed": changed}
 
 
 def check_bundle_inspect(root: Path) -> Dict[str, Any]:
@@ -625,6 +663,7 @@ def command_to_regenerate(path_key: str) -> str:
         "release/manifest": REGENERATE_COMMANDS[10],
         "demo/evidence/": REGENERATE_COMMANDS[11],
         "demo/bundle/": REGENERATE_COMMANDS[12],
+        "demo/health/": REGENERATE_COMMANDS[13],
     }
     for prefix, command in command_by_prefix.items():
         if path_key.startswith(prefix):
@@ -646,6 +685,8 @@ def bundle_role(path: Path) -> str:
         return "release manifest evidence"
     if key.startswith("demo/evidence/"):
         return "reviewer evidence hub"
+    if key.startswith("demo/health/"):
+        return "asset health and release promotion checklist"
     if key.startswith("demo/bundle/"):
         return "bundle metadata"
     if key.startswith("demo/maturity/"):
@@ -871,6 +912,7 @@ def render_demo_gallery() -> str:
             "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
             "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
             "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
+            "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
             "PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json",
             "PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json",
         ]
@@ -918,6 +960,7 @@ def render_demo_gallery() -> str:
     <a class="card" href="evidence/evidence_hub.md"><strong>Evidence Hub</strong>Reviewer matrix with artifact purpose, gates, hashes, no-script checks, boundary coverage, and limitations.</a>
     <a class="card" href="bundle/bundle_manifest.md"><strong>Bundle Manifest</strong>Plain-file agent reuse bundle with hashes, roles, regenerate commands, package boundaries, and safety tags.</a>
     <a class="card" href="bundle/bundle_copy_list.json"><strong>Bundle Copy List</strong>Deterministic copy list for public artifacts under the bundle artifacts directory.</a>
+    <a class="card" href="health/asset_health.md"><strong>Asset Health</strong>Release and promotion checklist across metadata, commands, artifacts, docs, private-reference scan, boundaries, and distributions.</a>
     <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>
     <a class="card" href="../release/manifest.md"><strong>Release Manifest</strong>Hashes, commands, boundaries, and distribution placeholders.</a>
   </section>

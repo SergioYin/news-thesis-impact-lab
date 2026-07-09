@@ -3,7 +3,7 @@
   "artifacts": [
     {
       "bundle_path": "artifacts/CHANGELOG.md",
-      "bytes": 5173,
+      "bytes": 6008,
       "exists": true,
       "package_boundary": "package-root",
       "regenerate_command": "maintained source documentation or package metadata",
@@ -16,12 +16,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "a8f4230151c6bfabfaec9a45f94c5b5be340466f8dcc324d62fac0bdf9655095",
+      "sha256": "4562aac749d5992046d90b3a94f68ab7600d286ba764cbb9334234412bf27b91",
       "source_path": "CHANGELOG.md"
     },
     {
       "bundle_path": "artifacts/README.md",
-      "bytes": 11437,
+      "bytes": 12106,
       "exists": true,
       "package_boundary": "package-root",
       "regenerate_command": "maintained source documentation or package metadata",
@@ -34,7 +34,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "9496789fc57b27ba9ba99382b91ec1e683d7d3bc1c07354a779911b557cddad5",
+      "sha256": "5e26b98336813580ad4f2928927da82c5d6e01e69909ae8d24af70224b249e3c",
       "source_path": "README.md"
     },
     {
@@ -75,7 +75,7 @@
     },
     {
       "bundle_path": "artifacts/demo/evidence/evidence_hub.html",
-      "bytes": 22876,
+      "bytes": 24997,
       "exists": true,
       "package_boundary": "demo",
       "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
@@ -88,12 +88,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "8968c06c07099ab16e9362881575d48cb501e007d7356fb1d45c99865859a61b",
+      "sha256": "9621a125172af16bab474782704308adb7449ef877f5dba02d85484c94ea7a3f",
       "source_path": "demo/evidence/evidence_hub.html"
     },
     {
       "bundle_path": "artifacts/demo/evidence/evidence_hub.json",
-      "bytes": 30854,
+      "bytes": 33996,
       "exists": true,
       "package_boundary": "demo",
       "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
@@ -106,12 +106,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "af7bac82faae5b651c422580c246695bfa14a09f76b96282ddc53fcf80db1c90",
+      "sha256": "a3bbed80b3ea0e071498e83dabd8cbc73acd53b3687eef75d980d3c7c1797d8b",
       "source_path": "demo/evidence/evidence_hub.json"
     },
     {
       "bundle_path": "artifacts/demo/evidence/evidence_hub.md",
-      "bytes": 17846,
+      "bytes": 19547,
       "exists": true,
       "package_boundary": "demo",
       "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
@@ -124,12 +124,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "03bbaaab198785a39a9b97dca952a949dbe36d517df9e35c60f01b838ea6ea23",
+      "sha256": "2b2e98305ae9c29ee64d13c21073a8bac35fb9b4b9fac1aa3137d9de5d209b6f",
       "source_path": "demo/evidence/evidence_hub.md"
     },
     {
       "bundle_path": "artifacts/demo/gallery.html",
-      "bytes": 6380,
+      "bytes": 6673,
       "exists": true,
       "package_boundary": "demo",
       "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
@@ -142,8 +142,62 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "568975fc278dc08b0600637f4cc7b185de52ed3bf294e36154765f410fadc785",
+      "sha256": "481c202fdc8db31080490a1327f1fc34685fed71d711feb139f6ad2a9c0e6509",
       "source_path": "demo/gallery.html"
+    },
+    {
+      "bundle_path": "artifacts/demo/health/asset_health.html",
+      "bytes": 5136,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
+      "role": "asset health and release promotion checklist",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "ce04a227066ad582b133075cd669fe83881d422d7b932e02d1e808445ee4461c",
+      "source_path": "demo/health/asset_health.html"
+    },
+    {
+      "bundle_path": "artifacts/demo/health/asset_health.json",
+      "bytes": 20248,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
+      "role": "asset health and release promotion checklist",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "3feff4d2c28d683afb05e7c5ea5a4ae4bb97d861d354a6ec626392862e616efb",
+      "source_path": "demo/health/asset_health.json"
+    },
+    {
+      "bundle_path": "artifacts/demo/health/asset_health.md",
+      "bytes": 2827,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
+      "role": "asset health and release promotion checklist",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "0806ade9b1c0ea06acbc4f7bb5f1f5287dc93537776addbdc80d57afce78b152",
+      "source_path": "demo/health/asset_health.md"
     },
     {
       "bundle_path": "artifacts/demo/impact_packet.json",
@@ -430,7 +484,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "f0a1b45f82659c11a190a2e23f76030b95cdae0c3a7d8a37a201443987e0b786",
+      "sha256": "20d97d23f586a0d62267a25f679fe91b118cd117535bd96951aeffd36ac0c3c2",
       "source_path": "demo/visual/visual_receipt.json"
     },
     {
@@ -448,7 +502,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "e888e1a16306d3851b3549e101ef874f10db8188054737d6f7fcaaa0f97ce40e",
+      "sha256": "aa4f287a5cbb83ba97e6fd15bd0768a846d40fd29104f10fa2a4ed6372f61bfe",
       "source_path": "demo/visual/visual_receipt.md"
     },
     {
@@ -489,7 +543,7 @@
     },
     {
       "bundle_path": "artifacts/docs/review-packet.md",
-      "bytes": 9380,
+      "bytes": 10459,
       "exists": true,
       "package_boundary": "docs",
       "regenerate_command": "maintained source documentation or package metadata",
@@ -502,7 +556,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "65503527962dd75bce9ff24b12b598f81452beea01ba5dfdb4b26ca423379f34",
+      "sha256": "ee13a48124637dd9e041aff3ba613e78b3d28ea060669057d9e68b533fa8f231",
       "source_path": "docs/review-packet.md"
     },
     {
@@ -669,7 +723,7 @@
     },
     {
       "bundle_path": "artifacts/pyproject.toml",
-      "bytes": 876,
+      "bytes": 888,
       "exists": true,
       "package_boundary": "package-root",
       "regenerate_command": "maintained source documentation or package metadata",
@@ -682,12 +736,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "007682d763ac183af1233c8b73be9d1186ad2090f83f976f13466d5dd688a721",
+      "sha256": "b9db8d43871a08a843c7e2812dab741b16e89ddb0c5ead850d1faa1cb8b3fe7e",
       "source_path": "pyproject.toml"
     },
     {
       "bundle_path": "artifacts/release/manifest.json",
-      "bytes": 10503,
+      "bytes": 11209,
       "exists": true,
       "package_boundary": "release",
       "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
@@ -700,12 +754,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "1609b2d25b8b1d0538a96c2645b6ea2ca288f6e9f977a8984d7758682a3ff65d",
+      "sha256": "7203f753d4de9588363ec4195c4faef4f4564374c6959e5aeb60b4253bd7b765",
       "source_path": "release/manifest.json"
     },
     {
       "bundle_path": "artifacts/release/manifest.md",
-      "bytes": 7931,
+      "bytes": 8572,
       "exists": true,
       "package_boundary": "release",
       "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
@@ -718,12 +772,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "b70202ae89045a23940e9f7bb9bc4a4ef9c009c0507edc26b9316712b9f9410e",
+      "sha256": "33dd2aca7188cd84a0982143cd47101de5f692d84b0e5ad52d58b8cc72fc1a14",
       "source_path": "release/manifest.md"
     },
     {
       "bundle_path": "artifacts/skills/agent/news-thesis-impact-lab/SKILL.md",
-      "bytes": 7285,
+      "bytes": 8264,
       "exists": true,
       "package_boundary": "agent-skill",
       "regenerate_command": "maintained agent skill documentation",
@@ -736,7 +790,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "46c173d6860e59a4f8ac6da89fb72639f0255ef89e7c01cf1dd943356faeb5e4",
+      "sha256": "9bfb7e4af1a2f37dfcb2ba4621c8a61383b7e4d0ff7e8b00bbb28d15219bc4f2",
       "source_path": "skills/agent/news-thesis-impact-lab/SKILL.md"
     }
   ],
@@ -756,10 +810,12 @@
       "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
       "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
       "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
-      "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle"
+      "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
+      "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health"
     ],
     "verify": [
       "python -m pytest -q",
+      "PYTHONPATH=src python -m news_thesis_impact_lab asset-health --out demo/health",
       "PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal",
       "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
       "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
@@ -799,7 +855,7 @@
   ],
   "package": {
     "name": "news-thesis-impact-lab",
-    "version": "0.9.0"
+    "version": "1.0.0"
   },
   "schema_version": "1.0"
 }

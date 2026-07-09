@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0 - 2026-07-10
+
+- Added `asset-health` CLI command for deterministic public showcase hardening artifacts under `demo/health/`.
+- Added asset health JSON, Markdown, and no-JavaScript HTML with package metadata, advertised command coverage, generated artifact freshness, wheel/sdist presence, repo skill status, local-neutral docs, private-reference scan summary, finance boundary coverage, and final release/promote checklist.
+- Integrated asset health with release validation, release manifest, evidence hub, bundle export, demo gallery, maturity report, README, review docs, agent skill, changelog, and tests.
+- Added private-reference scan summary behavior that ignores `scripts/privacy_scan.py` regex definitions while still scanning public source and docs.
+- Bumped package metadata to 1.0.0 for public showcase readiness.
+
 ## 0.9.0 - 2026-07-10
 
 - Added `decision-journal` CLI command for research meeting draft export from impact packet, compare report, trend history, scenario stress, review ledger, and evidence hub artifacts.
