@@ -30,9 +30,22 @@ The packet is designed for local research triage. It links static catalyst notes
 - `confidence_downgrade_suggestion`: deterministic research-confidence triage suggestion, not a portfolio or trading instruction.
 - `next_review_queue`: highest-priority human review prompts from scenario overlap.
 
+## Review Ledger Fields
+
+`review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger` reads the current packet, trend history, scenario stress review, and an optional prior ledger. It writes `review_ledger.json`, `review_ledger.md`, and no-JavaScript `review_ledger.html`.
+
+- `items`: stable review issues keyed by `ticker|issue_type|source`.
+- `status`: `new` for first-seen active issues, `open` for carried-forward active issues, `watch` for prior watch items that remain active, and `resolved` when previous issues no longer appear in current evidence.
+- `severity`: deterministic triage severity from packet warnings, persistent warnings, attention scores, and stress risk.
+- `first_seen` and `latest_seen`: retained across runs so repeated use preserves history.
+- `evidence_links`: local artifact paths and source labels that justify the issue.
+- `next_action`: research maintenance task only; it is not a trade, allocation, broker, or account action.
+- `expiry_days` and `stale`: age-based review hygiene flags for unresolved items.
+- `summary`: compact counts by ticker, status, and severity.
+
 ## Promotion Review Artifacts
 
-`visual-receipt --out demo/visual` scans `demo/index.html`, `demo/gallery.html`, `demo/trend/trend_history.html`, and `demo/scenario/scenario_stress.html` without screenshots or browser automation. It writes `visual_receipt.json` and `visual_receipt.md` with title, role, route, path, byte count, SHA-256, no-script status, boundary status, capture command, and review notes.
+`visual-receipt --out demo/visual` scans `demo/index.html`, `demo/gallery.html`, `demo/trend/trend_history.html`, `demo/scenario/scenario_stress.html`, and `demo/ledger/review_ledger.html` without screenshots or browser automation. It writes `visual_receipt.json` and `visual_receipt.md` with title, role, route, path, byte count, SHA-256, no-script status, boundary status, capture command, and review notes.
 
 `cold-start-walkthrough --out demo/walkthrough` writes `walkthrough.json` and `walkthrough.md` for a 2-5 minute first-user path. It includes exact commands, expected artifacts, interpretation guidance, and failure modes that preserve the no-live-data, no-broker, no-orders, no-advice boundaries.
 
@@ -45,9 +58,10 @@ The packet is designed for local research triage. It links static catalyst notes
 5. Rebuild the packet and compare against the previous packet.
 6. Build trend history from `examples/history/*.json` when reviewing multi-period drift.
 7. Run scenario stress with `examples/scenarios.json` to surface illustrative stress overlaps and thesis contradiction prompts.
-8. Generate `visual-receipt --out demo/visual` and confirm no-script and boundary summaries are true.
-9. Generate `cold-start-walkthrough --out demo/walkthrough` and confirm the first-user path still matches the public artifacts.
-10. Run `validate-release` before publishing to confirm demo artifacts remain deterministic and retain the research boundaries.
+8. Run `review-ledger` with `examples/review_ledger_previous.json` when checking repeated-use status transitions.
+9. Generate `visual-receipt --out demo/visual` and confirm no-script and boundary summaries are true.
+10. Generate `cold-start-walkthrough --out demo/walkthrough` and confirm the first-user path still matches the public artifacts.
+11. Run `validate-release` before publishing to confirm demo artifacts remain deterministic and retain the research boundaries.
 
 ## Release Readiness
 

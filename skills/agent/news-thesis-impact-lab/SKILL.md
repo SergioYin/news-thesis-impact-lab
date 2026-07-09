@@ -29,12 +29,19 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
    news-thesis-impact-lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario
    ```
 
-6. Run checks:
+6. Build the repeated-use review ledger:
+
+   ```bash
+   news-thesis-impact-lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
+   ```
+
+7. Run checks:
 
    ```bash
    python -m pytest -q
    PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
    PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario
+   PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
    PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
    PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough
    PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
@@ -46,7 +53,7 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
    git diff --check
    ```
 
-7. Public packaging artifacts:
+8. Public packaging artifacts:
 
    ```bash
    news-thesis-impact-lab release-manifest --out release
@@ -60,6 +67,8 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
 - `demo/trend/trend_history.json`, `demo/trend/trend_history.md`, and `demo/trend/trend_history.html` are deterministic outputs from `examples/history/*.json`.
 - `demo/scenario/scenario_stress.json`, `demo/scenario/scenario_stress.md`, and `demo/scenario/scenario_stress.html` are deterministic outputs from `demo/impact_packet.json` and `examples/scenarios.json`.
 - Scenario stress outputs include named macro, sector, and company shocks, ticker/tag exposure overlap, risk levels, stress flags, thesis contradiction prompts, confidence downgrade suggestions, and next review queue.
+- `demo/ledger/review_ledger.json`, `demo/ledger/review_ledger.md`, and `demo/ledger/review_ledger.html` are deterministic outputs from the packet, trend history, scenario stress review, and optional previous ledger.
+- Review ledger outputs include stable item keys, new/open/watch/resolved status transitions, severity, first/latest seen dates, evidence links, research-only next actions, expiry days, stale flags, and compact ticker/status/severity summary.
 - `demo/visual/visual_receipt.json` and `demo/visual/visual_receipt.md` are deterministic static HTML capture receipts with no-script and boundary checks.
 - `demo/walkthrough/walkthrough.json` and `demo/walkthrough/walkthrough.md` describe the 2-5 minute first-user path, exact commands, expected artifacts, interpretation guide, and failure modes.
 - `validate-release --format json` passes after public artifacts are generated.

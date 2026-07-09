@@ -5,6 +5,7 @@
       "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
       "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
       "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
+      "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
       "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
       "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
       "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
@@ -21,18 +22,18 @@
   },
   "distributions": [
     {
-      "bytes": 29451,
+      "bytes": 34239,
       "exists": true,
       "kind": "wheel",
-      "path": "dist/news_thesis_impact_lab-0.5.0-py3-none-any.whl",
-      "sha256": "909321bf2a23b8478112d4c01bcc14d7ef4f2fe2628d3f29860d8b0992e52638"
+      "path": "dist/news_thesis_impact_lab-0.6.0-py3-none-any.whl",
+      "sha256": "a800e411fb3c1c47bfdc88d00eef141266b97cb597075b5abcc8e2abdeff1808"
     },
     {
-      "bytes": 28548,
+      "bytes": 33494,
       "exists": true,
       "kind": "sdist",
-      "path": "dist/news_thesis_impact_lab-0.5.0.tar.gz",
-      "sha256": "758bcdac654baccc1863be8d5c3bf21b4ff477e964c7a2d25c9326735424093b"
+      "path": "dist/news_thesis_impact_lab-0.6.0.tar.gz",
+      "sha256": "9bc244e7171e171ffa81d89fa3835a40686f62042d00f6370410791ce6123579"
     }
   ],
   "finance_safety_boundaries": [
@@ -44,28 +45,28 @@
   "generated_at": "2026-07-10",
   "key_artifacts": [
     {
-      "bytes": 6686,
+      "bytes": 7937,
       "exists": true,
       "path": "README.md",
-      "sha256": "1823a053b1c0e03baa64bfd76f16e095ffd6602090549bb9650ced989056e747"
+      "sha256": "ddc6fa700b9a9dcfc5da6ce5be3afd56e3f62fe244aa3e8bdccc112db61b6410"
     },
     {
-      "bytes": 2084,
+      "bytes": 2804,
       "exists": true,
       "path": "CHANGELOG.md",
-      "sha256": "937e120893bac932ff5a5a503e7ce36fddc51e04c8c5746d816484375c155466"
+      "sha256": "16c718897787c3bc45406476332cb956ee0945f03bb56d850e795d75edb31a77"
     },
     {
       "bytes": 876,
       "exists": true,
       "path": "pyproject.toml",
-      "sha256": "5f9164d0b33aea044107c448c9f3bfd2008c3715e348d08440f47679301b2df2"
+      "sha256": "114ea20203f081dcbbc02a066fd645653fb439cc21f48af72227e2aca7211321"
     },
     {
-      "bytes": 4173,
+      "bytes": 5563,
       "exists": true,
       "path": "docs/review-packet.md",
-      "sha256": "e3c3ef0ea6c2338798e0716511c6cdf9a53a2b16ab3a669c70da64282fce1d94"
+      "sha256": "04d08fd7b4f055e236e4fa0644d0e568e2ab4de79a7ec8e5ddc1018e15a2e308"
     },
     {
       "bytes": 5780,
@@ -86,10 +87,10 @@
       "sha256": "593b6e4647d7b56f3f78cb4f6d4b73d80ce647bc729d61370029f2ee6906a10b"
     },
     {
-      "bytes": 4176,
+      "bytes": 4748,
       "exists": true,
       "path": "demo/gallery.html",
-      "sha256": "fe6664b1a37be81c8d90c686d75d253afead59742c18f6bcca0c50ddebe84ac5"
+      "sha256": "43cda5f378d993bd7380c789a91cd037270c9a11de4741131169dbabb65de410"
     },
     {
       "bytes": 1439,
@@ -140,28 +141,46 @@
       "sha256": "69ce3af70beb4015c7ba2aedfd055e37be504657b0c18ce3d7ba9b400cffed2c"
     },
     {
-      "bytes": 3165,
+      "bytes": 13477,
+      "exists": true,
+      "path": "demo/ledger/review_ledger.json",
+      "sha256": "6925ed2362ca483ea7ff1c1a582ae5a8de13a90128894c94e2888da5bb4d5220"
+    },
+    {
+      "bytes": 8726,
+      "exists": true,
+      "path": "demo/ledger/review_ledger.md",
+      "sha256": "a69ea4916942d63dba0ae5a9143217bed9e740eff9f86f30f263cc64f0ac416f"
+    },
+    {
+      "bytes": 8961,
+      "exists": true,
+      "path": "demo/ledger/review_ledger.html",
+      "sha256": "e33421e9c605deb57c62603957d753884655dab1c0435c99a981d2ba48c8e2d9"
+    },
+    {
+      "bytes": 3816,
       "exists": true,
       "path": "demo/visual/visual_receipt.json",
-      "sha256": "2b5fc8d02dc9d37a32c41c854488cfd335d352aa888644683e29324061791f3c"
+      "sha256": "6bcf21b27713035bb92d52e523430ba2b2fba3077523905bd9dc0f68c4801f3e"
     },
     {
-      "bytes": 2371,
+      "bytes": 2813,
       "exists": true,
       "path": "demo/visual/visual_receipt.md",
-      "sha256": "04ff36af090c2c8686fc1fdbab15da53aaa18004fc0754e9b02bb9cc3ef70b8a"
+      "sha256": "93e2869891a69884f1590e063258813e3f2dbeb5469377355c601ddc99ce1eae"
     },
     {
-      "bytes": 3513,
+      "bytes": 4062,
       "exists": true,
       "path": "demo/walkthrough/walkthrough.json",
-      "sha256": "26187dab2161f12cf426408026c82d4f7b9f0946e55a3d4f5e23457316ead972"
+      "sha256": "b71f933aa36d5d42d1e43c553f552e5cb2be260b1f102a25e7d9253963053208"
     },
     {
-      "bytes": 3346,
+      "bytes": 3886,
       "exists": true,
       "path": "demo/walkthrough/walkthrough.md",
-      "sha256": "2ff77bf15608175a3e451ec56a06ba402633e6976132d055e1ad3b8118fff99a"
+      "sha256": "c445a71a6cf4815f9d640a878827046981c4723509817601e0d895967f2d0005"
     },
     {
       "bytes": 1410,
@@ -194,6 +213,12 @@
       "sha256": "a7f6cb631961c966fb3cea925e0b99a6cf192212eb6649070fddb86eae2ce274"
     },
     {
+      "bytes": 3805,
+      "exists": true,
+      "path": "examples/review_ledger_previous.json",
+      "sha256": "e888838a9baaebee26477ef3dee6f0d43f2d8149093f81d1909f75b58af3bd98"
+    },
+    {
       "bytes": 3413,
       "exists": true,
       "path": "examples/history/2026-06-26_packet.json",
@@ -218,7 +243,7 @@
   ],
   "package": {
     "name": "news-thesis-impact-lab",
-    "version": "0.5.0"
+    "version": "0.6.0"
   },
   "schema_version": "1.0"
 }

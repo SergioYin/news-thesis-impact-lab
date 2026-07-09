@@ -371,6 +371,126 @@ def render_scenario_stress_html(stress: Dict[str, Any]) -> str:
 """
 
 
+def render_review_ledger_markdown(ledger: Dict[str, Any]) -> str:
+    lines = [
+        "# Review Ledger",
+        "",
+        f"Generated: {ledger['generated_at']}",
+        f"Source packet generated: {ledger['source_packet_generated_at']}",
+        f"Source trend generated: {ledger['source_trend_generated_at']}",
+        f"Source scenario generated: {ledger['source_scenario_generated_at']}",
+        "",
+        "## Boundaries",
+        "",
+        *bullet(ledger["boundaries"]),
+        "",
+        "## Summary",
+        "",
+        f"- Total items: {ledger['summary']['total_items']}",
+        f"- By status: {format_counts(ledger['summary']['by_status'])}",
+        f"- By severity: {format_counts(ledger['summary']['by_severity'])}",
+        f"- Stale items: {', '.join(ledger['summary']['stale_items']) or 'none'}",
+        "",
+        "## Ticker Summary",
+        "",
+        "| Ticker | Total | Status | Severity |",
+        "| --- | ---: | --- | --- |",
+    ]
+    for ticker, summary in ledger["summary"]["by_ticker"].items():
+        lines.append(
+            f"| {ticker} | {summary['total']} | {format_counts(summary['by_status'])} | "
+            f"{format_counts(summary['by_severity'])} |"
+        )
+    lines.extend(["", "## Review Items", ""])
+    for item in ledger["items"]:
+        lines.extend(
+            [
+                f"### {item['ticker']} - {item['issue_type']} - {item['source']}",
+                "",
+                f"- Key: `{item['item_key']}`",
+                f"- Status: {item['status']}",
+                f"- Severity: {item['severity']}",
+                f"- First seen: {item['first_seen']}",
+                f"- Latest seen: {item['latest_seen']}",
+                f"- Resolved at: {item['resolved_at'] or 'not resolved'}",
+                f"- Expiry days: {item['expiry_days']}",
+                f"- Stale: {str(item['stale']).lower()}",
+                f"- Next action: {item['next_action']}",
+                "",
+                "Evidence links:",
+            ]
+        )
+        for evidence in item["evidence_links"]:
+            lines.append(f"- `{evidence['path']}` [{evidence['source']}]: {evidence['label']}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def render_review_ledger_html(ledger: Dict[str, Any]) -> str:
+    boundaries = "".join(f"<li>{esc(item)}</li>" for item in ledger["boundaries"])
+    ticker_rows = "".join(
+        "<tr>"
+        f"<td>{esc(ticker)}</td>"
+        f"<td>{summary['total']}</td>"
+        f"<td>{esc(format_counts(summary['by_status']))}</td>"
+        f"<td>{esc(format_counts(summary['by_severity']))}</td>"
+        "</tr>"
+        for ticker, summary in ledger["summary"]["by_ticker"].items()
+    )
+    item_rows = "".join(
+        "<tr>"
+        f"<td>{esc(item['ticker'])}</td>"
+        f"<td>{esc(item['issue_type'])}</td>"
+        f"<td>{esc(item['source'])}</td>"
+        f"<td>{esc(item['status'])}</td>"
+        f"<td>{esc(item['severity'])}</td>"
+        f"<td>{esc(item['first_seen'])}</td>"
+        f"<td>{esc(item['latest_seen'])}</td>"
+        f"<td>{esc(item['resolved_at'] or 'not resolved')}</td>"
+        f"<td>{item['expiry_days']}</td>"
+        f"<td>{str(item['stale']).lower()}</td>"
+        f"<td>{esc(item['next_action'])}</td>"
+        f"<td>{esc('; '.join(evidence['path'] + ' [' + evidence['source'] + ']: ' + evidence['label'] for evidence in item['evidence_links']))}</td>"
+        "</tr>"
+        for item in ledger["items"]
+    )
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review Ledger</title>
+  <style>
+    body {{ font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 2rem; color: #17202a; background: #f7f8fa; }}
+    main {{ max-width: 1240px; margin: 0 auto; }}
+    h1 {{ font-size: 2rem; margin-bottom: 0.25rem; }}
+    h2 {{ font-size: 1.2rem; margin-top: 1.75rem; }}
+    table {{ border-collapse: collapse; width: 100%; background: white; margin: 0.75rem 0 1.25rem; }}
+    th, td {{ border: 1px solid #d8dee8; padding: 0.65rem; vertical-align: top; text-align: left; }}
+    th {{ background: #e9eef5; }}
+    .note {{ background: #fff; border: 1px solid #d8dee8; padding: 1rem; margin: 1rem 0; }}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Review Ledger</h1>
+  <p>Generated {esc(ledger['generated_at'])}; tracks repeated static research review items from packet, trend, and scenario artifacts.</p>
+  <section class="note"><h2>Boundaries</h2><ul>{boundaries}</ul></section>
+  <section class="note"><h2>Summary</h2><p>Total items: {ledger['summary']['total_items']}; status: {esc(format_counts(ledger['summary']['by_status']))}; severity: {esc(format_counts(ledger['summary']['by_severity']))}; stale: {esc(', '.join(ledger['summary']['stale_items']) or 'none')}.</p></section>
+  <h2>Ticker Summary</h2>
+  <table><thead><tr><th>Ticker</th><th>Total</th><th>Status</th><th>Severity</th></tr></thead><tbody>{ticker_rows}</tbody></table>
+  <h2>Review Items</h2>
+  <table><thead><tr><th>Ticker</th><th>Issue type</th><th>Source</th><th>Status</th><th>Severity</th><th>First seen</th><th>Latest seen</th><th>Resolved at</th><th>Expiry days</th><th>Stale</th><th>Next action</th><th>Evidence</th></tr></thead><tbody>{item_rows}</tbody></table>
+</main>
+</body>
+</html>
+"""
+
+
+def format_counts(counts: Dict[str, int]) -> str:
+    return ", ".join(f"{name}: {count}" for name, count in counts.items()) or "none"
+
+
 def bullet(items: Iterable[str]) -> List[str]:
     return [f"- {item}" for item in items]
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0 - 2026-07-10
+
+- Added `review-ledger` CLI command for repeated-use state across packet, trend history, scenario stress, and optional previous ledger artifacts.
+- Added ledger JSON, Markdown, and no-JavaScript HTML artifacts with stable item keys, new/open/watch/resolved status transitions, severity, first/latest seen dates, evidence links, research-only next actions, expiry days, stale flags, and compact summaries.
+- Added `examples/review_ledger_previous.json` to demonstrate carry-forward, watch, stale, and resolved behavior.
+- Integrated review ledger with demo gallery, visual receipt, walkthrough, release manifest, release validation, maturity evidence, README, review docs, agent skill, and tests.
+
 ## 0.5.0 - 2026-07-10
 
 - Added `scenario-stress` CLI command for deterministic illustrative stress review from an impact packet and `examples/scenarios.json`.

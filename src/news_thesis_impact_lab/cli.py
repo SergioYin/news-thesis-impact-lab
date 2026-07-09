@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 from .engine import build_packet, compare_packets
+from .ledger import build_review_ledger
 from .maturity import write_maturity_report
 from .model import load_events, load_portfolio, load_theses
 from .promotion import write_cold_start_walkthrough, write_visual_receipt
@@ -14,6 +15,8 @@ from .render import (
     render_compare_markdown,
     render_packet_html,
     render_packet_markdown,
+    render_review_ledger_html,
+    render_review_ledger_markdown,
     render_scenario_stress_html,
     render_scenario_stress_markdown,
     render_trend_history_html,
@@ -48,6 +51,13 @@ def main(argv: list[str] | None = None) -> int:
     scenario.add_argument("--scenarios", required=True)
     scenario.add_argument("--out", required=True)
 
+    ledger = subparsers.add_parser("review-ledger", help="Build repeated-use review ledger artifacts.")
+    ledger.add_argument("--packet", required=True)
+    ledger.add_argument("--trend", required=True)
+    ledger.add_argument("--scenario", required=True)
+    ledger.add_argument("--previous")
+    ledger.add_argument("--out", required=True)
+
     subparsers.add_parser("selfcheck", help="Validate package boundaries and runtime assumptions.")
 
     validate = subparsers.add_parser("validate-release", help="Verify release demo artifacts and references.")
@@ -78,6 +88,8 @@ def main(argv: list[str] | None = None) -> int:
             return command_trend_history(args)
         if args.command == "scenario-stress":
             return command_scenario_stress(args)
+        if args.command == "review-ledger":
+            return command_review_ledger(args)
         if args.command == "selfcheck":
             return command_selfcheck()
         if args.command == "validate-release":
@@ -154,6 +166,23 @@ def command_scenario_stress(args: argparse.Namespace) -> int:
     print(f"wrote {out / 'scenario_stress.json'}")
     print(f"wrote {out / 'scenario_stress.md'}")
     print(f"wrote {out / 'scenario_stress.html'}")
+    return 0
+
+
+def command_review_ledger(args: argparse.Namespace) -> int:
+    packet = read_json(Path(args.packet))
+    trend_history = read_json(Path(args.trend))
+    scenario_stress = read_json(Path(args.scenario))
+    previous = read_json(Path(args.previous)) if args.previous else None
+    ledger = build_review_ledger(packet, trend_history, scenario_stress, previous)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    write_json(out / "review_ledger.json", ledger)
+    (out / "review_ledger.md").write_text(render_review_ledger_markdown(ledger), encoding="utf-8")
+    (out / "review_ledger.html").write_text(render_review_ledger_html(ledger), encoding="utf-8")
+    print(f"wrote {out / 'review_ledger.json'}")
+    print(f"wrote {out / 'review_ledger.md'}")
+    print(f"wrote {out / 'review_ledger.html'}")
     return 0
 
 

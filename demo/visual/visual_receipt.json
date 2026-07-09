@@ -17,7 +17,7 @@
     },
     {
       "boundaries_present": true,
-      "bytes": 4176,
+      "bytes": 4748,
       "capture_command": "static read demo/gallery.html",
       "exists": true,
       "missing_boundaries": [],
@@ -26,7 +26,7 @@
       "review_notes": "Confirm first-screen artifact links, quickstart, and finance boundaries are visible without JavaScript.",
       "role": "artifact gallery entry point",
       "route": "demo/gallery.html",
-      "sha256": "fe6664b1a37be81c8d90c686d75d253afead59742c18f6bcca0c50ddebe84ac5",
+      "sha256": "43cda5f378d993bd7380c789a91cd037270c9a11de4741131169dbabb65de410",
       "title": "news-thesis-impact-lab Demo Gallery"
     },
     {
@@ -56,6 +56,20 @@
       "route": "demo/scenario/scenario_stress.html",
       "sha256": "69ce3af70beb4015c7ba2aedfd055e37be504657b0c18ce3d7ba9b400cffed2c",
       "title": "Scenario Stress Review"
+    },
+    {
+      "boundaries_present": true,
+      "bytes": 8961,
+      "capture_command": "static read demo/ledger/review_ledger.html",
+      "exists": true,
+      "missing_boundaries": [],
+      "no_script": true,
+      "path": "demo/ledger/review_ledger.html",
+      "review_notes": "Confirm repeated-use statuses, severity, stale flags, resolved carry-forward items, evidence links, and finance boundaries are visible without JavaScript.",
+      "role": "review ledger scan view",
+      "route": "demo/ledger/review_ledger.html",
+      "sha256": "e33421e9c605deb57c62603957d753884655dab1c0435c99a981d2ba48c8e2d9",
+      "title": "Review Ledger"
     }
   ],
   "description": "Deterministic static capture receipt for promotion review; no screenshots, browser automation, network, or JavaScript execution required.",
@@ -70,6 +84,6 @@
   "summary": {
     "all_boundaries_present": true,
     "all_no_script": true,
-    "asset_count": 4
+    "asset_count": 5
   }
 }

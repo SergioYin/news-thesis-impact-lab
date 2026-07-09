@@ -4,13 +4,14 @@
 
 It is for analysts, builders, and agent workflows that need deterministic review packets from local JSON inputs without live market data, broker access, or private services.
 
-## 5-Command Quickstart
+## 6-Command Quickstart
 
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo
 PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare
 PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
 PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario
+PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 ```
 
@@ -21,6 +22,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - [Compare report](demo/compare/compare.md): current versus previous packet deltas.
 - [Trend history](demo/trend/trend_history.md): multi-period score direction, new/cleared/changed statuses, persistent warnings, exposure trend, and next review queue.
 - [Scenario stress review](demo/scenario/scenario_stress.md): illustrative macro, sector, and company shocks mapped to ticker/tag exposure, stress flags, thesis contradiction prompts, confidence downgrade suggestions, and next review queue.
+- [Review ledger](demo/ledger/review_ledger.md): repeated-use issue ledger keyed by ticker, issue type, and source with carry-forward, resolved status, severity, stale flags, evidence links, and next research maintenance action.
 - [Visual receipt](demo/visual/visual_receipt.md): static HTML capture receipt with hashes, no-script checks, and boundary checks.
 - [Cold-start walkthrough](demo/walkthrough/walkthrough.md): 2-5 minute first-user path with exact commands, expected artifacts, interpretation guide, and failure modes.
 - [Maturity report](demo/maturity/maturity_report.md): release and promotion readiness gates.
@@ -60,6 +62,13 @@ news-thesis-impact-lab scenario-stress \
   --scenarios examples/scenarios.json \
   --out demo/scenario
 
+news-thesis-impact-lab review-ledger \
+  --packet demo/impact_packet.json \
+  --trend demo/trend/trend_history.json \
+  --scenario demo/scenario/scenario_stress.json \
+  --previous examples/review_ledger_previous.json \
+  --out demo/ledger
+
 news-thesis-impact-lab selfcheck
 news-thesis-impact-lab validate-release
 news-thesis-impact-lab maturity-report --out demo/maturity
@@ -83,6 +92,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
 - `demo/compare/compare.json` and `demo/compare/compare.md`: current versus previous packet deltas.
 - `demo/trend/trend_history.json`, `demo/trend/trend_history.md`, and `demo/trend/trend_history.html`: deterministic multi-period packet history.
 - `demo/scenario/scenario_stress.json`, `demo/scenario/scenario_stress.md`, and `demo/scenario/scenario_stress.html`: deterministic illustrative stress scenario review.
+- `demo/ledger/review_ledger.json`, `demo/ledger/review_ledger.md`, and `demo/ledger/review_ledger.html`: deterministic repeated-use review ledger with status transitions.
 - `demo/visual/visual_receipt.json` and `demo/visual/visual_receipt.md`: deterministic static capture receipt for promotion review.
 - `demo/walkthrough/walkthrough.json` and `demo/walkthrough/walkthrough.md`: first-user walkthrough with commands, artifacts, interpretation, and failure modes.
 - `demo/maturity/maturity_report.json` and `demo/maturity/maturity_report.md`: release and promotion readiness scoring.
@@ -91,7 +101,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
 
 ## Input Shape
 
-The examples under `examples/` are intentionally small and local. Events include tickers, themes, source dates, source labels, summaries, and impact hints. Theses include claims, sensitivities, risks, and opportunities. Portfolio entries include static weights. `examples/scenarios.json` contains illustrative macro, sector, and company shocks with ticker/tag exposures and risk levels. The packet fixtures under `examples/history/*.json` are prior/current review packets for exercising trend history without live data.
+The examples under `examples/` are intentionally small and local. Events include tickers, themes, source dates, source labels, summaries, and impact hints. Theses include claims, sensitivities, risks, and opportunities. Portfolio entries include static weights. `examples/scenarios.json` contains illustrative macro, sector, and company shocks with ticker/tag exposures and risk levels. The packet fixtures under `examples/history/*.json` are prior/current review packets for exercising trend history without live data. `examples/review_ledger_previous.json` demonstrates ledger carry-forward, watch, and resolved behavior for repeat use.
 
 ## Development
 
@@ -101,6 +111,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
 PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario
+PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
 PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
 PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html
 PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual

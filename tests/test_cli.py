@@ -10,6 +10,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from news_thesis_impact_lab.trend import build_trend_history, load_packet_records
 from news_thesis_impact_lab.scenario import build_scenario_stress, load_scenarios
+from news_thesis_impact_lab.ledger import build_review_ledger
 
 
 def run_cli(*args):
@@ -174,6 +175,65 @@ def test_scenario_stress_cli_outputs_files_no_js_and_deterministic(tmp_path):
     assert (first / "scenario_stress.html").read_bytes() == (second / "scenario_stress.html").read_bytes()
 
 
+def test_review_ledger_transition_logic_with_previous_ledger():
+    packet = json.loads((ROOT / "demo/impact_packet.json").read_text(encoding="utf-8"))
+    trend_history = json.loads((ROOT / "demo/trend/trend_history.json").read_text(encoding="utf-8"))
+    scenario_stress = json.loads((ROOT / "demo/scenario/scenario_stress.json").read_text(encoding="utf-8"))
+    previous = json.loads((ROOT / "examples/review_ledger_previous.json").read_text(encoding="utf-8"))
+
+    ledger = build_review_ledger(packet, trend_history, scenario_stress, previous)
+    items = {item["item_key"]: item for item in ledger["items"]}
+
+    googl_key = "GOOGL|persistent_warning|hist-regulatory-ads-2026-06-12"
+    msft_key = "MSFT|scenario_stress|scn-cloud-margin-compression"
+    meta_key = "META|attention_review|impact_packet_review_queue"
+    nvda_key = "NVDA|attention_review|impact_packet_review_queue"
+
+    assert items[googl_key]["status"] == "open"
+    assert items[googl_key]["first_seen"] == "2026-07-03"
+    assert items[googl_key]["latest_seen"] == "2026-07-10"
+    assert items[googl_key]["stale"] is True
+    assert items[msft_key]["status"] == "watch"
+    assert items[meta_key]["status"] == "resolved"
+    assert items[meta_key]["resolved_at"] == "2026-07-10"
+    assert items[nvda_key]["status"] == "new"
+    assert ledger["summary"]["by_status"]["resolved"] == 1
+    assert ledger["summary"]["by_ticker"]["GOOGL"]["by_severity"]["severe"] >= 1
+
+
+def test_review_ledger_cli_outputs_files_no_js_and_deterministic(tmp_path):
+    first = tmp_path / "ledger_first"
+    second = tmp_path / "ledger_second"
+    for out in (first, second):
+        run_cli(
+            "review-ledger",
+            "--packet",
+            "demo/impact_packet.json",
+            "--trend",
+            "demo/trend/trend_history.json",
+            "--scenario",
+            "demo/scenario/scenario_stress.json",
+            "--previous",
+            "examples/review_ledger_previous.json",
+            "--out",
+            str(out),
+        )
+
+    ledger = json.loads((first / "review_ledger.json").read_text(encoding="utf-8"))
+    markdown = (first / "review_ledger.md").read_text(encoding="utf-8")
+    html = (first / "review_ledger.html").read_text(encoding="utf-8")
+
+    assert ledger["summary"]["total_items"] >= 10
+    assert "Review Ledger" in markdown
+    assert "GOOGL|persistent_warning|hist-regulatory-ads-2026-06-12" in markdown
+    assert "Not investment advice" in markdown
+    assert "<script" not in html.lower()
+    assert "No broker integration" in html
+    assert (first / "review_ledger.json").read_bytes() == (second / "review_ledger.json").read_bytes()
+    assert (first / "review_ledger.md").read_bytes() == (second / "review_ledger.md").read_bytes()
+    assert (first / "review_ledger.html").read_bytes() == (second / "review_ledger.html").read_bytes()
+
+
 def test_selfcheck():
     result = run_cli("selfcheck")
     assert "selfcheck passed" in result.stdout
@@ -196,6 +256,8 @@ def test_validate_release_json_reports_expected_checks():
     assert checks["example_files_exist"]["ok"] is True
     assert "demo/visual/visual_receipt.json" not in checks["demo_artifacts_exist"]["missing"]
     assert "demo/walkthrough/walkthrough.json" not in checks["demo_artifacts_exist"]["missing"]
+    assert "demo/ledger/review_ledger.json" not in checks["demo_artifacts_exist"]["missing"]
+    assert "examples/review_ledger_previous.json" not in checks["example_files_exist"]["missing"]
 
 
 def test_maturity_report_writes_markdown_and_json(tmp_path):
@@ -231,12 +293,14 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     readme_bytes = (ROOT / "README.md").read_bytes()
 
     assert "wrote" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.5.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.6.0"}
     assert artifacts["README.md"]["sha256"] == hashlib.sha256(readme_bytes).hexdigest()
     assert artifacts["demo/gallery.html"]["exists"] is True
     assert artifacts["demo/trend/trend_history.json"]["exists"] is True
     assert artifacts["demo/scenario/scenario_stress.json"]["exists"] is True
+    assert artifacts["demo/ledger/review_ledger.json"]["exists"] is True
     assert artifacts["examples/scenarios.json"]["exists"] is True
+    assert artifacts["examples/review_ledger_previous.json"]["exists"] is True
     assert artifacts["demo/visual/visual_receipt.json"]["exists"] is True
     assert artifacts["demo/walkthrough/walkthrough.json"]["exists"] is True
     assert artifacts["examples/history/2026-07-10_packet.json"]["exists"] is True
@@ -244,6 +308,7 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     assert distributions["sdist"].get("placeholder") == "not built" or distributions["sdist"].get("exists") is True
     assert "visual-receipt --out demo/visual" in "\n".join(manifest["commands"]["regenerate"])
     assert "scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario" in "\n".join(manifest["commands"]["regenerate"])
+    assert "review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger" in "\n".join(manifest["commands"]["regenerate"])
     assert "cold-start-walkthrough --out demo/walkthrough" in "\n".join(manifest["commands"]["regenerate"])
     assert "validate-release --format json" in "\n".join(manifest["commands"]["verify"])
     assert "Not investment advice" in "\n".join(manifest["finance_safety_boundaries"])
@@ -262,6 +327,8 @@ def test_demo_gallery_writes_static_landing_page(tmp_path):
     assert "trend/trend_history.html" in html
     assert "scenario/scenario_stress.md" in html
     assert "scenario/scenario_stress.html" in html
+    assert "ledger/review_ledger.md" in html
+    assert "ledger/review_ledger.html" in html
     assert "visual/visual_receipt.md" in html
     assert "walkthrough/walkthrough.md" in html
     assert "maturity/maturity_report.md" in html
@@ -278,13 +345,14 @@ def test_visual_receipt_checks_static_html_boundaries_and_scripts(tmp_path):
     markdown = (out / "visual_receipt.md").read_text(encoding="utf-8")
     captures = {item["path"]: item for item in receipt["captures"]}
 
-    assert receipt["summary"]["asset_count"] == 4
+    assert receipt["summary"]["asset_count"] == 5
     assert receipt["summary"]["all_no_script"] is True
     assert receipt["summary"]["all_boundaries_present"] is True
     assert captures["demo/index.html"]["title"] == "News Thesis Impact Packet"
     assert captures["demo/gallery.html"]["role"] == "artifact gallery entry point"
     assert captures["demo/trend/trend_history.html"]["no_script"] is True
     assert captures["demo/scenario/scenario_stress.html"]["title"] == "Scenario Stress Review"
+    assert captures["demo/ledger/review_ledger.html"]["title"] == "Review Ledger"
     assert captures["demo/index.html"]["boundaries_present"] is True
     assert captures["demo/index.html"]["sha256"] == hashlib.sha256((ROOT / "demo/index.html").read_bytes()).hexdigest()
     assert "static read demo/index.html" in markdown
@@ -302,8 +370,10 @@ def test_cold_start_walkthrough_content(tmp_path):
     assert "visual-receipt --out demo/visual" in "\n".join(walkthrough["commands"])
     assert "cold-start-walkthrough --out demo/walkthrough" in "\n".join(walkthrough["commands"])
     assert "scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario" in "\n".join(walkthrough["commands"])
+    assert "review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger" in "\n".join(walkthrough["commands"])
     assert "demo/visual/visual_receipt.json" in walkthrough["expected_artifacts"]
     assert "demo/scenario/scenario_stress.md" in walkthrough["expected_artifacts"]
+    assert "demo/ledger/review_ledger.md" in walkthrough["expected_artifacts"]
     assert "demo/walkthrough/walkthrough.md" in walkthrough["expected_artifacts"]
     assert any("no-script" in item for item in walkthrough["interpretation_guide"])
     assert any("live market data" in item for item in walkthrough["failure_modes"])
