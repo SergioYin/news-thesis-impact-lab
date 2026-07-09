@@ -34,6 +34,8 @@
     <a class="card" href="scenario/scenario_stress.html"><strong>Scenario Stress HTML</strong>No-JavaScript table view for stress review.</a>
     <a class="card" href="ledger/review_ledger.md"><strong>Review Ledger</strong>Repeated-use issue ledger with carry-forward, resolved status, severity, stale flags, and evidence links.</a>
     <a class="card" href="ledger/review_ledger.html"><strong>Review Ledger HTML</strong>No-JavaScript table view for ledger review.</a>
+    <a class="card" href="journal/decision_journal.md"><strong>Decision Journal</strong>Research meeting draft with thesis questions, evidence excerpts, risk flags, assumptions, placeholder decisions, and follow-up blanks.</a>
+    <a class="card" href="journal/decision_journal.html"><strong>Decision Journal HTML</strong>No-JavaScript table view for research meeting preparation.</a>
     <a class="card" href="visual/visual_receipt.md"><strong>Visual Receipt</strong>Static capture receipt with hashes, no-script checks, and boundary checks.</a>
     <a class="card" href="walkthrough/walkthrough.md"><strong>Cold-Start Walkthrough</strong>Two-to-five minute first-user path with commands and failure modes.</a>
     <a class="card" href="evidence/evidence_hub.md"><strong>Evidence Hub</strong>Reviewer matrix with artifact purpose, gates, hashes, no-script checks, boundary coverage, and limitations.</a>
@@ -49,6 +51,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_pa
 PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
 PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario
 PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
+PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal
 PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
 PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough
 PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release

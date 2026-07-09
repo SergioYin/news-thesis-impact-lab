@@ -12,6 +12,7 @@ from news_thesis_impact_lab.trend import build_trend_history, load_packet_record
 from news_thesis_impact_lab.scenario import build_scenario_stress, load_scenarios
 from news_thesis_impact_lab.ledger import build_review_ledger
 from news_thesis_impact_lab.evidence import build_evidence_hub
+from news_thesis_impact_lab.journal import build_decision_journal
 
 
 def run_cli(*args):
@@ -235,6 +236,70 @@ def test_review_ledger_cli_outputs_files_no_js_and_deterministic(tmp_path):
     assert (first / "review_ledger.html").read_bytes() == (second / "review_ledger.html").read_bytes()
 
 
+def test_decision_journal_synthesis_content_and_boundaries():
+    packet = json.loads((ROOT / "demo/impact_packet.json").read_text(encoding="utf-8"))
+    compare = json.loads((ROOT / "demo/compare/compare.json").read_text(encoding="utf-8"))
+    trend = json.loads((ROOT / "demo/trend/trend_history.json").read_text(encoding="utf-8"))
+    scenario = json.loads((ROOT / "demo/scenario/scenario_stress.json").read_text(encoding="utf-8"))
+    ledger = json.loads((ROOT / "demo/ledger/review_ledger.json").read_text(encoding="utf-8"))
+    evidence = json.loads((ROOT / "demo/evidence/evidence_hub.json").read_text(encoding="utf-8"))
+
+    journal = build_decision_journal(packet, compare, trend, scenario, ledger, evidence)
+    decisions = {item["ticker"]: item for item in journal["review_decisions"]}
+
+    assert journal["meeting_type"] == "research_review"
+    assert "does not provide investment recommendations" in journal["no_recommendation_statement"]
+    assert journal["meeting_fields"] == {"meeting_date": "", "facilitator": "", "participants": [], "prepared_by": ""}
+    assert journal["thesis_questions"][0]["ticker"] == "NVDA"
+    assert any(item["source"] == "review_ledger" for item in journal["evidence_excerpts"])
+    assert any(item["category"] == "scenario_overlap" for item in journal["risk_flags"])
+    assert any(item["topic"] == "Scenario fixture scope" for item in journal["unresolved_assumptions"])
+    assert decisions["GOOGL"]["decision_placeholder"] == "research_decision_pending"
+    assert decisions["GOOGL"]["owner"] == ""
+    assert decisions["GOOGL"]["due_date"] == ""
+    assert "request_source_refresh" in decisions["GOOGL"]["allowed_research_labels"]
+    assert any("owner" in item and "due_date" in item for item in journal["follow_up_checklist"])
+
+
+def test_decision_journal_cli_outputs_no_js_no_action_language_and_deterministic(tmp_path):
+    first = tmp_path / "journal_first"
+    second = tmp_path / "journal_second"
+    for out in (first, second):
+        run_cli(
+            "decision-journal",
+            "--packet",
+            "demo/impact_packet.json",
+            "--compare",
+            "demo/compare/compare.json",
+            "--trend",
+            "demo/trend/trend_history.json",
+            "--scenario",
+            "demo/scenario/scenario_stress.json",
+            "--ledger",
+            "demo/ledger/review_ledger.json",
+            "--evidence",
+            "demo/evidence/evidence_hub.json",
+            "--out",
+            str(out),
+        )
+
+    journal = json.loads((first / "decision_journal.json").read_text(encoding="utf-8"))
+    markdown = (first / "decision_journal.md").read_text(encoding="utf-8")
+    html = (first / "decision_journal.html").read_text(encoding="utf-8")
+    combined_words = (json.dumps(journal) + "\n" + markdown + "\n" + html).lower().replace("-", " ").split()
+
+    assert journal["title"] == "Decision Journal Draft"
+    assert "Thesis Questions" in markdown
+    assert "Review Decisions" in markdown
+    assert "Research meeting draft only" in markdown
+    assert "<script" not in html.lower()
+    assert "No broker integration" in html
+    assert not {"buy", "sell", "hold"} & set(combined_words)
+    assert (first / "decision_journal.json").read_bytes() == (second / "decision_journal.json").read_bytes()
+    assert (first / "decision_journal.md").read_bytes() == (second / "decision_journal.md").read_bytes()
+    assert (first / "decision_journal.html").read_bytes() == (second / "decision_journal.html").read_bytes()
+
+
 def test_selfcheck():
     result = run_cli("selfcheck")
     assert "selfcheck passed" in result.stdout
@@ -253,6 +318,8 @@ def test_validate_release_json_reports_expected_checks():
     assert checks["evidence_hub_artifacts_exist"]["ok"] is True
     assert checks["bundle_artifacts_exist"]["ok"] is True
     assert checks["bundle_manifest_no_js"]["ok"] is True
+    assert checks["decision_journal_no_js"]["ok"] is True
+    assert checks["decision_journal_no_recommendation_language"]["ok"] is True
     assert checks["bundle_artifacts_deterministic"]["ok"] is True
     assert checks["bundle_inspect_passes"]["ok"] is True
     assert checks["evidence_hub_deterministic"]["ok"] is True
@@ -265,6 +332,7 @@ def test_validate_release_json_reports_expected_checks():
     assert "demo/visual/visual_receipt.json" not in checks["demo_artifacts_exist"]["missing"]
     assert "demo/walkthrough/walkthrough.json" not in checks["demo_artifacts_exist"]["missing"]
     assert "demo/ledger/review_ledger.json" not in checks["demo_artifacts_exist"]["missing"]
+    assert "demo/journal/decision_journal.json" not in checks["demo_artifacts_exist"]["missing"]
     assert "examples/review_ledger_previous.json" not in checks["example_files_exist"]["missing"]
     assert "demo/evidence/evidence_hub.json" not in checks["evidence_hub_artifacts_exist"]["missing"]
 
@@ -302,12 +370,13 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     readme_bytes = (ROOT / "README.md").read_bytes()
 
     assert "wrote" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.8.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.9.0"}
     assert artifacts["README.md"]["sha256"] == hashlib.sha256(readme_bytes).hexdigest()
     assert artifacts["demo/gallery.html"]["exists"] is True
     assert artifacts["demo/trend/trend_history.json"]["exists"] is True
     assert artifacts["demo/scenario/scenario_stress.json"]["exists"] is True
     assert artifacts["demo/ledger/review_ledger.json"]["exists"] is True
+    assert artifacts["demo/journal/decision_journal.json"]["exists"] is True
     assert artifacts["examples/scenarios.json"]["exists"] is True
     assert artifacts["examples/review_ledger_previous.json"]["exists"] is True
     assert artifacts["demo/visual/visual_receipt.json"]["exists"] is True
@@ -318,6 +387,7 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     assert "visual-receipt --out demo/visual" in "\n".join(manifest["commands"]["regenerate"])
     assert "scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario" in "\n".join(manifest["commands"]["regenerate"])
     assert "review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger" in "\n".join(manifest["commands"]["regenerate"])
+    assert "decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal" in "\n".join(manifest["commands"]["regenerate"])
     assert "cold-start-walkthrough --out demo/walkthrough" in "\n".join(manifest["commands"]["regenerate"])
     assert "evidence-hub --out demo/evidence" in "\n".join(manifest["commands"]["regenerate"])
     assert "bundle-export --out demo/bundle" in "\n".join(manifest["commands"]["regenerate"])
@@ -339,12 +409,14 @@ def test_bundle_export_manifest_contents_and_no_js_html(tmp_path):
     artifacts = {item["source_path"]: item for item in manifest["artifacts"]}
 
     assert "copied" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.8.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.9.0"}
     assert manifest["bundle_type"] == "plain-file-agent-reuse-packet"
     assert artifacts["demo/impact_packet.json"]["role"] == "primary demo artifact"
     assert artifacts["demo/impact_packet.json"]["bundle_path"] == "artifacts/demo/impact_packet.json"
     assert artifacts["demo/impact_packet.json"]["sha256"] == hashlib.sha256((ROOT / "demo/impact_packet.json").read_bytes()).hexdigest()
     assert artifacts["demo/impact_packet.json"]["regenerate_command"].endswith("--out demo")
+    assert artifacts["demo/journal/decision_journal.json"]["role"] == "research meeting decision journal draft"
+    assert "non-advice" in artifacts["demo/journal/decision_journal.json"]["safety_boundary_tags"]
     assert artifacts["examples/events.json"]["package_boundary"] == "examples"
     assert "no-live-data" in artifacts["examples/events.json"]["safety_boundary_tags"]
     assert "non-advice" in artifacts["release/manifest.json"]["safety_boundary_tags"]
@@ -415,6 +487,8 @@ def test_demo_gallery_writes_static_landing_page(tmp_path):
     assert "scenario/scenario_stress.html" in html
     assert "ledger/review_ledger.md" in html
     assert "ledger/review_ledger.html" in html
+    assert "journal/decision_journal.md" in html
+    assert "journal/decision_journal.html" in html
     assert "visual/visual_receipt.md" in html
     assert "walkthrough/walkthrough.md" in html
     assert "evidence/evidence_hub.md" in html
@@ -432,7 +506,7 @@ def test_visual_receipt_checks_static_html_boundaries_and_scripts(tmp_path):
     markdown = (out / "visual_receipt.md").read_text(encoding="utf-8")
     captures = {item["path"]: item for item in receipt["captures"]}
 
-    assert receipt["summary"]["asset_count"] == 5
+    assert receipt["summary"]["asset_count"] == 6
     assert receipt["summary"]["all_no_script"] is True
     assert receipt["summary"]["all_boundaries_present"] is True
     assert captures["demo/index.html"]["title"] == "News Thesis Impact Packet"
@@ -440,6 +514,7 @@ def test_visual_receipt_checks_static_html_boundaries_and_scripts(tmp_path):
     assert captures["demo/trend/trend_history.html"]["no_script"] is True
     assert captures["demo/scenario/scenario_stress.html"]["title"] == "Scenario Stress Review"
     assert captures["demo/ledger/review_ledger.html"]["title"] == "Review Ledger"
+    assert captures["demo/journal/decision_journal.html"]["title"] == "Decision Journal Draft"
     assert captures["demo/index.html"]["boundaries_present"] is True
     assert captures["demo/index.html"]["sha256"] == hashlib.sha256((ROOT / "demo/index.html").read_bytes()).hexdigest()
     assert "static read demo/index.html" in markdown
@@ -458,9 +533,11 @@ def test_cold_start_walkthrough_content(tmp_path):
     assert "cold-start-walkthrough --out demo/walkthrough" in "\n".join(walkthrough["commands"])
     assert "scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario" in "\n".join(walkthrough["commands"])
     assert "review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger" in "\n".join(walkthrough["commands"])
+    assert "decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal" in "\n".join(walkthrough["commands"])
     assert "demo/visual/visual_receipt.json" in walkthrough["expected_artifacts"]
     assert "demo/scenario/scenario_stress.md" in walkthrough["expected_artifacts"]
     assert "demo/ledger/review_ledger.md" in walkthrough["expected_artifacts"]
+    assert "demo/journal/decision_journal.md" in walkthrough["expected_artifacts"]
     assert "demo/walkthrough/walkthrough.md" in walkthrough["expected_artifacts"]
     assert "demo/evidence/evidence_hub.md" in walkthrough["expected_artifacts"]
     assert "evidence-hub --out demo/evidence" in "\n".join(walkthrough["commands"])
@@ -521,6 +598,8 @@ def test_evidence_hub_cli_outputs_no_js_and_is_deterministic(tmp_path):
     assert "<script" not in html.lower()
     assert "No broker integration" in html
     assert matrix["demo/gallery.html"]["no_js"] is True
+    assert matrix["demo/journal/decision_journal.html"]["no_js"] is True
+    assert matrix["demo/journal/decision_journal.json"]["artifact_type"] == "decision-journal-json"
     assert matrix["demo/gallery.html"]["sha256"] == hashlib.sha256((ROOT / "demo/gallery.html").read_bytes()).hexdigest()
     assert (first / "evidence_hub.json").read_bytes() == (second / "evidence_hub.json").read_bytes()
     assert (first / "evidence_hub.md").read_bytes() == (second / "evidence_hub.md").read_bytes()

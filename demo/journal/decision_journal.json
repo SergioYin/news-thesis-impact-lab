@@ -1,0 +1,553 @@
+{
+  "boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Research meeting draft only; no investment recommendation or allocation instruction.",
+    "No broker integration, order routing, execution, or account access.",
+    "Review decisions are editable research-process placeholders for human notes."
+  ],
+  "evidence_excerpts": [
+    {
+      "excerpt": "attention 67; direction positive; confidence high; prompts Review whether NVDA thesis sensitivities still match events evt-supply-chain-2026-07-03, evt-cloud-margin-2026-07-08.; Check static exposure note for NVDA at 12.0% portfolio weight.",
+      "path": "demo/impact_packet.json",
+      "source": "impact_packet",
+      "ticker": "NVDA"
+    },
+    {
+      "excerpt": "attention 60; direction positive; confidence high; prompts Review whether MSFT thesis sensitivities still match events evt-cloud-margin-2026-07-08.; Check static exposure note for MSFT at 24.0% portfolio weight.",
+      "path": "demo/impact_packet.json",
+      "source": "impact_packet",
+      "ticker": "MSFT"
+    },
+    {
+      "excerpt": "attention 53; direction negative; confidence medium; prompts Review whether GOOGL thesis sensitivities still match events evt-regulatory-ads-2026-06-20.; Check static exposure note for GOOGL at 16.0% portfolio weight.",
+      "path": "demo/impact_packet.json",
+      "source": "impact_packet",
+      "ticker": "GOOGL"
+    },
+    {
+      "excerpt": "attention 52; direction mixed; confidence medium; prompts Review whether AAPL thesis sensitivities still match events evt-supply-chain-2026-07-03.; Check static exposure note for AAPL at 18.0% portfolio weight.",
+      "path": "demo/impact_packet.json",
+      "source": "impact_packet",
+      "ticker": "AAPL"
+    },
+    {
+      "excerpt": "new delta; attention score delta 67; direction absent to positive",
+      "path": "demo/compare/compare.json",
+      "source": "compare_report",
+      "ticker": "NVDA"
+    },
+    {
+      "excerpt": "changed delta; attention score delta 15; direction negative to negative",
+      "path": "demo/compare/compare.json",
+      "source": "compare_report",
+      "ticker": "GOOGL"
+    },
+    {
+      "excerpt": "changed delta; attention score delta 10; direction mixed to mixed",
+      "path": "demo/compare/compare.json",
+      "source": "compare_report",
+      "ticker": "AAPL"
+    },
+    {
+      "excerpt": "changed delta; attention score delta 10; direction positive to positive",
+      "path": "demo/compare/compare.json",
+      "source": "compare_report",
+      "ticker": "MSFT"
+    },
+    {
+      "excerpt": "hist-regulatory-ads-2026-06-12: source remained stale across 3 periods",
+      "path": "demo/trend/trend_history.json",
+      "source": "trend_history",
+      "ticker": "GOOGL"
+    },
+    {
+      "excerpt": "stress score 100; highest risk high; flags direct ticker shock exposure; scenario tags overlap thesis, themes, or position label",
+      "path": "demo/scenario/scenario_stress.json",
+      "source": "scenario_stress",
+      "ticker": "MSFT"
+    },
+    {
+      "excerpt": "stress score 100; highest risk severe; flags direct ticker shock exposure; scenario tags overlap thesis, themes, or position label",
+      "path": "demo/scenario/scenario_stress.json",
+      "source": "scenario_stress",
+      "ticker": "GOOGL"
+    },
+    {
+      "excerpt": "stress score 100; highest risk high; flags direct ticker shock exposure; scenario tags overlap thesis, themes, or position label",
+      "path": "demo/scenario/scenario_stress.json",
+      "source": "scenario_stress",
+      "ticker": "NVDA"
+    },
+    {
+      "excerpt": "stress score 88; highest risk high; flags direct ticker shock exposure; scenario tags overlap thesis, themes, or position label",
+      "path": "demo/scenario/scenario_stress.json",
+      "source": "scenario_stress",
+      "ticker": "AAPL"
+    },
+    {
+      "excerpt": "persistent_warning status open; severity severe; next research step Resolve the repeated GOOGL warning with updated local evidence or mark why it remains valid.",
+      "path": "demo/ledger/review_ledger.json",
+      "source": "review_ledger",
+      "ticker": "GOOGL"
+    },
+    {
+      "excerpt": "scenario_stress status new; severity severe; next research step Document whether the GOOGL thesis still holds under the static scn-cloud-margin-compression stress case.",
+      "path": "demo/ledger/review_ledger.json",
+      "source": "review_ledger",
+      "ticker": "GOOGL"
+    },
+    {
+      "excerpt": "scenario_stress status new; severity severe; next research step Document whether the GOOGL thesis still holds under the static scn-regulatory-ad-tightening stress case.",
+      "path": "demo/ledger/review_ledger.json",
+      "source": "review_ledger",
+      "ticker": "GOOGL"
+    },
+    {
+      "excerpt": "scenario_stress status new; severity high; next research step Document whether the AAPL thesis still holds under the static scn-premium-device-demand stress case.",
+      "path": "demo/ledger/review_ledger.json",
+      "source": "review_ledger",
+      "ticker": "AAPL"
+    },
+    {
+      "excerpt": "packet_warning status new; severity high; next research step Refresh or document the static source behind evt-regulatory-ads-2026-06-20 before relying on this review packet.",
+      "path": "demo/ledger/review_ledger.json",
+      "source": "review_ledger",
+      "ticker": "GOOGL"
+    },
+    {
+      "excerpt": "attention_review status resolved; severity high; next research step Keep prior evidence for audit trail; no current packet, trend, or scenario evidence matched this issue.",
+      "path": "demo/ledger/review_ledger.json",
+      "source": "review_ledger",
+      "ticker": "META"
+    },
+    {
+      "excerpt": "scenario_stress status new; severity high; next research step Document whether the MSFT thesis still holds under the static scn-ai-capex-digestion stress case.",
+      "path": "demo/ledger/review_ledger.json",
+      "source": "review_ledger",
+      "ticker": "MSFT"
+    },
+    {
+      "excerpt": "scenario_stress status watch; severity high; next research step Document whether the MSFT thesis still holds under the static scn-cloud-margin-compression stress case.",
+      "path": "demo/ledger/review_ledger.json",
+      "source": "review_ledger",
+      "ticker": "MSFT"
+    }
+  ],
+  "follow_up_checklist": [
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Fill meeting date, facilitator, participants, and prepared-by fields.",
+      "owner": ""
+    },
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Record one research-process label for each ticker decision placeholder.",
+      "owner": ""
+    },
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Assign owners and dates for unresolved assumptions.",
+      "owner": ""
+    },
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Confirm evidence excerpts cite local artifacts only.",
+      "owner": ""
+    },
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Re-run validation after editing local inputs or generated artifacts.",
+      "owner": ""
+    },
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Complete research note for NVDA.",
+      "owner": ""
+    },
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Complete research note for MSFT.",
+      "owner": ""
+    },
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Complete research note for GOOGL.",
+      "owner": ""
+    },
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Complete research note for AAPL.",
+      "owner": ""
+    },
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Complete research note for META.",
+      "owner": ""
+    },
+    {
+      "done": false,
+      "due_date": "",
+      "item": "Resolve or explicitly defer each assumption listed in the meeting draft.",
+      "owner": ""
+    }
+  ],
+  "generated_at": "2026-07-10",
+  "meeting_fields": {
+    "facilitator": "",
+    "meeting_date": "",
+    "participants": [],
+    "prepared_by": ""
+  },
+  "meeting_type": "research_review",
+  "no_recommendation_statement": "This draft records research questions and process placeholders only; it does not provide investment recommendations, allocation instructions, account actions, or execution instructions.",
+  "review_decisions": [
+    {
+      "allowed_research_labels": [
+        "confirm_thesis_wording",
+        "request_source_refresh",
+        "defer_pending_local_evidence",
+        "close_issue_as_addressed"
+      ],
+      "decision_placeholder": "research_decision_pending",
+      "due_date": "",
+      "linked_ledger_items": [
+        "NVDA|attention_review|impact_packet_review_queue",
+        "NVDA|scenario_stress|scn-ai-capex-digestion",
+        "NVDA|trend_change|changed"
+      ],
+      "linked_risk_flags": [
+        "scenario_overlap",
+        "ledger_item",
+        "ledger_item"
+      ],
+      "meeting_note": "",
+      "owner": "",
+      "ticker": "NVDA"
+    },
+    {
+      "allowed_research_labels": [
+        "confirm_thesis_wording",
+        "request_source_refresh",
+        "defer_pending_local_evidence",
+        "close_issue_as_addressed"
+      ],
+      "decision_placeholder": "research_decision_pending",
+      "due_date": "",
+      "linked_ledger_items": [
+        "MSFT|scenario_stress|scn-ai-capex-digestion",
+        "MSFT|scenario_stress|scn-cloud-margin-compression",
+        "MSFT|attention_review|impact_packet_review_queue",
+        "MSFT|trend_change|changed"
+      ],
+      "linked_risk_flags": [
+        "scenario_overlap",
+        "ledger_item",
+        "ledger_item"
+      ],
+      "meeting_note": "",
+      "owner": "",
+      "ticker": "MSFT"
+    },
+    {
+      "allowed_research_labels": [
+        "confirm_thesis_wording",
+        "request_source_refresh",
+        "defer_pending_local_evidence",
+        "close_issue_as_addressed"
+      ],
+      "decision_placeholder": "research_decision_pending",
+      "due_date": "",
+      "linked_ledger_items": [
+        "GOOGL|persistent_warning|hist-regulatory-ads-2026-06-12",
+        "GOOGL|scenario_stress|scn-cloud-margin-compression",
+        "GOOGL|scenario_stress|scn-regulatory-ad-tightening",
+        "GOOGL|packet_warning|evt-regulatory-ads-2026-06-20"
+      ],
+      "linked_risk_flags": [
+        "source_warning",
+        "persistent_warning",
+        "scenario_overlap",
+        "ledger_item"
+      ],
+      "meeting_note": "",
+      "owner": "",
+      "ticker": "GOOGL"
+    },
+    {
+      "allowed_research_labels": [
+        "confirm_thesis_wording",
+        "request_source_refresh",
+        "defer_pending_local_evidence",
+        "close_issue_as_addressed"
+      ],
+      "decision_placeholder": "research_decision_pending",
+      "due_date": "",
+      "linked_ledger_items": [
+        "AAPL|scenario_stress|scn-premium-device-demand"
+      ],
+      "linked_risk_flags": [
+        "scenario_overlap",
+        "ledger_item"
+      ],
+      "meeting_note": "",
+      "owner": "",
+      "ticker": "AAPL"
+    },
+    {
+      "allowed_research_labels": [
+        "confirm_thesis_wording",
+        "request_source_refresh",
+        "defer_pending_local_evidence",
+        "close_issue_as_addressed"
+      ],
+      "decision_placeholder": "research_decision_pending",
+      "due_date": "",
+      "linked_ledger_items": [
+        "META|attention_review|impact_packet_review_queue"
+      ],
+      "linked_risk_flags": [
+        "ledger_item"
+      ],
+      "meeting_note": "",
+      "owner": "",
+      "ticker": "META"
+    }
+  ],
+  "risk_flags": [
+    {
+      "category": "source_warning",
+      "description": "evt-regulatory-ads-2026-06-20: source is 20 days old",
+      "evidence_path": "demo/impact_packet.json",
+      "severity": "high",
+      "ticker": "GOOGL"
+    },
+    {
+      "category": "persistent_warning",
+      "description": "hist-regulatory-ads-2026-06-12: source remained stale",
+      "evidence_path": "demo/trend/trend_history.json",
+      "severity": "severe",
+      "ticker": "GOOGL"
+    },
+    {
+      "category": "scenario_overlap",
+      "description": "stress score 100; direct ticker shock exposure; scenario tags overlap thesis, themes, or position label",
+      "evidence_path": "demo/scenario/scenario_stress.json",
+      "severity": "high",
+      "ticker": "MSFT"
+    },
+    {
+      "category": "scenario_overlap",
+      "description": "stress score 100; direct ticker shock exposure; scenario tags overlap thesis, themes, or position label",
+      "evidence_path": "demo/scenario/scenario_stress.json",
+      "severity": "severe",
+      "ticker": "GOOGL"
+    },
+    {
+      "category": "scenario_overlap",
+      "description": "stress score 100; direct ticker shock exposure; scenario tags overlap thesis, themes, or position label",
+      "evidence_path": "demo/scenario/scenario_stress.json",
+      "severity": "high",
+      "ticker": "NVDA"
+    },
+    {
+      "category": "scenario_overlap",
+      "description": "stress score 88; direct ticker shock exposure; scenario tags overlap thesis, themes, or position label",
+      "evidence_path": "demo/scenario/scenario_stress.json",
+      "severity": "high",
+      "ticker": "AAPL"
+    },
+    {
+      "category": "ledger_item",
+      "description": "persistent_warning is open; stale true",
+      "evidence_path": "demo/ledger/review_ledger.json",
+      "severity": "severe",
+      "ticker": "GOOGL"
+    },
+    {
+      "category": "ledger_item",
+      "description": "scenario_stress is new; stale false",
+      "evidence_path": "demo/ledger/review_ledger.json",
+      "severity": "severe",
+      "ticker": "GOOGL"
+    },
+    {
+      "category": "ledger_item",
+      "description": "scenario_stress is new; stale false",
+      "evidence_path": "demo/ledger/review_ledger.json",
+      "severity": "severe",
+      "ticker": "GOOGL"
+    },
+    {
+      "category": "ledger_item",
+      "description": "scenario_stress is new; stale false",
+      "evidence_path": "demo/ledger/review_ledger.json",
+      "severity": "high",
+      "ticker": "AAPL"
+    },
+    {
+      "category": "ledger_item",
+      "description": "packet_warning is new; stale false",
+      "evidence_path": "demo/ledger/review_ledger.json",
+      "severity": "high",
+      "ticker": "GOOGL"
+    },
+    {
+      "category": "ledger_item",
+      "description": "attention_review is resolved; stale false",
+      "evidence_path": "demo/ledger/review_ledger.json",
+      "severity": "high",
+      "ticker": "META"
+    },
+    {
+      "category": "ledger_item",
+      "description": "scenario_stress is new; stale false",
+      "evidence_path": "demo/ledger/review_ledger.json",
+      "severity": "high",
+      "ticker": "MSFT"
+    },
+    {
+      "category": "ledger_item",
+      "description": "scenario_stress is watch; stale true",
+      "evidence_path": "demo/ledger/review_ledger.json",
+      "severity": "high",
+      "ticker": "MSFT"
+    },
+    {
+      "category": "ledger_item",
+      "description": "attention_review is new; stale false",
+      "evidence_path": "demo/ledger/review_ledger.json",
+      "severity": "high",
+      "ticker": "NVDA"
+    },
+    {
+      "category": "ledger_item",
+      "description": "scenario_stress is new; stale false",
+      "evidence_path": "demo/ledger/review_ledger.json",
+      "severity": "high",
+      "ticker": "NVDA"
+    }
+  ],
+  "schema_version": "1.0",
+  "source_artifacts": {
+    "compare_report": "demo/compare/compare.json",
+    "evidence_hub": "demo/evidence/evidence_hub.json",
+    "impact_packet": "demo/impact_packet.json",
+    "review_ledger": "demo/ledger/review_ledger.json",
+    "scenario_stress": "demo/scenario/scenario_stress.json",
+    "trend_history": "demo/trend/trend_history.json"
+  },
+  "source_generated_at": {
+    "compare_report": "2026-07-10",
+    "evidence_hub": "2026-07-10",
+    "impact_packet": "2026-07-10",
+    "review_ledger": "2026-07-10",
+    "scenario_stress": "2026-07-10",
+    "trend_history": "2026-07-10"
+  },
+  "thesis_questions": [
+    {
+      "affected_claims": [
+        "Accelerator demand remains tied to AI infrastructure buildouts.",
+        "Advanced packaging supply can constrain shipment timing."
+      ],
+      "due_date": "",
+      "owner": "",
+      "primary_question": "What local evidence would change the current NVDA thesis wording?",
+      "supporting_questions": [
+        "Review whether NVDA thesis sensitivities still match events evt-supply-chain-2026-07-03, evt-cloud-margin-2026-07-08.",
+        "Check static exposure note for NVDA at 12.0% portfolio weight.",
+        "Re-read risk note: Supply bottlenecks can defer revenue despite strong demand.",
+        "Review whether NVDA thesis sensitivities still match events hist-packaging-2026-07-08, hist-cloud-margin-2026-07-09."
+      ],
+      "ticker": "NVDA"
+    },
+    {
+      "affected_claims": [
+        "Capex discipline is central to margin durability.",
+        "Cloud platform scale and enterprise distribution support AI infrastructure monetization."
+      ],
+      "due_date": "",
+      "owner": "",
+      "primary_question": "What local evidence would change the current MSFT thesis wording?",
+      "supporting_questions": [
+        "Review whether MSFT thesis sensitivities still match events evt-cloud-margin-2026-07-08.",
+        "Check static exposure note for MSFT at 24.0% portfolio weight.",
+        "Re-read risk note: Infrastructure spend could outrun near-term revenue conversion.",
+        "Review whether MSFT thesis sensitivities still match events hist-cloud-margin-2026-07-09."
+      ],
+      "ticker": "MSFT"
+    },
+    {
+      "affected_claims": [
+        "Search and YouTube monetization remain sensitive to ad targeting policy."
+      ],
+      "due_date": "",
+      "owner": "",
+      "primary_question": "What local evidence would change the current GOOGL thesis wording?",
+      "supporting_questions": [
+        "Review whether GOOGL thesis sensitivities still match events evt-regulatory-ads-2026-06-20.",
+        "Check static exposure note for GOOGL at 16.0% portfolio weight.",
+        "Re-read risk note: Regulatory remedies could pressure ad monetization.",
+        "Resolve warning before relying on packet: evt-regulatory-ads-2026-06-20: source is 20 days old"
+      ],
+      "ticker": "GOOGL"
+    },
+    {
+      "affected_claims": [
+        "Services mix and premium device retention support resilient cash generation.",
+        "Supply chain execution limits launch timing risk."
+      ],
+      "due_date": "",
+      "owner": "",
+      "primary_question": "What local evidence would change the current AAPL thesis wording?",
+      "supporting_questions": [
+        "Review whether AAPL thesis sensitivities still match events evt-supply-chain-2026-07-03.",
+        "Check static exposure note for AAPL at 18.0% portfolio weight.",
+        "Re-read risk note: Hardware demand can weaken faster than services can offset.",
+        "Clarify whether matched stress shocks turn the current AAPL read into a directional thesis question."
+      ],
+      "ticker": "AAPL"
+    }
+  ],
+  "title": "Decision Journal Draft",
+  "unresolved_assumptions": [
+    {
+      "assumption": "Static source freshness is sufficient for a research meeting draft.",
+      "due_date": "",
+      "owner": "",
+      "test": "Refresh or annotate warnings: evt-regulatory-ads-2026-06-20: source is 20 days old",
+      "topic": "GOOGL source freshness"
+    },
+    {
+      "assumption": "Repeated warnings can remain open until local evidence is updated.",
+      "due_date": "",
+      "owner": "",
+      "test": "Review persistent warning rows and record whether each remains valid.",
+      "topic": "Persistent warning treatment"
+    },
+    {
+      "assumption": "Illustrative stress fixtures are adequate prompts for the meeting agenda.",
+      "due_date": "",
+      "owner": "",
+      "test": "Confirm whether any missing sector or company stress case should be added locally.",
+      "topic": "Scenario fixture scope"
+    },
+    {
+      "assumption": "Every public artifact should carry explicit research boundaries.",
+      "due_date": "",
+      "owner": "",
+      "test": "Inspect boundary coverage gaps: demo/maturity/maturity_report.json, demo/maturity/maturity_report.md",
+      "topic": "Boundary coverage"
+    }
+  ]
+}

@@ -9,6 +9,7 @@ from typing import Any, Dict, Iterable, List
 
 from . import __version__
 from .engine import build_packet, compare_packets
+from .journal import JOURNAL_BOUNDARIES, build_decision_journal, render_decision_journal_html, render_decision_journal_markdown
 from .ledger import build_review_ledger
 from .model import BOUNDARIES, load_events, load_portfolio, load_theses
 from .promotion import write_cold_start_walkthrough, write_visual_receipt
@@ -45,6 +46,9 @@ DEMO_FILES = [
     Path("demo/ledger/review_ledger.json"),
     Path("demo/ledger/review_ledger.md"),
     Path("demo/ledger/review_ledger.html"),
+    Path("demo/journal/decision_journal.json"),
+    Path("demo/journal/decision_journal.md"),
+    Path("demo/journal/decision_journal.html"),
     Path("demo/visual/visual_receipt.json"),
     Path("demo/visual/visual_receipt.md"),
     Path("demo/walkthrough/walkthrough.json"),
@@ -96,6 +100,9 @@ KEY_ARTIFACTS = [
     Path("demo/ledger/review_ledger.json"),
     Path("demo/ledger/review_ledger.md"),
     Path("demo/ledger/review_ledger.html"),
+    Path("demo/journal/decision_journal.json"),
+    Path("demo/journal/decision_journal.md"),
+    Path("demo/journal/decision_journal.html"),
     Path("demo/visual/visual_receipt.json"),
     Path("demo/visual/visual_receipt.md"),
     Path("demo/walkthrough/walkthrough.json"),
@@ -122,6 +129,7 @@ REGENERATE_COMMANDS = [
     "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
     "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
     "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
+    "PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal",
     "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
     "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
     "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
@@ -132,6 +140,7 @@ REGENERATE_COMMANDS = [
 ]
 VERIFY_COMMANDS = [
     "python -m pytest -q",
+    "PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal",
     "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
     "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
     "PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json",
@@ -153,6 +162,8 @@ def validate_release(root: Path) -> Dict[str, Any]:
         check_demo_boundaries(root),
         check_evidence_hub_no_js(root),
         check_bundle_no_js(root),
+        check_journal_no_js(root),
+        check_journal_no_recommendation_language(root),
         check_demo_deterministic(root),
         check_evidence_hub_deterministic(root),
         check_release_manifest_deterministic(root),
@@ -173,14 +184,45 @@ def check_demo_boundaries(root: Path) -> Dict[str, Any]:
     missing: Dict[str, List[str]] = {}
     for path in DEMO_FILES:
         full_path = root / path
+        expected = JOURNAL_BOUNDARIES if path.as_posix().startswith("demo/journal/") else BOUNDARIES
         if not full_path.is_file():
-            missing[path.as_posix()] = BOUNDARIES[:]
+            missing[path.as_posix()] = expected[:]
             continue
         text = full_path.read_text(encoding="utf-8")
-        absent = [boundary for boundary in BOUNDARIES if boundary not in text]
+        absent = [boundary for boundary in expected if boundary not in text]
         if absent:
             missing[path.as_posix()] = absent
     return {"name": "demo_boundaries_present", "ok": not missing, "missing_boundaries": missing}
+
+
+def check_journal_no_recommendation_language(root: Path) -> Dict[str, Any]:
+    paths = [
+        Path("demo/journal/decision_journal.json"),
+        Path("demo/journal/decision_journal.md"),
+        Path("demo/journal/decision_journal.html"),
+    ]
+    findings: Dict[str, List[str]] = {}
+    for path in paths:
+        full_path = root / path
+        if not full_path.is_file():
+            findings[path.as_posix()] = ["missing"]
+            continue
+        words = full_path.read_text(encoding="utf-8").lower().replace("-", " ").split()
+        found = sorted({term for term in ("buy", "sell", "hold") if term in words})
+        if found:
+            findings[path.as_posix()] = found
+    return {"name": "decision_journal_no_recommendation_language", "ok": not findings, "findings": findings}
+
+
+def check_journal_no_js(root: Path) -> Dict[str, Any]:
+    html_path = root / "demo/journal/decision_journal.html"
+    if not html_path.is_file():
+        return {"name": "decision_journal_no_js", "ok": False, "path": "demo/journal/decision_journal.html"}
+    return {
+        "name": "decision_journal_no_js",
+        "ok": "<script" not in html_path.read_text(encoding="utf-8").lower(),
+        "path": "demo/journal/decision_journal.html",
+    }
 
 
 def check_demo_deterministic(root: Path) -> Dict[str, Any]:
@@ -228,6 +270,14 @@ def check_demo_deterministic(root: Path) -> Dict[str, Any]:
         write_json(ledger_dir / "review_ledger.json", ledger)
         (ledger_dir / "review_ledger.md").write_text(render_review_ledger_markdown(ledger), encoding="utf-8")
         (ledger_dir / "review_ledger.html").write_text(render_review_ledger_html(ledger), encoding="utf-8")
+
+        journal_dir = tmp_path / "journal"
+        journal_dir.mkdir()
+        evidence_hub = read_json(root / "demo/evidence/evidence_hub.json") if (root / "demo/evidence/evidence_hub.json").is_file() else {}
+        journal = build_decision_journal(packet, compare, history, stress, ledger, evidence_hub)
+        write_json(journal_dir / "decision_journal.json", journal)
+        (journal_dir / "decision_journal.md").write_text(render_decision_journal_markdown(journal), encoding="utf-8")
+        (journal_dir / "decision_journal.html").write_text(render_decision_journal_html(journal), encoding="utf-8")
 
         write_demo_gallery(tmp_path / "gallery.html")
         write_visual_receipt(root, tmp_path / "visual")
@@ -567,13 +617,14 @@ def command_to_regenerate(path_key: str) -> str:
         "demo/trend/": REGENERATE_COMMANDS[2],
         "demo/scenario/": REGENERATE_COMMANDS[3],
         "demo/ledger/": REGENERATE_COMMANDS[4],
-        "demo/maturity/": REGENERATE_COMMANDS[5],
-        "demo/gallery.html": REGENERATE_COMMANDS[6],
-        "demo/visual/": REGENERATE_COMMANDS[7],
-        "demo/walkthrough/": REGENERATE_COMMANDS[8],
-        "release/manifest": REGENERATE_COMMANDS[9],
-        "demo/evidence/": REGENERATE_COMMANDS[10],
-        "demo/bundle/": REGENERATE_COMMANDS[11],
+        "demo/journal/": REGENERATE_COMMANDS[5],
+        "demo/maturity/": REGENERATE_COMMANDS[6],
+        "demo/gallery.html": REGENERATE_COMMANDS[7],
+        "demo/visual/": REGENERATE_COMMANDS[8],
+        "demo/walkthrough/": REGENERATE_COMMANDS[9],
+        "release/manifest": REGENERATE_COMMANDS[10],
+        "demo/evidence/": REGENERATE_COMMANDS[11],
+        "demo/bundle/": REGENERATE_COMMANDS[12],
     }
     for prefix, command in command_by_prefix.items():
         if path_key.startswith(prefix):
@@ -605,6 +656,8 @@ def bundle_role(path: Path) -> str:
         return "static visual and boundary receipt"
     if key.startswith("demo/ledger/"):
         return "repeated-use review ledger"
+    if key.startswith("demo/journal/"):
+        return "research meeting decision journal draft"
     if key.startswith("demo/scenario/"):
         return "illustrative scenario stress review"
     if key.startswith("demo/trend/"):
@@ -812,6 +865,7 @@ def render_demo_gallery() -> str:
             "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
             "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
             "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
+            "PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal",
             "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
             "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
             "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
@@ -857,6 +911,8 @@ def render_demo_gallery() -> str:
     <a class="card" href="scenario/scenario_stress.html"><strong>Scenario Stress HTML</strong>No-JavaScript table view for stress review.</a>
     <a class="card" href="ledger/review_ledger.md"><strong>Review Ledger</strong>Repeated-use issue ledger with carry-forward, resolved status, severity, stale flags, and evidence links.</a>
     <a class="card" href="ledger/review_ledger.html"><strong>Review Ledger HTML</strong>No-JavaScript table view for ledger review.</a>
+    <a class="card" href="journal/decision_journal.md"><strong>Decision Journal</strong>Research meeting draft with thesis questions, evidence excerpts, risk flags, assumptions, placeholder decisions, and follow-up blanks.</a>
+    <a class="card" href="journal/decision_journal.html"><strong>Decision Journal HTML</strong>No-JavaScript table view for research meeting preparation.</a>
     <a class="card" href="visual/visual_receipt.md"><strong>Visual Receipt</strong>Static capture receipt with hashes, no-script checks, and boundary checks.</a>
     <a class="card" href="walkthrough/walkthrough.md"><strong>Cold-Start Walkthrough</strong>Two-to-five minute first-user path with commands and failure modes.</a>
     <a class="card" href="evidence/evidence_hub.md"><strong>Evidence Hub</strong>Reviewer matrix with artifact purpose, gates, hashes, no-script checks, boundary coverage, and limitations.</a>

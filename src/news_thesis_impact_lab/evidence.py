@@ -4,6 +4,7 @@ import hashlib
 from pathlib import Path
 from typing import Any, Dict, List
 
+from .journal import JOURNAL_BOUNDARIES
 from .maturity import RATIONALE, SCORES
 from .model import BOUNDARIES
 from .release import DEMO_FILES, REGENERATE_COMMANDS
@@ -127,6 +128,27 @@ ARTIFACT_CLASSIFICATION = {
         "Can review ledger status be scanned as static no-JavaScript HTML?",
         "showcase",
         "static HTML ledger evidence",
+        "visual review surface",
+    ),
+    "demo/journal/decision_journal.json": (
+        "decision-journal-json",
+        "Can research meetings start from a structured non-recommendation journal draft?",
+        "user_value",
+        "meeting workflow evidence",
+        "research meeting handoff evidence",
+    ),
+    "demo/journal/decision_journal.md": (
+        "decision-journal-markdown",
+        "Can the research meeting draft be reviewed without parsing JSON?",
+        "showcase",
+        "meeting narrative evidence",
+        "research meeting handoff narrative",
+    ),
+    "demo/journal/decision_journal.html": (
+        "decision-journal-html",
+        "Can the research meeting draft be scanned as static no-JavaScript HTML?",
+        "showcase",
+        "static HTML meeting evidence",
         "visual review surface",
     ),
     "demo/visual/visual_receipt.json": (
@@ -264,11 +286,12 @@ def command_to_regenerate(path_key: str) -> str:
         "demo/trend/": REGENERATE_COMMANDS[2],
         "demo/scenario/": REGENERATE_COMMANDS[3],
         "demo/ledger/": REGENERATE_COMMANDS[4],
-        "demo/maturity/": REGENERATE_COMMANDS[5],
-        "demo/gallery.html": REGENERATE_COMMANDS[6],
-        "demo/visual/": REGENERATE_COMMANDS[7],
-        "demo/walkthrough/": REGENERATE_COMMANDS[8],
-        "release/manifest.json": REGENERATE_COMMANDS[9],
+        "demo/journal/": REGENERATE_COMMANDS[5],
+        "demo/maturity/": REGENERATE_COMMANDS[6],
+        "demo/gallery.html": REGENERATE_COMMANDS[7],
+        "demo/visual/": REGENERATE_COMMANDS[8],
+        "demo/walkthrough/": REGENERATE_COMMANDS[9],
+        "release/manifest.json": REGENERATE_COMMANDS[10],
     }
     for prefix, command in command_by_prefix.items():
         if path_key.startswith(prefix):
@@ -283,8 +306,9 @@ def no_js_value(path: Path, text: str) -> bool | None:
 
 
 def boundary_coverage(text: str) -> Dict[str, Any]:
-    present = [boundary for boundary in BOUNDARIES if boundary in text]
-    missing = [boundary for boundary in BOUNDARIES if boundary not in text]
+    boundaries = JOURNAL_BOUNDARIES if "Research meeting draft only" in text else BOUNDARIES
+    present = [boundary for boundary in boundaries if boundary in text]
+    missing = [boundary for boundary in boundaries if boundary not in text]
     return {
         "present_count": len(present),
         "missing_count": len(missing),

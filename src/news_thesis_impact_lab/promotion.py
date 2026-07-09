@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List
 
+from .journal import JOURNAL_BOUNDARIES
 from .model import BOUNDARIES
 from .render import write_json
 
@@ -40,6 +41,13 @@ VISUAL_ASSETS = [
         "role": "review ledger scan view",
         "review_notes": "Confirm repeated-use statuses, severity, stale flags, resolved carry-forward items, evidence links, and finance boundaries are visible without JavaScript.",
     },
+    {
+        "path": Path("demo/journal/decision_journal.html"),
+        "route": "demo/journal/decision_journal.html",
+        "role": "decision journal meeting draft",
+        "review_notes": "Confirm thesis questions, evidence excerpts, risk flags, assumptions, placeholder decisions, owner/date blanks, and no-recommendation boundaries are visible without JavaScript.",
+        "boundary_mode": "journal",
+    },
 ]
 
 
@@ -49,6 +57,7 @@ WALKTHROUGH_COMMANDS = [
     "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
     "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
     "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
+    "PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal",
     "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
     "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
     "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
@@ -74,6 +83,9 @@ WALKTHROUGH_ARTIFACTS = [
     "demo/ledger/review_ledger.json",
     "demo/ledger/review_ledger.md",
     "demo/ledger/review_ledger.html",
+    "demo/journal/decision_journal.json",
+    "demo/journal/decision_journal.md",
+    "demo/journal/decision_journal.html",
     "demo/visual/visual_receipt.json",
     "demo/visual/visual_receipt.md",
     "demo/walkthrough/walkthrough.json",
@@ -120,7 +132,8 @@ def visual_capture_record(root: Path, asset: Dict[str, Any]) -> Dict[str, Any]:
     data = path.read_bytes() if path.is_file() else b""
     text = data.decode("utf-8") if data else ""
     title = extract_title(text) if text else "missing"
-    missing_boundaries = [boundary for boundary in BOUNDARIES if boundary not in text]
+    expected_boundaries = JOURNAL_BOUNDARIES if asset.get("boundary_mode") == "journal" else BOUNDARIES
+    missing_boundaries = [boundary for boundary in expected_boundaries if boundary not in text]
     return {
         "title": title,
         "role": asset["role"],
@@ -194,7 +207,7 @@ def build_cold_start_walkthrough() -> Dict[str, Any]:
         "title": "Cold-Start Walkthrough",
         "audience": "First user reviewing the public demo from a clean checkout.",
         "duration": "2-5 minutes",
-            "goal": "Generate the local packet, compare, trend, scenario stress, repeated-use review ledger, visual receipt, walkthrough, evidence hub, plain-file bundle, and release validation evidence without network, broker, order, or advice behavior.",
+            "goal": "Generate the local packet, compare, trend, scenario stress, repeated-use review ledger, decision journal draft, visual receipt, walkthrough, evidence hub, plain-file bundle, and release validation evidence without network, broker, order, or advice behavior.",
         "commands": WALKTHROUGH_COMMANDS,
         "expected_artifacts": WALKTHROUGH_ARTIFACTS,
         "interpretation_guide": [
@@ -204,6 +217,7 @@ def build_cold_start_walkthrough() -> Dict[str, Any]:
             "Use demo/trend/trend_history.md to review score direction, warning persistence, exposure trend, and next review queue.",
             "Use demo/scenario/scenario_stress.md to review illustrative macro, sector, and company shock overlap against thesis language.",
             "Use demo/ledger/review_ledger.md to carry repeated review issues forward, mark absent issues resolved, and identify stale research maintenance items.",
+            "Use demo/journal/decision_journal.md as an editable research meeting draft with thesis questions, evidence excerpts, risk flags, assumptions, placeholder decisions, and follow-up owner/date blanks.",
             "Use demo/visual/visual_receipt.md to confirm static HTML pages pass no-script checks and retain boundaries.",
             "Use demo/evidence/evidence_hub.md to audit artifact purpose, release and promotion gate relevance, hashes, no-script status, boundary coverage, and limitations.",
             "Use demo/bundle/bundle_manifest.md for agent reuse; inspect it before handoff to confirm copied artifacts exist and hashes match.",
@@ -215,6 +229,7 @@ def build_cold_start_walkthrough() -> Dict[str, Any]:
             "Removing finance boundaries from public artifacts causes boundary validation to fail.",
             "Adding script tags to static demo HTML causes the visual receipt no-script summary to fail.",
             "Mutating copied bundle artifacts causes bundle-inspect and validate-release to fail.",
+            "Adding recommendation language to the decision journal causes release validation to fail.",
             "Using live market data, broker integrations, orders, or advice language is outside project scope.",
         ],
         "boundaries": BOUNDARIES,

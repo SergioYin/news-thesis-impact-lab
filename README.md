@@ -4,7 +4,7 @@
 
 It is for analysts, builders, and agent workflows that need deterministic review packets from local JSON inputs without live market data, broker access, or private services.
 
-## 10-Command Quickstart
+## 11-Command Quickstart
 
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo
@@ -12,6 +12,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_pa
 PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
 PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario
 PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
+PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal
 PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
 PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
 PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle
@@ -27,6 +28,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - [Trend history](demo/trend/trend_history.md): multi-period score direction, new/cleared/changed statuses, persistent warnings, exposure trend, and next review queue.
 - [Scenario stress review](demo/scenario/scenario_stress.md): illustrative macro, sector, and company shocks mapped to ticker/tag exposure, stress flags, thesis contradiction prompts, confidence downgrade suggestions, and next review queue.
 - [Review ledger](demo/ledger/review_ledger.md): repeated-use issue ledger keyed by ticker, issue type, and source with carry-forward, resolved status, severity, stale flags, evidence links, and next research maintenance action.
+- [Decision journal draft](demo/journal/decision_journal.md): research meeting draft with thesis questions, evidence excerpts, risk flags, unresolved assumptions, placeholder review decisions, owner/date blanks, and follow-up checklist.
 - [Visual receipt](demo/visual/visual_receipt.md): static HTML capture receipt with hashes, no-script checks, and boundary checks.
 - [Cold-start walkthrough](demo/walkthrough/walkthrough.md): 2-5 minute first-user path with exact commands, expected artifacts, interpretation guide, and failure modes.
 - [Evidence hub](demo/evidence/evidence_hub.md): reviewer-facing matrix with artifact purpose, rubric area, release and promotion gate relevance, regeneration command, SHA-256, no-JavaScript status, boundary coverage, and limitations.
@@ -76,6 +78,15 @@ news-thesis-impact-lab review-ledger \
   --previous examples/review_ledger_previous.json \
   --out demo/ledger
 
+news-thesis-impact-lab decision-journal \
+  --packet demo/impact_packet.json \
+  --compare demo/compare/compare.json \
+  --trend demo/trend/trend_history.json \
+  --scenario demo/scenario/scenario_stress.json \
+  --ledger demo/ledger/review_ledger.json \
+  --evidence demo/evidence/evidence_hub.json \
+  --out demo/journal
+
 news-thesis-impact-lab selfcheck
 news-thesis-impact-lab validate-release
 news-thesis-impact-lab maturity-report --out demo/maturity
@@ -103,6 +114,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
 - `demo/trend/trend_history.json`, `demo/trend/trend_history.md`, and `demo/trend/trend_history.html`: deterministic multi-period packet history.
 - `demo/scenario/scenario_stress.json`, `demo/scenario/scenario_stress.md`, and `demo/scenario/scenario_stress.html`: deterministic illustrative stress scenario review.
 - `demo/ledger/review_ledger.json`, `demo/ledger/review_ledger.md`, and `demo/ledger/review_ledger.html`: deterministic repeated-use review ledger with status transitions.
+- `demo/journal/decision_journal.json`, `demo/journal/decision_journal.md`, and `demo/journal/decision_journal.html`: deterministic research meeting draft with no-recommendation statement, thesis questions, evidence excerpts, risk flags, assumptions, editable placeholders, owner/date blanks, and checklist.
 - `demo/visual/visual_receipt.json` and `demo/visual/visual_receipt.md`: deterministic static capture receipt for promotion review.
 - `demo/walkthrough/walkthrough.json` and `demo/walkthrough/walkthrough.md`: first-user walkthrough with commands, artifacts, interpretation, and failure modes.
 - `demo/maturity/maturity_report.json` and `demo/maturity/maturity_report.md`: release and promotion readiness scoring.
@@ -125,6 +137,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
 PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario
 PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
+PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal
 PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
 PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html
 PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual

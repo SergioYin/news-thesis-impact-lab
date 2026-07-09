@@ -43,9 +43,22 @@ The packet is designed for local research triage. It links static catalyst notes
 - `expiry_days` and `stale`: age-based review hygiene flags for unresolved items.
 - `summary`: compact counts by ticker, status, and severity.
 
+## Decision Journal Fields
+
+`decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal` reads the current public research artifacts and writes `decision_journal.json`, `decision_journal.md`, and no-JavaScript `decision_journal.html`.
+
+- `no_recommendation_statement`: explicit statement that the draft records research questions and process placeholders only.
+- `meeting_fields`: editable blanks for meeting date, facilitator, participants, and prepared-by.
+- `thesis_questions`: ticker-level primary and supporting research questions with owner and due-date blanks.
+- `evidence_excerpts`: short local excerpts from the packet, compare report, trend history, scenario stress, and review ledger.
+- `risk_flags`: source warnings, persistent warnings, scenario overlaps, and ledger items for meeting review.
+- `unresolved_assumptions`: assumptions that need human confirmation, with owner and due-date blanks.
+- `review_decisions`: placeholders such as `research_decision_pending` plus research-process labels only; these are not portfolio instructions.
+- `follow_up_checklist`: editable checklist for meeting hygiene and local evidence follow-up.
+
 ## Promotion Review Artifacts
 
-`visual-receipt --out demo/visual` scans `demo/index.html`, `demo/gallery.html`, `demo/trend/trend_history.html`, `demo/scenario/scenario_stress.html`, and `demo/ledger/review_ledger.html` without screenshots or browser automation. It writes `visual_receipt.json` and `visual_receipt.md` with title, role, route, path, byte count, SHA-256, no-script status, boundary status, capture command, and review notes.
+`visual-receipt --out demo/visual` scans `demo/index.html`, `demo/gallery.html`, `demo/trend/trend_history.html`, `demo/scenario/scenario_stress.html`, `demo/ledger/review_ledger.html`, and `demo/journal/decision_journal.html` without screenshots or browser automation. It writes `visual_receipt.json` and `visual_receipt.md` with title, role, route, path, byte count, SHA-256, no-script status, boundary status, capture command, and review notes.
 
 `cold-start-walkthrough --out demo/walkthrough` writes `walkthrough.json` and `walkthrough.md` for a 2-5 minute first-user path. It includes exact commands, expected artifacts, interpretation guidance, and failure modes that preserve the no-live-data, no-broker, no-orders, no-advice boundaries.
 
@@ -73,11 +86,12 @@ The packet is designed for local research triage. It links static catalyst notes
 6. Build trend history from `examples/history/*.json` when reviewing multi-period drift.
 7. Run scenario stress with `examples/scenarios.json` to surface illustrative stress overlaps and thesis contradiction prompts.
 8. Run `review-ledger` with `examples/review_ledger_previous.json` when checking repeated-use status transitions.
-9. Generate `visual-receipt --out demo/visual` and confirm no-script and boundary summaries are true.
-10. Generate `cold-start-walkthrough --out demo/walkthrough` and confirm the first-user path still matches the public artifacts.
-11. Generate `release-manifest --out release`, then `evidence-hub --out demo/evidence`, and confirm the hub includes hashes, gate relevance, no-script status, boundary coverage, and limitations.
-12. Generate `bundle-export --out demo/bundle`, then run `bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json` to confirm copied public artifacts are intact for agent reuse.
-13. Run `validate-release` before publishing to confirm demo artifacts remain deterministic and retain the research boundaries.
+9. Run `decision-journal` when preparing a research meeting draft from packet, compare, trend, scenario, ledger, and evidence hub artifacts.
+10. Generate `visual-receipt --out demo/visual` and confirm no-script and boundary summaries are true.
+11. Generate `cold-start-walkthrough --out demo/walkthrough` and confirm the first-user path still matches the public artifacts.
+12. Generate `release-manifest --out release`, then `evidence-hub --out demo/evidence`, and confirm the hub includes hashes, gate relevance, no-script status, boundary coverage, and limitations.
+13. Generate `bundle-export --out demo/bundle`, then run `bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json` to confirm copied public artifacts are intact for agent reuse.
+14. Run `validate-release` before publishing to confirm demo artifacts remain deterministic and retain the research boundaries.
 
 ## Release Readiness
 

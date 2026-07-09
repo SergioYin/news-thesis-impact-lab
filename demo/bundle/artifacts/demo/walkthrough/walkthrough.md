@@ -4,7 +4,7 @@ Generated: 2026-07-10
 Audience: First user reviewing the public demo from a clean checkout.
 Duration: 2-5 minutes
 
-Generate the local packet, compare, trend, scenario stress, repeated-use review ledger, visual receipt, walkthrough, evidence hub, plain-file bundle, and release validation evidence without network, broker, order, or advice behavior.
+Generate the local packet, compare, trend, scenario stress, repeated-use review ledger, decision journal draft, visual receipt, walkthrough, evidence hub, plain-file bundle, and release validation evidence without network, broker, order, or advice behavior.
 
 ## Commands
 
@@ -22,6 +22,9 @@ PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/im
 ```
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
+```
+```bash
+PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal
 ```
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
@@ -61,6 +64,9 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - `demo/ledger/review_ledger.json`
 - `demo/ledger/review_ledger.md`
 - `demo/ledger/review_ledger.html`
+- `demo/journal/decision_journal.json`
+- `demo/journal/decision_journal.md`
+- `demo/journal/decision_journal.html`
 - `demo/visual/visual_receipt.json`
 - `demo/visual/visual_receipt.md`
 - `demo/walkthrough/walkthrough.json`
@@ -81,6 +87,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - Use demo/trend/trend_history.md to review score direction, warning persistence, exposure trend, and next review queue.
 - Use demo/scenario/scenario_stress.md to review illustrative macro, sector, and company shock overlap against thesis language.
 - Use demo/ledger/review_ledger.md to carry repeated review issues forward, mark absent issues resolved, and identify stale research maintenance items.
+- Use demo/journal/decision_journal.md as an editable research meeting draft with thesis questions, evidence excerpts, risk flags, assumptions, placeholder decisions, and follow-up owner/date blanks.
 - Use demo/visual/visual_receipt.md to confirm static HTML pages pass no-script checks and retain boundaries.
 - Use demo/evidence/evidence_hub.md to audit artifact purpose, release and promotion gate relevance, hashes, no-script status, boundary coverage, and limitations.
 - Use demo/bundle/bundle_manifest.md for agent reuse; inspect it before handoff to confirm copied artifacts exist and hashes match.
@@ -93,6 +100,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - Removing finance boundaries from public artifacts causes boundary validation to fail.
 - Adding script tags to static demo HTML causes the visual receipt no-script summary to fail.
 - Mutating copied bundle artifacts causes bundle-inspect and validate-release to fail.
+- Adding recommendation language to the decision journal causes release validation to fail.
 - Using live market data, broker integrations, orders, or advice language is outside project scope.
 
 ## Finance Safety Boundaries

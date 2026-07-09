@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .evidence import write_evidence_hub
 from .engine import build_packet, compare_packets
+from .journal import write_decision_journal
 from .ledger import build_review_ledger
 from .maturity import write_maturity_report
 from .model import load_events, load_portfolio, load_theses
@@ -66,6 +67,15 @@ def main(argv: list[str] | None = None) -> int:
     ledger.add_argument("--previous")
     ledger.add_argument("--out", required=True)
 
+    journal = subparsers.add_parser("decision-journal", help="Write research meeting decision journal draft artifacts.")
+    journal.add_argument("--packet", required=True)
+    journal.add_argument("--compare", required=True)
+    journal.add_argument("--trend", required=True)
+    journal.add_argument("--scenario", required=True)
+    journal.add_argument("--ledger", required=True)
+    journal.add_argument("--evidence", required=True)
+    journal.add_argument("--out", required=True)
+
     subparsers.add_parser("selfcheck", help="Validate package boundaries and runtime assumptions.")
 
     validate = subparsers.add_parser("validate-release", help="Verify release demo artifacts and references.")
@@ -108,6 +118,8 @@ def main(argv: list[str] | None = None) -> int:
             return command_scenario_stress(args)
         if args.command == "review-ledger":
             return command_review_ledger(args)
+        if args.command == "decision-journal":
+            return command_decision_journal(args)
         if args.command == "selfcheck":
             return command_selfcheck()
         if args.command == "validate-release":
@@ -207,6 +219,21 @@ def command_review_ledger(args: argparse.Namespace) -> int:
     print(f"wrote {out / 'review_ledger.json'}")
     print(f"wrote {out / 'review_ledger.md'}")
     print(f"wrote {out / 'review_ledger.html'}")
+    return 0
+
+
+def command_decision_journal(args: argparse.Namespace) -> int:
+    packet = read_json(Path(args.packet))
+    compare_report = read_json(Path(args.compare))
+    trend_history = read_json(Path(args.trend))
+    scenario_stress = read_json(Path(args.scenario))
+    review_ledger = read_json(Path(args.ledger))
+    evidence_hub = read_json(Path(args.evidence))
+    out = Path(args.out)
+    write_decision_journal(packet, compare_report, trend_history, scenario_stress, review_ledger, evidence_hub, out)
+    print(f"wrote {out / 'decision_journal.json'}")
+    print(f"wrote {out / 'decision_journal.md'}")
+    print(f"wrote {out / 'decision_journal.html'}")
     return 0
 
 

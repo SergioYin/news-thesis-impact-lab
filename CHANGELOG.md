@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.0 - 2026-07-10
+
+- Added `decision-journal` CLI command for research meeting draft export from impact packet, compare report, trend history, scenario stress, review ledger, and evidence hub artifacts.
+- Added decision journal JSON, Markdown, and no-JavaScript HTML artifacts with thesis questions, evidence excerpts, risk flags, unresolved assumptions, editable review-decision placeholders, owner/date blanks, follow-up checklist, explicit boundaries, and a no-recommendation statement.
+- Integrated decision journal artifacts with demo gallery, visual receipt, cold-start walkthrough, evidence hub, bundle export, release validation, release manifest, maturity evidence, README, review docs, agent skill, and tests.
+- Added validation for deterministic journal output, no-script HTML, and no action-language terms in the journal artifacts.
+- Bumped package metadata to 0.9.0.
+
 ## 0.8.0 - 2026-07-10
 
 - Added `bundle-export` CLI command for plain-file agent reuse bundles with `bundle_manifest.json`, `bundle_manifest.md`, `bundle_manifest.html`, `bundle_copy_list.json`, and copied public artifacts under `artifacts/`.

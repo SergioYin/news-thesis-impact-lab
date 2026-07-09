@@ -89,7 +89,7 @@
         "missing_count": 0,
         "present_count": 4
       },
-      "bytes": 5675,
+      "bytes": 6380,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
       "exists": true,
       "known_limitations": [
@@ -101,7 +101,7 @@
       "path": "demo/gallery.html",
       "promotion_gate_relevance": "promotion entry point",
       "release_gate_relevance": "artifact navigation evidence",
-      "sha256": "257d014acc8cf75e02c2b475e1b33952af4f2c63d79b64c64a73883f2cce0552",
+      "sha256": "568975fc278dc08b0600637f4cc7b185de52ed3bf294e36154765f410fadc785",
       "user_question_answered": "Where does a reviewer start when inspecting the public artifact set?"
     },
     {
@@ -353,6 +353,73 @@
       "user_question_answered": "Can review ledger status be scanned as static no-JavaScript HTML?"
     },
     {
+      "artifact_type": "decision-journal-json",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 20254,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "user_value",
+      "no_js": null,
+      "path": "demo/journal/decision_journal.json",
+      "promotion_gate_relevance": "research meeting handoff evidence",
+      "release_gate_relevance": "meeting workflow evidence",
+      "sha256": "99fad44207637d183346495e15c8f4446772bcf5b47c632d2edcffabf553f66e",
+      "user_question_answered": "Can research meetings start from a structured non-recommendation journal draft?"
+    },
+    {
+      "artifact_type": "decision-journal-markdown",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 12005,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": null,
+      "path": "demo/journal/decision_journal.md",
+      "promotion_gate_relevance": "research meeting handoff narrative",
+      "release_gate_relevance": "meeting narrative evidence",
+      "sha256": "2d39115f2189a18cb2df79714ecd1f40bb0b4e3198ccc9a23b5ebc0f2bfb1422",
+      "user_question_answered": "Can the research meeting draft be reviewed without parsing JSON?"
+    },
+    {
+      "artifact_type": "decision-journal-html",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 16298,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab decision-journal --packet demo/impact_packet.json --compare demo/compare/compare.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --ledger demo/ledger/review_ledger.json --evidence demo/evidence/evidence_hub.json --out demo/journal",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness.",
+        "Static no-script check does not execute a browser layout engine."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": true,
+      "path": "demo/journal/decision_journal.html",
+      "promotion_gate_relevance": "visual review surface",
+      "release_gate_relevance": "static HTML meeting evidence",
+      "sha256": "8f9205c709a817392c84bae9fcb7aaf24bdc6b0fde24278989b0a9a22ef1ba35",
+      "user_question_answered": "Can the research meeting draft be scanned as static no-JavaScript HTML?"
+    },
+    {
       "artifact_type": "visual-receipt-json",
       "boundary_coverage": {
         "all_present": true,
@@ -360,7 +427,7 @@
         "missing_count": 0,
         "present_count": 4
       },
-      "bytes": 3816,
+      "bytes": 4518,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
       "exists": true,
       "known_limitations": [
@@ -371,7 +438,7 @@
       "path": "demo/visual/visual_receipt.json",
       "promotion_gate_relevance": "promotion safety evidence",
       "release_gate_relevance": "no-JavaScript and boundary evidence",
-      "sha256": "f297538e39ed0ce71a73ca15206b78def1f63a2d7b806680aa53dfe3e89b4b69",
+      "sha256": "f0a1b45f82659c11a190a2e23f76030b95cdae0c3a7d8a37a201443987e0b786",
       "user_question_answered": "Which static HTML pages prove no-script and boundary coverage?"
     },
     {
@@ -382,7 +449,7 @@
         "missing_count": 0,
         "present_count": 4
       },
-      "bytes": 2813,
+      "bytes": 3310,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
       "exists": true,
       "known_limitations": [
@@ -393,7 +460,7 @@
       "path": "demo/visual/visual_receipt.md",
       "promotion_gate_relevance": "promotion safety narrative",
       "release_gate_relevance": "promotion receipt evidence",
-      "sha256": "8881dc42e9242631452e648dc1b3a88559eb6d2f0fde1e7623ea0aa003b9135a",
+      "sha256": "e888e1a16306d3851b3549e101ef874f10db8188054737d6f7fcaaa0f97ce40e",
       "user_question_answered": "Can visual review checks be audited without running a browser?"
     },
     {
@@ -404,7 +471,7 @@
         "missing_count": 0,
         "present_count": 4
       },
-      "bytes": 5155,
+      "bytes": 5932,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
       "exists": true,
       "known_limitations": [
@@ -415,7 +482,7 @@
       "path": "demo/walkthrough/walkthrough.json",
       "promotion_gate_relevance": "first-user promotion evidence",
       "release_gate_relevance": "cold-start reproducibility evidence",
-      "sha256": "c2203f06d7d546669a86d094189af0addd014c1a7425fe66678712124aa9ea6d",
+      "sha256": "98787839136619573de0a8f8d76d70f70a0ae69a5afb8ff17418326a486041ea",
       "user_question_answered": "Can a first user reproduce the artifact set quickly from local files?"
     },
     {
@@ -426,7 +493,7 @@
         "missing_count": 0,
         "present_count": 4
       },
-      "bytes": 4963,
+      "bytes": 5726,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
       "exists": true,
       "known_limitations": [
@@ -437,7 +504,7 @@
       "path": "demo/walkthrough/walkthrough.md",
       "promotion_gate_relevance": "first-user narrative",
       "release_gate_relevance": "cold-start review evidence",
-      "sha256": "efb8bad3002c672616e025362645998bccb212a9510b4eb7c4bcd58ec72b32f4",
+      "sha256": "b10c47ca31b5336b02dfaafa5b10bd6ee5db94b8ec3d1b2f69ce88da5b2a141d",
       "user_question_answered": "Can the cold-start path be followed without interpreting CLI internals?"
     },
     {
@@ -453,7 +520,7 @@
         "missing_count": 4,
         "present_count": 0
       },
-      "bytes": 1569,
+      "bytes": 1657,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
       "exists": true,
       "known_limitations": [
@@ -464,7 +531,7 @@
       "path": "demo/maturity/maturity_report.json",
       "promotion_gate_relevance": "promotion gate summary",
       "release_gate_relevance": "release gate summary",
-      "sha256": "f9310fca83693ff1421f4b6f652756d15f23e11c6e8adc9144cb05a5f3936fc6",
+      "sha256": "ec56221999ebcb5b2c70f864b401085a13873ddf435b5915efcf038c0a8c16cb",
       "user_question_answered": "Do release and promotion gates pass by rubric area?"
     },
     {
@@ -480,7 +547,7 @@
         "missing_count": 4,
         "present_count": 0
       },
-      "bytes": 1346,
+      "bytes": 1434,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
       "exists": true,
       "known_limitations": [
@@ -491,7 +558,7 @@
       "path": "demo/maturity/maturity_report.md",
       "promotion_gate_relevance": "promotion gate narrative",
       "release_gate_relevance": "human-readable gate summary",
-      "sha256": "d1b1cf6e31f86cb98945fa529da19b11110ebd7e0509cfe4ee0fe8e10bda6627",
+      "sha256": "6eb8a3f0e663c27c714437abea4e2aca6228642f24db570e1addaa688059ba8d",
       "user_question_answered": "Can readiness scoring be reviewed without parsing JSON?"
     },
     {
@@ -502,7 +569,7 @@
         "missing_count": 0,
         "present_count": 4
       },
-      "bytes": 9270,
+      "bytes": 10503,
       "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
       "exists": true,
       "known_limitations": [
@@ -514,7 +581,7 @@
       "path": "release/manifest.json",
       "promotion_gate_relevance": "promotion audit input",
       "release_gate_relevance": "release hash authority",
-      "sha256": "7f80b9019a7487033eb45cdbe981a8f8dba6a94ea5a4e14b832b6b73f9f5d3f7",
+      "sha256": "1609b2d25b8b1d0538a96c2645b6ea2ca288f6e9f977a8984d7758682a3ff65d",
       "user_question_answered": "Which public artifacts, commands, hashes, and package metadata define this release?"
     }
   ],
@@ -534,6 +601,9 @@
     "demo/ledger/review_ledger.json",
     "demo/ledger/review_ledger.md",
     "demo/ledger/review_ledger.html",
+    "demo/journal/decision_journal.json",
+    "demo/journal/decision_journal.md",
+    "demo/journal/decision_journal.html",
     "demo/visual/visual_receipt.json",
     "demo/visual/visual_receipt.md",
     "demo/walkthrough/walkthrough.json",
@@ -558,6 +628,9 @@
     "demo/ledger/review_ledger.json",
     "demo/ledger/review_ledger.md",
     "demo/ledger/review_ledger.html",
+    "demo/journal/decision_journal.json",
+    "demo/journal/decision_journal.md",
+    "demo/journal/decision_journal.html",
     "demo/visual/visual_receipt.json",
     "demo/visual/visual_receipt.md",
     "demo/walkthrough/walkthrough.json",
@@ -574,7 +647,7 @@
     },
     "evidence": {
       "artifact_count": 3,
-      "rationale": "Includes deterministic demo JSON/Markdown/HTML, compare, trend, scenario stress, review ledger outputs, visual receipt, walkthrough, evidence hub, tests, and release validation.",
+      "rationale": "Includes deterministic demo JSON/Markdown/HTML, compare, trend, scenario stress, review ledger, decision journal outputs, visual receipt, walkthrough, evidence hub, tests, and release validation.",
       "score": 4
     },
     "product": {
@@ -589,17 +662,17 @@
     },
     "runnable": {
       "artifact_count": 2,
-      "rationale": "Stdlib-only commands, examples, demo artifacts, scenario stress review, repeated-use review ledger, visual receipt, cold-start walkthrough, tests, selfcheck, and privacy scan.",
+      "rationale": "Stdlib-only commands, examples, demo artifacts, scenario stress review, repeated-use review ledger, decision journal draft, visual receipt, cold-start walkthrough, tests, selfcheck, and privacy scan.",
       "score": 5
     },
     "showcase": {
-      "artifact_count": 9,
-      "rationale": "Demo packet, compare packet, trend history, scenario stress review, review ledger, visual receipt, cold-start walkthrough, evidence hub, review doc, and agent skill show the intended workflow.",
+      "artifact_count": 11,
+      "rationale": "Demo packet, compare packet, trend history, scenario stress review, review ledger, decision journal, visual receipt, cold-start walkthrough, evidence hub, review doc, and agent skill show the intended workflow.",
       "score": 4
     },
     "user_value": {
-      "artifact_count": 3,
-      "rationale": "Maps local catalysts and illustrative stress scenarios to thesis claims, exposure, warnings, confidence review, ledger status, and human prompts.",
+      "artifact_count": 4,
+      "rationale": "Maps local catalysts and illustrative stress scenarios to thesis claims, exposure, warnings, confidence review, ledger status, meeting-draft placeholders, and human prompts.",
       "score": 4
     }
   },

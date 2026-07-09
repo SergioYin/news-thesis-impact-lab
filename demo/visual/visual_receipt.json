@@ -17,7 +17,7 @@
     },
     {
       "boundaries_present": true,
-      "bytes": 5675,
+      "bytes": 6380,
       "capture_command": "static read demo/gallery.html",
       "exists": true,
       "missing_boundaries": [],
@@ -26,7 +26,7 @@
       "review_notes": "Confirm first-screen artifact links, quickstart, and finance boundaries are visible without JavaScript.",
       "role": "artifact gallery entry point",
       "route": "demo/gallery.html",
-      "sha256": "257d014acc8cf75e02c2b475e1b33952af4f2c63d79b64c64a73883f2cce0552",
+      "sha256": "568975fc278dc08b0600637f4cc7b185de52ed3bf294e36154765f410fadc785",
       "title": "news-thesis-impact-lab Demo Gallery"
     },
     {
@@ -70,6 +70,20 @@
       "route": "demo/ledger/review_ledger.html",
       "sha256": "e33421e9c605deb57c62603957d753884655dab1c0435c99a981d2ba48c8e2d9",
       "title": "Review Ledger"
+    },
+    {
+      "boundaries_present": true,
+      "bytes": 16298,
+      "capture_command": "static read demo/journal/decision_journal.html",
+      "exists": true,
+      "missing_boundaries": [],
+      "no_script": true,
+      "path": "demo/journal/decision_journal.html",
+      "review_notes": "Confirm thesis questions, evidence excerpts, risk flags, assumptions, placeholder decisions, owner/date blanks, and no-recommendation boundaries are visible without JavaScript.",
+      "role": "decision journal meeting draft",
+      "route": "demo/journal/decision_journal.html",
+      "sha256": "8f9205c709a817392c84bae9fcb7aaf24bdc6b0fde24278989b0a9a22ef1ba35",
+      "title": "Decision Journal Draft"
     }
   ],
   "description": "Deterministic static capture receipt for promotion review; no screenshots, browser automation, network, or JavaScript execution required.",
@@ -84,6 +98,6 @@
   "summary": {
     "all_boundaries_present": true,
     "all_no_script": true,
-    "asset_count": 5
+    "asset_count": 6
   }
 }
