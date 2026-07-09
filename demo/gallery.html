@@ -30,6 +30,8 @@
     <a class="card" href="compare/compare.md"><strong>Compare Report</strong>Current versus previous packet deltas.</a>
     <a class="card" href="trend/trend_history.md"><strong>Trend History</strong>Multi-period score direction, warning persistence, exposure trend, and review queue.</a>
     <a class="card" href="trend/trend_history.html"><strong>Trend History HTML</strong>No-JavaScript table view for history review.</a>
+    <a class="card" href="scenario/scenario_stress.md"><strong>Scenario Stress</strong>Illustrative macro, sector, and company shock overlap with thesis prompts.</a>
+    <a class="card" href="scenario/scenario_stress.html"><strong>Scenario Stress HTML</strong>No-JavaScript table view for stress review.</a>
     <a class="card" href="visual/visual_receipt.md"><strong>Visual Receipt</strong>Static capture receipt with hashes, no-script checks, and boundary checks.</a>
     <a class="card" href="walkthrough/walkthrough.md"><strong>Cold-Start Walkthrough</strong>Two-to-five minute first-user path with commands and failure modes.</a>
     <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>
@@ -40,6 +42,7 @@
   <pre><code>PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo
 PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare
 PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
+PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario
 PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
 PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json</code></pre>

@@ -246,6 +246,131 @@ def render_trend_history_html(history: Dict[str, Any]) -> str:
 """
 
 
+def render_scenario_stress_markdown(stress: Dict[str, Any]) -> str:
+    lines = [
+        "# Scenario Stress Review",
+        "",
+        f"Generated: {stress['generated_at']}",
+        f"Source packet generated: {stress['source_packet_generated_at']}",
+        f"Scenarios: {stress['scenario_count']}",
+        "",
+        "## Boundaries",
+        "",
+        *bullet(stress["boundaries"]),
+        "",
+        "## Scenario Coverage",
+        "",
+    ]
+    for scenario in stress["scenario_results"]:
+        lines.append(
+            f"- {scenario['name']} (`{scenario['scenario_id']}`): {scenario['highest_risk_level']} risk; "
+            f"{len(scenario['matched_tickers'])} matched tickers ({', '.join(scenario['matched_tickers']) or 'none'})"
+        )
+    lines.extend(["", "## Ticker Stress Flags", ""])
+    for item in stress["ticker_stresses"]:
+        lines.extend(
+            [
+                f"### {item['ticker']}",
+                "",
+                f"- Stress score: {item['stress_score']}",
+                f"- Highest risk: {item['highest_risk_level']}",
+                f"- Current packet read: {item['current_direction']} / {item['current_confidence']}",
+                f"- Exposure: {item['exposure_weight']:.2%}",
+                f"- Confidence downgrade suggestion: {item['confidence_downgrade_suggestion']['from']} -> {item['confidence_downgrade_suggestion']['to']} ({item['confidence_downgrade_suggestion']['reason']})",
+                "",
+                "Stress flags:",
+                *bullet(item["stress_flags"]),
+                "",
+                "Exposure overlap:",
+                *bullet(
+                    [
+                        f"Direct ticker scenarios: {', '.join(item['exposure_overlap']['direct_ticker_scenarios']) or 'none'}",
+                        f"Matched tags: {', '.join(item['exposure_overlap']['matched_tags']) or 'none'}",
+                        f"Risk levels: {', '.join(item['exposure_overlap']['risk_levels']) or 'none'}",
+                    ]
+                ),
+                "",
+                "Thesis contradiction prompts:",
+                *bullet(item["thesis_contradiction_prompts"]),
+                "",
+            ]
+        )
+    lines.extend(["## Next Review Queue", ""])
+    for item in stress["next_review_queue"]:
+        lines.append(f"- {item['ticker']} ({item['stress_score']}, {item['highest_risk_level']}): {item['prompt']}")
+    if not stress["next_review_queue"]:
+        lines.append("- None.")
+    lines.append("")
+    return "\n".join(lines)
+
+
+def render_scenario_stress_html(stress: Dict[str, Any]) -> str:
+    boundaries = "".join(f"<li>{esc(item)}</li>" for item in stress["boundaries"])
+    scenario_rows = "".join(
+        "<tr>"
+        f"<td>{esc(item['name'])}</td>"
+        f"<td>{esc(item['scenario_id'])}</td>"
+        f"<td>{esc(item['highest_risk_level'])}</td>"
+        f"<td>{item['shock_count']}</td>"
+        f"<td>{esc(', '.join(item['matched_tickers']) or 'none')}</td>"
+        "</tr>"
+        for item in stress["scenario_results"]
+    )
+    ticker_rows = "".join(
+        "<tr>"
+        f"<td>{esc(item['ticker'])}</td>"
+        f"<td>{item['stress_score']}</td>"
+        f"<td>{esc(item['highest_risk_level'])}</td>"
+        f"<td>{item['exposure_weight']:.2%}</td>"
+        f"<td>{esc('; '.join(item['stress_flags']))}</td>"
+        f"<td>{esc('; '.join(item['thesis_contradiction_prompts']))}</td>"
+        f"<td>{esc(item['confidence_downgrade_suggestion']['from'])} -> {esc(item['confidence_downgrade_suggestion']['to'])}</td>"
+        "</tr>"
+        for item in stress["ticker_stresses"]
+    )
+    queue_rows = "".join(
+        "<tr>"
+        f"<td>{esc(item['ticker'])}</td>"
+        f"<td>{item['stress_score']}</td>"
+        f"<td>{esc(item['highest_risk_level'])}</td>"
+        f"<td>{esc(item['prompt'])}</td>"
+        "</tr>"
+        for item in stress["next_review_queue"]
+    )
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scenario Stress Review</title>
+  <style>
+    body {{ font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 2rem; color: #17202a; background: #f7f8fa; }}
+    main {{ max-width: 1180px; margin: 0 auto; }}
+    h1 {{ font-size: 2rem; margin-bottom: 0.25rem; }}
+    h2 {{ font-size: 1.2rem; margin-top: 1.75rem; }}
+    table {{ border-collapse: collapse; width: 100%; background: white; margin: 0.75rem 0 1.25rem; }}
+    th, td {{ border: 1px solid #d8dee8; padding: 0.65rem; vertical-align: top; text-align: left; }}
+    th {{ background: #e9eef5; }}
+    .note {{ background: #fff; border: 1px solid #d8dee8; padding: 1rem; margin: 1rem 0; }}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Scenario Stress Review</h1>
+  <p>Generated {esc(stress['generated_at'])}; source packet generated {esc(stress['source_packet_generated_at'])}; {stress['scenario_count']} illustrative scenarios.</p>
+  <section class="note"><h2>Boundaries</h2><ul>{boundaries}</ul></section>
+  <h2>Scenario Coverage</h2>
+  <table><thead><tr><th>Scenario</th><th>ID</th><th>Highest risk</th><th>Shocks</th><th>Matched tickers</th></tr></thead><tbody>{scenario_rows}</tbody></table>
+  <h2>Ticker Stress Flags</h2>
+  <table><thead><tr><th>Ticker</th><th>Stress score</th><th>Risk</th><th>Exposure</th><th>Flags</th><th>Contradiction prompts</th><th>Confidence suggestion</th></tr></thead><tbody>{ticker_rows}</tbody></table>
+  <h2>Next Review Queue</h2>
+  <table><thead><tr><th>Ticker</th><th>Stress score</th><th>Risk</th><th>Prompt</th></tr></thead><tbody>{queue_rows}</tbody></table>
+</main>
+</body>
+</html>
+"""
+
+
 def bullet(items: Iterable[str]) -> List[str]:
     return [f"- {item}" for item in items]
 

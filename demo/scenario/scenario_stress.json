@@ -1,0 +1,598 @@
+{
+  "boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+    "No broker integration, order routing, execution, or account access.",
+    "Scores are deterministic review aids for human research triage."
+  ],
+  "generated_at": "2026-07-10",
+  "next_review_queue": [
+    {
+      "highest_risk_level": "severe",
+      "prompt": "Check whether matched stress shocks add a separate reason for GOOGL thesis pressure or duplicate an existing concern.",
+      "stress_score": 100,
+      "ticker": "GOOGL"
+    },
+    {
+      "highest_risk_level": "high",
+      "prompt": "Test whether the current positive read for MSFT still holds under the matched stress shocks.",
+      "stress_score": 100,
+      "ticker": "MSFT"
+    },
+    {
+      "highest_risk_level": "high",
+      "prompt": "Test whether the current positive read for NVDA still holds under the matched stress shocks.",
+      "stress_score": 100,
+      "ticker": "NVDA"
+    },
+    {
+      "highest_risk_level": "high",
+      "prompt": "Clarify whether matched stress shocks turn the current AAPL read into a directional thesis question.",
+      "stress_score": 88,
+      "ticker": "AAPL"
+    }
+  ],
+  "scenario_count": 4,
+  "scenario_results": [
+    {
+      "description": "A hypothetical moderation in AI infrastructure spending forces review of demand, utilization, and margin assumptions.",
+      "highest_risk_level": "high",
+      "matched_tickers": [
+        "AAPL",
+        "MSFT",
+        "NVDA"
+      ],
+      "name": "AI capex digestion",
+      "scenario_id": "scn-ai-capex-digestion",
+      "shock_count": 2,
+      "shocks": [
+        {
+          "category": "macro",
+          "description": "Large cloud buyers slow incremental AI infrastructure commitments while absorbing prior capacity.",
+          "exposure_tags": [
+            "accelerator demand",
+            "ai infrastructure",
+            "cloud capex"
+          ],
+          "exposure_tickers": [
+            "MSFT",
+            "NVDA"
+          ],
+          "name": "Cloud capex pause",
+          "risk_level": "high",
+          "shock_id": "shock-cloud-capex-pause"
+        },
+        {
+          "category": "sector",
+          "description": "Supply availability improves faster than demand visibility, changing the scarcity narrative.",
+          "exposure_tags": [
+            "advanced packaging",
+            "component availability",
+            "supply chain"
+          ],
+          "exposure_tickers": [
+            "NVDA"
+          ],
+          "name": "Accelerator lead times normalize",
+          "risk_level": "medium",
+          "shock_id": "shock-accelerator-lead-times-normalize"
+        }
+      ]
+    },
+    {
+      "description": "A hypothetical cost absorption issue tests whether AI infrastructure utilization can support margins.",
+      "highest_risk_level": "high",
+      "matched_tickers": [
+        "GOOGL",
+        "MSFT",
+        "NVDA"
+      ],
+      "name": "Cloud margin compression",
+      "scenario_id": "scn-cloud-margin-compression",
+      "shock_count": 2,
+      "shocks": [
+        {
+          "category": "sector",
+          "description": "New AI infrastructure capacity takes longer to reach efficient utilization.",
+          "exposure_tags": [
+            "ai infrastructure",
+            "cloud margin",
+            "cloud profitability"
+          ],
+          "exposure_tickers": [
+            "GOOGL",
+            "MSFT"
+          ],
+          "name": "Utilization lag",
+          "risk_level": "high",
+          "shock_id": "shock-utilization-lag"
+        },
+        {
+          "category": "macro",
+          "description": "Enterprise buyers defer some new AI platform commitments into later planning cycles.",
+          "exposure_tags": [
+            "cloud platform",
+            "enterprise distribution",
+            "near-term revenue conversion"
+          ],
+          "exposure_tickers": [
+            "MSFT"
+          ],
+          "name": "Enterprise budget delay",
+          "risk_level": "medium",
+          "shock_id": "shock-enterprise-budget-delay"
+        }
+      ]
+    },
+    {
+      "description": "A hypothetical consumer replacement-cycle slowdown tests hardware resilience and services offset claims.",
+      "highest_risk_level": "high",
+      "matched_tickers": [
+        "AAPL",
+        "NVDA"
+      ],
+      "name": "Premium device demand fade",
+      "scenario_id": "scn-premium-device-demand",
+      "shock_count": 2,
+      "shocks": [
+        {
+          "category": "macro",
+          "description": "Consumers extend premium device replacement cycles despite stable installed-base engagement.",
+          "exposure_tags": [
+            "consumer replacement cycles",
+            "hardware demand",
+            "premium device"
+          ],
+          "exposure_tickers": [
+            "AAPL"
+          ],
+          "name": "Replacement cycle extends",
+          "risk_level": "high",
+          "shock_id": "shock-replacement-cycle-extends"
+        },
+        {
+          "category": "company",
+          "description": "Component timing creates narrower launch windows for high-end devices.",
+          "exposure_tags": [
+            "component availability",
+            "launch cadence",
+            "supply chain"
+          ],
+          "exposure_tickers": [
+            "AAPL"
+          ],
+          "name": "Launch cadence slip",
+          "risk_level": "medium",
+          "shock_id": "shock-launch-cadence-slip"
+        }
+      ]
+    },
+    {
+      "description": "A hypothetical policy review increases scrutiny of targeting, reporting, and data-use practices.",
+      "highest_risk_level": "severe",
+      "matched_tickers": [
+        "GOOGL"
+      ],
+      "name": "Digital ads policy tightening",
+      "scenario_id": "scn-regulatory-ad-tightening",
+      "shock_count": 2,
+      "shocks": [
+        {
+          "category": "sector",
+          "description": "New restrictions reduce flexibility in targeted digital advertising products.",
+          "exposure_tags": [
+            "ad monetization",
+            "digital ads",
+            "regulatory review"
+          ],
+          "exposure_tickers": [
+            "GOOGL"
+          ],
+          "name": "Ad targeting limits",
+          "risk_level": "severe",
+          "shock_id": "shock-ad-targeting-limits"
+        },
+        {
+          "category": "company",
+          "description": "Compliance work absorbs management attention and raises operating complexity.",
+          "exposure_tags": [
+            "policy",
+            "regulatory remedies",
+            "reporting obligations"
+          ],
+          "exposure_tickers": [
+            "GOOGL"
+          ],
+          "name": "Platform reporting costs",
+          "risk_level": "medium",
+          "shock_id": "shock-platform-reporting-costs"
+        }
+      ]
+    }
+  ],
+  "schema_version": "1.0",
+  "source_packet_generated_at": "2026-07-10",
+  "ticker_stresses": [
+    {
+      "attention_score": 60,
+      "confidence_downgrade_suggestion": {
+        "from": "high",
+        "reason": "high scenario overlap with stress score 100",
+        "to": "medium"
+      },
+      "current_confidence": "high",
+      "current_direction": "positive",
+      "exposure_overlap": {
+        "direct_ticker_scenarios": [
+          "scn-ai-capex-digestion",
+          "scn-cloud-margin-compression"
+        ],
+        "matched_tags": [
+          "ai infrastructure",
+          "cloud capex",
+          "cloud margin",
+          "cloud platform",
+          "enterprise distribution",
+          "near-term revenue conversion"
+        ],
+        "risk_levels": [
+          "high",
+          "medium"
+        ]
+      },
+      "exposure_weight": 0.24,
+      "highest_risk_level": "high",
+      "matched_shock_count": 3,
+      "matched_shocks": [
+        {
+          "category": "macro",
+          "direct_ticker_match": true,
+          "match_points": 31,
+          "matched_tags": [
+            "ai infrastructure",
+            "cloud capex"
+          ],
+          "risk_level": "high",
+          "scenario_id": "scn-ai-capex-digestion",
+          "scenario_name": "AI capex digestion",
+          "shock_id": "shock-cloud-capex-pause",
+          "shock_name": "Cloud capex pause"
+        },
+        {
+          "category": "macro",
+          "direct_ticker_match": true,
+          "match_points": 26,
+          "matched_tags": [
+            "cloud platform",
+            "enterprise distribution",
+            "near-term revenue conversion"
+          ],
+          "risk_level": "medium",
+          "scenario_id": "scn-cloud-margin-compression",
+          "scenario_name": "Cloud margin compression",
+          "shock_id": "shock-enterprise-budget-delay",
+          "shock_name": "Enterprise budget delay"
+        },
+        {
+          "category": "sector",
+          "direct_ticker_match": true,
+          "match_points": 31,
+          "matched_tags": [
+            "ai infrastructure",
+            "cloud margin"
+          ],
+          "risk_level": "high",
+          "scenario_id": "scn-cloud-margin-compression",
+          "scenario_name": "Cloud margin compression",
+          "shock_id": "shock-utilization-lag",
+          "shock_name": "Utilization lag"
+        }
+      ],
+      "stress_flags": [
+        "direct ticker shock exposure",
+        "scenario tags overlap thesis, themes, or position label",
+        "high-risk stress case intersects the thesis",
+        "current positive read has adverse stress overlap"
+      ],
+      "stress_score": 100,
+      "thesis_contradiction_prompts": [
+        "Test whether the current positive read for MSFT still holds under the matched stress shocks.",
+        "Re-read the MSFT thesis language that depends on `ai infrastructure` and mark what evidence would confirm or weaken it.",
+        "Re-read the MSFT thesis language that depends on `cloud capex` and mark what evidence would confirm or weaken it.",
+        "Re-read the MSFT thesis language that depends on `cloud margin` and mark what evidence would confirm or weaken it."
+      ],
+      "ticker": "MSFT"
+    },
+    {
+      "attention_score": 53,
+      "confidence_downgrade_suggestion": {
+        "from": "medium",
+        "reason": "severe scenario overlap with stress score 100",
+        "to": "low"
+      },
+      "current_confidence": "medium",
+      "current_direction": "negative",
+      "exposure_overlap": {
+        "direct_ticker_scenarios": [
+          "scn-cloud-margin-compression",
+          "scn-regulatory-ad-tightening"
+        ],
+        "matched_tags": [
+          "ad monetization",
+          "cloud platform",
+          "digital ads",
+          "policy",
+          "regulatory remedies",
+          "regulatory review"
+        ],
+        "risk_levels": [
+          "high",
+          "medium",
+          "severe"
+        ]
+      },
+      "exposure_weight": 0.16,
+      "highest_risk_level": "severe",
+      "matched_shock_count": 4,
+      "matched_shocks": [
+        {
+          "category": "macro",
+          "direct_ticker_match": false,
+          "match_points": 16,
+          "matched_tags": [
+            "cloud platform"
+          ],
+          "risk_level": "medium",
+          "scenario_id": "scn-cloud-margin-compression",
+          "scenario_name": "Cloud margin compression",
+          "shock_id": "shock-enterprise-budget-delay",
+          "shock_name": "Enterprise budget delay"
+        },
+        {
+          "category": "sector",
+          "direct_ticker_match": true,
+          "match_points": 27,
+          "matched_tags": [],
+          "risk_level": "high",
+          "scenario_id": "scn-cloud-margin-compression",
+          "scenario_name": "Cloud margin compression",
+          "shock_id": "shock-utilization-lag",
+          "shock_name": "Utilization lag"
+        },
+        {
+          "category": "sector",
+          "direct_ticker_match": true,
+          "match_points": 40,
+          "matched_tags": [
+            "ad monetization",
+            "digital ads",
+            "regulatory review"
+          ],
+          "risk_level": "severe",
+          "scenario_id": "scn-regulatory-ad-tightening",
+          "scenario_name": "Digital ads policy tightening",
+          "shock_id": "shock-ad-targeting-limits",
+          "shock_name": "Ad targeting limits"
+        },
+        {
+          "category": "company",
+          "direct_ticker_match": true,
+          "match_points": 24,
+          "matched_tags": [
+            "policy",
+            "regulatory remedies"
+          ],
+          "risk_level": "medium",
+          "scenario_id": "scn-regulatory-ad-tightening",
+          "scenario_name": "Digital ads policy tightening",
+          "shock_id": "shock-platform-reporting-costs",
+          "shock_name": "Platform reporting costs"
+        }
+      ],
+      "stress_flags": [
+        "direct ticker shock exposure",
+        "scenario tags overlap thesis, themes, or position label",
+        "high-risk stress case intersects the thesis",
+        "existing packet warning remains unresolved under stress review"
+      ],
+      "stress_score": 100,
+      "thesis_contradiction_prompts": [
+        "Check whether matched stress shocks add a separate reason for GOOGL thesis pressure or duplicate an existing concern.",
+        "Re-read the GOOGL thesis language that depends on `ad monetization` and mark what evidence would confirm or weaken it.",
+        "Re-read the GOOGL thesis language that depends on `cloud platform` and mark what evidence would confirm or weaken it.",
+        "Re-read the GOOGL thesis language that depends on `digital ads` and mark what evidence would confirm or weaken it."
+      ],
+      "ticker": "GOOGL"
+    },
+    {
+      "attention_score": 67,
+      "confidence_downgrade_suggestion": {
+        "from": "high",
+        "reason": "high scenario overlap with stress score 100",
+        "to": "medium"
+      },
+      "current_confidence": "high",
+      "current_direction": "positive",
+      "exposure_overlap": {
+        "direct_ticker_scenarios": [
+          "scn-ai-capex-digestion"
+        ],
+        "matched_tags": [
+          "accelerator demand",
+          "advanced packaging",
+          "ai infrastructure",
+          "cloud capex",
+          "component availability",
+          "supply chain"
+        ],
+        "risk_levels": [
+          "high",
+          "medium"
+        ]
+      },
+      "exposure_weight": 0.12,
+      "highest_risk_level": "high",
+      "matched_shock_count": 4,
+      "matched_shocks": [
+        {
+          "category": "sector",
+          "direct_ticker_match": true,
+          "match_points": 26,
+          "matched_tags": [
+            "advanced packaging",
+            "component availability",
+            "supply chain"
+          ],
+          "risk_level": "medium",
+          "scenario_id": "scn-ai-capex-digestion",
+          "scenario_name": "AI capex digestion",
+          "shock_id": "shock-accelerator-lead-times-normalize",
+          "shock_name": "Accelerator lead times normalize"
+        },
+        {
+          "category": "macro",
+          "direct_ticker_match": true,
+          "match_points": 33,
+          "matched_tags": [
+            "accelerator demand",
+            "ai infrastructure",
+            "cloud capex"
+          ],
+          "risk_level": "high",
+          "scenario_id": "scn-ai-capex-digestion",
+          "scenario_name": "AI capex digestion",
+          "shock_id": "shock-cloud-capex-pause",
+          "shock_name": "Cloud capex pause"
+        },
+        {
+          "category": "sector",
+          "direct_ticker_match": false,
+          "match_points": 23,
+          "matched_tags": [
+            "ai infrastructure"
+          ],
+          "risk_level": "high",
+          "scenario_id": "scn-cloud-margin-compression",
+          "scenario_name": "Cloud margin compression",
+          "shock_id": "shock-utilization-lag",
+          "shock_name": "Utilization lag"
+        },
+        {
+          "category": "company",
+          "direct_ticker_match": false,
+          "match_points": 18,
+          "matched_tags": [
+            "component availability",
+            "supply chain"
+          ],
+          "risk_level": "medium",
+          "scenario_id": "scn-premium-device-demand",
+          "scenario_name": "Premium device demand fade",
+          "shock_id": "shock-launch-cadence-slip",
+          "shock_name": "Launch cadence slip"
+        }
+      ],
+      "stress_flags": [
+        "direct ticker shock exposure",
+        "scenario tags overlap thesis, themes, or position label",
+        "high-risk stress case intersects the thesis",
+        "current positive read has adverse stress overlap"
+      ],
+      "stress_score": 100,
+      "thesis_contradiction_prompts": [
+        "Test whether the current positive read for NVDA still holds under the matched stress shocks.",
+        "Re-read the NVDA thesis language that depends on `accelerator demand` and mark what evidence would confirm or weaken it.",
+        "Re-read the NVDA thesis language that depends on `advanced packaging` and mark what evidence would confirm or weaken it.",
+        "Re-read the NVDA thesis language that depends on `ai infrastructure` and mark what evidence would confirm or weaken it."
+      ],
+      "ticker": "NVDA"
+    },
+    {
+      "attention_score": 52,
+      "confidence_downgrade_suggestion": {
+        "from": "medium",
+        "reason": "high scenario overlap with stress score 88",
+        "to": "low"
+      },
+      "current_confidence": "medium",
+      "current_direction": "mixed",
+      "exposure_overlap": {
+        "direct_ticker_scenarios": [
+          "scn-premium-device-demand"
+        ],
+        "matched_tags": [
+          "component availability",
+          "hardware demand",
+          "launch cadence",
+          "premium device",
+          "supply chain"
+        ],
+        "risk_levels": [
+          "high",
+          "medium"
+        ]
+      },
+      "exposure_weight": 0.18,
+      "highest_risk_level": "high",
+      "matched_shock_count": 3,
+      "matched_shocks": [
+        {
+          "category": "sector",
+          "direct_ticker_match": false,
+          "match_points": 18,
+          "matched_tags": [
+            "component availability",
+            "supply chain"
+          ],
+          "risk_level": "medium",
+          "scenario_id": "scn-ai-capex-digestion",
+          "scenario_name": "AI capex digestion",
+          "shock_id": "shock-accelerator-lead-times-normalize",
+          "shock_name": "Accelerator lead times normalize"
+        },
+        {
+          "category": "company",
+          "direct_ticker_match": true,
+          "match_points": 26,
+          "matched_tags": [
+            "component availability",
+            "launch cadence",
+            "supply chain"
+          ],
+          "risk_level": "medium",
+          "scenario_id": "scn-premium-device-demand",
+          "scenario_name": "Premium device demand fade",
+          "shock_id": "shock-launch-cadence-slip",
+          "shock_name": "Launch cadence slip"
+        },
+        {
+          "category": "macro",
+          "direct_ticker_match": true,
+          "match_points": 31,
+          "matched_tags": [
+            "hardware demand",
+            "premium device"
+          ],
+          "risk_level": "high",
+          "scenario_id": "scn-premium-device-demand",
+          "scenario_name": "Premium device demand fade",
+          "shock_id": "shock-replacement-cycle-extends",
+          "shock_name": "Replacement cycle extends"
+        }
+      ],
+      "stress_flags": [
+        "direct ticker shock exposure",
+        "scenario tags overlap thesis, themes, or position label",
+        "high-risk stress case intersects the thesis"
+      ],
+      "stress_score": 88,
+      "thesis_contradiction_prompts": [
+        "Clarify whether matched stress shocks turn the current AAPL read into a directional thesis question.",
+        "Re-read the AAPL thesis language that depends on `component availability` and mark what evidence would confirm or weaken it.",
+        "Re-read the AAPL thesis language that depends on `hardware demand` and mark what evidence would confirm or weaken it.",
+        "Re-read the AAPL thesis language that depends on `launch cadence` and mark what evidence would confirm or weaken it."
+      ],
+      "ticker": "AAPL"
+    }
+  ]
+}

@@ -15,10 +15,13 @@ from .render import (
     render_compare_markdown,
     render_packet_html,
     render_packet_markdown,
+    render_scenario_stress_html,
+    render_scenario_stress_markdown,
     render_trend_history_html,
     render_trend_history_markdown,
     write_json,
 )
+from .scenario import build_scenario_stress, load_scenarios
 from .trend import build_trend_history
 
 
@@ -32,6 +35,9 @@ DEMO_FILES = [
     Path("demo/trend/trend_history.json"),
     Path("demo/trend/trend_history.md"),
     Path("demo/trend/trend_history.html"),
+    Path("demo/scenario/scenario_stress.json"),
+    Path("demo/scenario/scenario_stress.md"),
+    Path("demo/scenario/scenario_stress.html"),
     Path("demo/visual/visual_receipt.json"),
     Path("demo/visual/visual_receipt.md"),
     Path("demo/walkthrough/walkthrough.json"),
@@ -45,6 +51,7 @@ EXAMPLE_FILES = [
     Path("examples/events.json"),
     Path("examples/theses.json"),
     Path("examples/portfolio.json"),
+    Path("examples/scenarios.json"),
     Path("examples/previous_packet.json"),
     Path("examples/history/2026-06-26_packet.json"),
     Path("examples/history/2026-07-03_packet.json"),
@@ -52,6 +59,7 @@ EXAMPLE_FILES = [
 ]
 KEY_ARTIFACTS = [
     Path("README.md"),
+    Path("CHANGELOG.md"),
     Path("pyproject.toml"),
     Path("docs/review-packet.md"),
     Path("demo/impact_packet.json"),
@@ -63,6 +71,9 @@ KEY_ARTIFACTS = [
     Path("demo/trend/trend_history.json"),
     Path("demo/trend/trend_history.md"),
     Path("demo/trend/trend_history.html"),
+    Path("demo/scenario/scenario_stress.json"),
+    Path("demo/scenario/scenario_stress.md"),
+    Path("demo/scenario/scenario_stress.html"),
     Path("demo/visual/visual_receipt.json"),
     Path("demo/visual/visual_receipt.md"),
     Path("demo/walkthrough/walkthrough.json"),
@@ -73,6 +84,7 @@ REGENERATE_COMMANDS = [
     "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
     "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
     "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
+    "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
     "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
     "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
     "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
@@ -153,6 +165,13 @@ def check_demo_deterministic(root: Path) -> Dict[str, Any]:
         write_json(trend_dir / "trend_history.json", history)
         (trend_dir / "trend_history.md").write_text(render_trend_history_markdown(history), encoding="utf-8")
         (trend_dir / "trend_history.html").write_text(render_trend_history_html(history), encoding="utf-8")
+
+        scenario_dir = tmp_path / "scenario"
+        scenario_dir.mkdir()
+        stress = build_scenario_stress(packet, load_scenarios(read_json(root / "examples/scenarios.json")))
+        write_json(scenario_dir / "scenario_stress.json", stress)
+        (scenario_dir / "scenario_stress.md").write_text(render_scenario_stress_markdown(stress), encoding="utf-8")
+        (scenario_dir / "scenario_stress.html").write_text(render_scenario_stress_html(stress), encoding="utf-8")
 
         write_demo_gallery(tmp_path / "gallery.html")
         write_visual_receipt(root, tmp_path / "visual")
@@ -270,9 +289,13 @@ def distribution_record(root: Path, kind: str, path: Path) -> Dict[str, Any]:
 
 
 def distribution_placeholder(kind: str) -> Dict[str, Any]:
+    if kind == "wheel":
+        path = f"dist/news_thesis_impact_lab-{__version__}-py3-none-any.whl"
+    else:
+        path = f"dist/news_thesis_impact_lab-{__version__}.tar.gz"
     return {
         "kind": kind,
-        "path": f"dist/news_thesis_impact_lab-{__version__}.{distribution_suffix(kind)}",
+        "path": path,
         "exists": False,
         "sha256": None,
         "bytes": None,
@@ -337,6 +360,7 @@ def render_demo_gallery() -> str:
             "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
             "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
             "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
+            "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
             "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
             "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
             "PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json",
@@ -374,6 +398,8 @@ def render_demo_gallery() -> str:
     <a class="card" href="compare/compare.md"><strong>Compare Report</strong>Current versus previous packet deltas.</a>
     <a class="card" href="trend/trend_history.md"><strong>Trend History</strong>Multi-period score direction, warning persistence, exposure trend, and review queue.</a>
     <a class="card" href="trend/trend_history.html"><strong>Trend History HTML</strong>No-JavaScript table view for history review.</a>
+    <a class="card" href="scenario/scenario_stress.md"><strong>Scenario Stress</strong>Illustrative macro, sector, and company shock overlap with thesis prompts.</a>
+    <a class="card" href="scenario/scenario_stress.html"><strong>Scenario Stress HTML</strong>No-JavaScript table view for stress review.</a>
     <a class="card" href="visual/visual_receipt.md"><strong>Visual Receipt</strong>Static capture receipt with hashes, no-script checks, and boundary checks.</a>
     <a class="card" href="walkthrough/walkthrough.md"><strong>Cold-Start Walkthrough</strong>Two-to-five minute first-user path with commands and failure modes.</a>
     <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0 - 2026-07-10
+
+- Added `scenario-stress` CLI command for deterministic illustrative stress review from an impact packet and `examples/scenarios.json`.
+- Added scenario JSON, Markdown, and no-JavaScript HTML artifacts with macro, sector, and company shocks, ticker/tag exposure overlap, risk levels, stress flags, thesis contradiction prompts, confidence downgrade suggestions, and next review queue.
+- Integrated scenario stress with demo gallery, release manifest, release validation, maturity evidence, README, review docs, agent skill, and tests.
+
 ## 0.4.0 - 2026-07-10
 
 - Added `visual-receipt` CLI command for deterministic static HTML capture receipts with hashes, no-script checks, boundary checks, and review notes.

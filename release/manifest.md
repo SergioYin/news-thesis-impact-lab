@@ -1,6 +1,6 @@
 # Release Manifest
 
-Package: news-thesis-impact-lab 0.4.0
+Package: news-thesis-impact-lab 0.5.0
 Generated: 2026-07-10
 
 ## Finance Safety Boundaries
@@ -14,25 +14,30 @@ Generated: 2026-07-10
 
 | Path | Exists | SHA-256 | Bytes |
 | --- | --- | --- | ---: |
-| `README.md` | true | `91274e3b9705c30d6085c28d92c594b97df6cc77332d523ba6dcb36101b4efd8` | 5704 |
-| `pyproject.toml` | true | `08998bb24f2a58865db111e1e81e59aca61e6af677d9034ccfe01ac2ca1048ef` | 876 |
-| `docs/review-packet.md` | true | `4f25f2783d6a5649dd01f12505a597520ab51a97a6408c2b16b26eb8b1be84d7` | 3117 |
+| `README.md` | true | `1823a053b1c0e03baa64bfd76f16e095ffd6602090549bb9650ced989056e747` | 6686 |
+| `CHANGELOG.md` | true | `937e120893bac932ff5a5a503e7ce36fddc51e04c8c5746d816484375c155466` | 2084 |
+| `pyproject.toml` | true | `5f9164d0b33aea044107c448c9f3bfd2008c3715e348d08440f47679301b2df2` | 876 |
+| `docs/review-packet.md` | true | `e3c3ef0ea6c2338798e0716511c6cdf9a53a2b16ab3a669c70da64282fce1d94` | 4173 |
 | `demo/impact_packet.json` | true | `8f598eee1faf86f0cc0f846f420ecad744d313cec958398907c44ad242fa6073` | 5780 |
 | `demo/impact_packet.md` | true | `59513e6d36d7081df9484642e02740b5a8014e4a5e733636ea98505ec09ced65` | 3597 |
 | `demo/index.html` | true | `593b6e4647d7b56f3f78cb4f6d4b73d80ce647bc729d61370029f2ee6906a10b` | 2940 |
-| `demo/gallery.html` | true | `c4c511c9265c481c3bd58760ea509b0a8365527f46b8f77176325d1b98a883f3` | 3715 |
+| `demo/gallery.html` | true | `fe6664b1a37be81c8d90c686d75d253afead59742c18f6bcca0c50ddebe84ac5` | 4176 |
 | `demo/compare/compare.json` | true | `aff81a073e9c644ddc280649398f1c13bfb159d81061db9c098d2be2f306ddf5` | 1439 |
 | `demo/compare/compare.md` | true | `adc9ac2a4b2744593687353b0f5c3371aa83379fb0215746a1d2898f6f934787` | 712 |
 | `demo/trend/trend_history.json` | true | `ff7b37f9ba163c0d7e863ac785f43e68373cff5b891e4b142c0a6e70714baa58` | 9470 |
 | `demo/trend/trend_history.md` | true | `c95ffd8fe3435bea357eef8185fc782397d65e8e350c79650bba7e5d7ef92abd` | 1521 |
 | `demo/trend/trend_history.html` | true | `6ee5d93b24967925391ec6d981bd5af49bc32efb2648cc89a92e7ae3ebb3186e` | 3354 |
-| `demo/visual/visual_receipt.json` | true | `bf1102ad210347a31590e4c434e0ea8b134480e57ef028e2bff7f3d973b4c490` | 2496 |
-| `demo/visual/visual_receipt.md` | true | `6c7e5082aa58fcf88172989ea73a85e5233ca6207346343ef099f05f8e0ecd46` | 1907 |
-| `demo/walkthrough/walkthrough.json` | true | `8af84b7ffa99e8159485e05b5d4f15e43b3798a29c594980ebe366b977befdb2` | 3079 |
-| `demo/walkthrough/walkthrough.md` | true | `bdcd10d54bca6f59caf89bfe0cae1a2fe452d7fee5aec7d306c78cd33572f9ec` | 2921 |
+| `demo/scenario/scenario_stress.json` | true | `83efb2d43c8cfcd30d8c63930e3993d93870e7669810e2f41b6ec0be7af7a728` | 20347 |
+| `demo/scenario/scenario_stress.md` | true | `a994d02675e093fdb5405303ef8908d3dd4e59f70bf974bcc542c8c7056d8a4a` | 5879 |
+| `demo/scenario/scenario_stress.html` | true | `69ce3af70beb4015c7ba2aedfd055e37be504657b0c18ce3d7ba9b400cffed2c` | 5936 |
+| `demo/visual/visual_receipt.json` | true | `2b5fc8d02dc9d37a32c41c854488cfd335d352aa888644683e29324061791f3c` | 3165 |
+| `demo/visual/visual_receipt.md` | true | `04ff36af090c2c8686fc1fdbab15da53aaa18004fc0754e9b02bb9cc3ef70b8a` | 2371 |
+| `demo/walkthrough/walkthrough.json` | true | `26187dab2161f12cf426408026c82d4f7b9f0946e55a3d4f5e23457316ead972` | 3513 |
+| `demo/walkthrough/walkthrough.md` | true | `2ff77bf15608175a3e451ec56a06ba402633e6976132d055e1ad3b8118fff99a` | 3346 |
 | `examples/events.json` | true | `dc506f6452e1d37dc29ffef21ccd894c3e2b15b5e26e6e24bb2b0c5a7c3c0358` | 1410 |
 | `examples/theses.json` | true | `29c80ca03dd125602cb0b19234385132fb5d2ad84c1a6442247d529c93d776c9` | 1824 |
 | `examples/portfolio.json` | true | `c722c6bbe7cb29bf8f502a7d55cf7c3abac76451f3a18a9bb9ea708c268a260d` | 330 |
+| `examples/scenarios.json` | true | `bd08d77d5f290d5a058dc01ee869d9f044b96013fe877529b748b0f11669b1d7` | 4578 |
 | `examples/previous_packet.json` | true | `a7f6cb631961c966fb3cea925e0b99a6cf192212eb6649070fddb86eae2ce274` | 929 |
 | `examples/history/2026-06-26_packet.json` | true | `e130eef99267251390bd01f72313e0bff7166bd0597521704f318d306448bbf4` | 3413 |
 | `examples/history/2026-07-03_packet.json` | true | `dc36230a0f3f6708e63973421ce71dc99d7bb5eafde807a27b0c210f1168ab94` | 3372 |
@@ -42,8 +47,8 @@ Generated: 2026-07-10
 
 | Kind | Path | Exists | SHA-256 | Bytes | Note |
 | --- | --- | --- | --- | ---: | --- |
-| wheel | `dist/news_thesis_impact_lab-0.4.0-py3-none-any.whl` | true | `3ba16da0721551050c2c4d526a52d3731b49b03e7cd8782d9ea05289c3ae532d` | 24806 |  |
-| sdist | `dist/news_thesis_impact_lab-0.4.0.tar.gz` | true | `9ef4e06d2182be324fe80603b248da9e88f2ce496257bea3cb2e6725bbb23db4` | 23535 |  |
+| wheel | `dist/news_thesis_impact_lab-0.5.0-py3-none-any.whl` | true | `909321bf2a23b8478112d4c01bcc14d7ef4f2fe2628d3f29860d8b0992e52638` | 29451 |  |
+| sdist | `dist/news_thesis_impact_lab-0.5.0.tar.gz` | true | `758bcdac654baccc1863be8d5c3bf21b4ff477e964c7a2d25c9326735424093b` | 28548 |  |
 
 ## Regenerate
 
@@ -55,6 +60,9 @@ PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_pa
 ```
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
+```
+```bash
+PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario
 ```
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity
