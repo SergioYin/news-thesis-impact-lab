@@ -1,0 +1,49 @@
+{
+  "boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+    "No broker integration, order routing, execution, or account access.",
+    "Scores are deterministic review aids for human research triage."
+  ],
+  "delta_count": 4,
+  "deltas": [
+    {
+      "attention_score_delta": 67,
+      "current_direction": "positive",
+      "current_exposure_weight": 0.12,
+      "previous_direction": "absent",
+      "previous_exposure_weight": 0.0,
+      "status": "new",
+      "ticker": "NVDA"
+    },
+    {
+      "attention_score_delta": 15,
+      "current_direction": "negative",
+      "current_exposure_weight": 0.16,
+      "previous_direction": "negative",
+      "previous_exposure_weight": 0.16,
+      "status": "changed",
+      "ticker": "GOOGL"
+    },
+    {
+      "attention_score_delta": 10,
+      "current_direction": "mixed",
+      "current_exposure_weight": 0.18,
+      "previous_direction": "mixed",
+      "previous_exposure_weight": 0.18,
+      "status": "changed",
+      "ticker": "AAPL"
+    },
+    {
+      "attention_score_delta": 10,
+      "current_direction": "positive",
+      "current_exposure_weight": 0.24,
+      "previous_direction": "positive",
+      "previous_exposure_weight": 0.22,
+      "status": "changed",
+      "ticker": "MSFT"
+    }
+  ],
+  "generated_at": "2026-07-10",
+  "schema_version": "1.0"
+}

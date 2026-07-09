@@ -1,0 +1,35 @@
+{
+  "boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+    "No broker integration, order routing, execution, or account access.",
+    "Scores are deterministic review aids for human research triage."
+  ],
+  "freshness_reference_date": "2026-07-10",
+  "generated_at": "2026-07-09",
+  "impacted_tickers": [
+    {
+      "ticker": "AAPL",
+      "attention_score": 42,
+      "direction": "mixed",
+      "confidence": "medium",
+      "exposure_weight": 0.18
+    },
+    {
+      "ticker": "GOOGL",
+      "attention_score": 38,
+      "direction": "negative",
+      "confidence": "medium",
+      "exposure_weight": 0.16
+    },
+    {
+      "ticker": "MSFT",
+      "attention_score": 50,
+      "direction": "positive",
+      "confidence": "high",
+      "exposure_weight": 0.22
+    }
+  ],
+  "schema_version": "1.0"
+}
+

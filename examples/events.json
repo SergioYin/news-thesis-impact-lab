@@ -1,0 +1,38 @@
+{
+  "events": [
+    {
+      "id": "evt-cloud-margin-2026-07-08",
+      "date": "2026-07-08",
+      "source": "local analyst note",
+      "source_date": "2026-07-08",
+      "tickers": ["MSFT", "NVDA"],
+      "themes": ["cloud capex", "ai infrastructure"],
+      "summary": "Cloud platform commentary points to durable AI infrastructure demand and continued capex discipline.",
+      "impact_hints": ["demand tailwind", "margin sensitivity"],
+      "confidence": "high"
+    },
+    {
+      "id": "evt-regulatory-ads-2026-06-20",
+      "date": "2026-06-20",
+      "source": "local policy brief",
+      "source_date": "2026-06-20",
+      "tickers": ["GOOGL"],
+      "themes": ["digital ads", "regulatory review"],
+      "summary": "A regional policy review raises questions about ad targeting practices and reporting obligations.",
+      "impact_hints": ["regulatory headwind", "headline risk"],
+      "confidence": "medium"
+    },
+    {
+      "id": "evt-supply-chain-2026-07-03",
+      "date": "2026-07-03",
+      "source": "local supply chain digest",
+      "source_date": "2026-07-03",
+      "tickers": ["AAPL", "NVDA"],
+      "themes": ["supply chain", "component availability"],
+      "summary": "Component lead times improved for some high-end devices while advanced accelerator packaging remains tight.",
+      "impact_hints": ["supply mixed", "demand visibility"],
+      "confidence": "medium"
+    }
+  ]
+}
+

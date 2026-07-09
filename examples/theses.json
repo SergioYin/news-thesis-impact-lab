@@ -1,0 +1,45 @@
+{
+  "theses": [
+    {
+      "ticker": "AAPL",
+      "claims": [
+        "Services mix and premium device retention support resilient cash generation.",
+        "Supply chain execution limits launch timing risk."
+      ],
+      "sensitivities": ["component availability", "consumer replacement cycles"],
+      "risks": ["Hardware demand can weaken faster than services can offset."],
+      "opportunities": ["Improved component availability may protect launch cadence."]
+    },
+    {
+      "ticker": "GOOGL",
+      "claims": [
+        "Search and YouTube monetization remain sensitive to ad targeting policy.",
+        "Cloud profitability can diversify earnings quality over time."
+      ],
+      "sensitivities": ["digital ads regulation", "cloud margin"],
+      "risks": ["Regulatory remedies could pressure ad monetization."],
+      "opportunities": ["Cloud operating leverage could offset slower ad growth."]
+    },
+    {
+      "ticker": "MSFT",
+      "claims": [
+        "Cloud platform scale and enterprise distribution support AI infrastructure monetization.",
+        "Capex discipline is central to margin durability."
+      ],
+      "sensitivities": ["cloud capex", "ai infrastructure demand"],
+      "risks": ["Infrastructure spend could outrun near-term revenue conversion."],
+      "opportunities": ["Higher utilization can improve cloud margin absorption."]
+    },
+    {
+      "ticker": "NVDA",
+      "claims": [
+        "Accelerator demand remains tied to AI infrastructure buildouts.",
+        "Advanced packaging supply can constrain shipment timing."
+      ],
+      "sensitivities": ["accelerator demand", "advanced packaging"],
+      "risks": ["Supply bottlenecks can defer revenue despite strong demand."],
+      "opportunities": ["Sustained cloud capex supports multi-quarter visibility."]
+    }
+  ]
+}
+

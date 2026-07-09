@@ -1,0 +1,32 @@
+{
+  "asset": "news-thesis-impact-lab",
+  "gates": {
+    "promotion_ready": true,
+    "release_ready": true
+  },
+  "generated_at": "2026-07-10",
+  "rationale": {
+    "engineering": "Typed dataclasses, deterministic rendering, focused CLI surface, and no runtime dependencies.",
+    "evidence": "Includes deterministic demo JSON/Markdown/HTML, compare outputs, tests, and release validation.",
+    "product": "Clear CLI asset with bounded static research workflow and public package metadata.",
+    "risk": "Strong research-only boundaries with no live data, broker access, orders, or advice.",
+    "runnable": "Stdlib-only commands, examples, demo artifacts, tests, selfcheck, and privacy scan.",
+    "showcase": "Demo packet, compare packet, review doc, and agent skill show the intended workflow.",
+    "user_value": "Maps local catalysts to thesis claims, exposure, warnings, and human review prompts."
+  },
+  "release_validation": {
+    "failed_checks": [],
+    "ok": true
+  },
+  "scale": "1=missing, 3=usable, 5=strong public release signal",
+  "schema_version": "1.0",
+  "scores": {
+    "engineering": 4,
+    "evidence": 4,
+    "product": 4,
+    "risk": 5,
+    "runnable": 5,
+    "showcase": 4,
+    "user_value": 4
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+    "No broker integration, order routing, execution, or account access.",
+    "Scores are deterministic review aids for human research triage."
+  ],
+  "freshness_reference_date": "2026-07-10",
+  "generated_at": "2026-07-10",
+  "impacted_tickers": [
+    {
+      "affected_thesis_claims": [
+        "Accelerator demand remains tied to AI infrastructure buildouts.",
+        "Advanced packaging supply can constrain shipment timing."
+      ],
+      "attention_score": 67,
+      "confidence": "high",
+      "direction": "positive",
+      "event_ids": [
+        "evt-supply-chain-2026-07-03",
+        "evt-cloud-margin-2026-07-08"
+      ],
+      "exposure_weight": 0.12,
+      "next_review_prompts": [
+        "Review whether NVDA thesis sensitivities still match events evt-supply-chain-2026-07-03, evt-cloud-margin-2026-07-08.",
+        "Check static exposure note for NVDA at 12.0% portfolio weight.",
+        "Re-read risk note: Supply bottlenecks can defer revenue despite strong demand."
+      ],
+      "opportunities": [
+        "Sustained cloud capex supports multi-quarter visibility."
+      ],
+      "position_label": "ai accelerator supplier",
+      "risks": [
+        "Supply bottlenecks can defer revenue despite strong demand."
+      ],
+      "themes": [
+        "ai infrastructure",
+        "cloud capex",
+        "component availability",
+        "supply chain"
+      ],
+      "ticker": "NVDA",
+      "warnings": []
+    },
+    {
+      "affected_thesis_claims": [
+        "Capex discipline is central to margin durability.",
+        "Cloud platform scale and enterprise distribution support AI infrastructure monetization."
+      ],
+      "attention_score": 60,
+      "confidence": "high",
+      "direction": "positive",
+      "event_ids": [
+        "evt-cloud-margin-2026-07-08"
+      ],
+      "exposure_weight": 0.24,
+      "next_review_prompts": [
+        "Review whether MSFT thesis sensitivities still match events evt-cloud-margin-2026-07-08.",
+        "Check static exposure note for MSFT at 24.0% portfolio weight.",
+        "Re-read risk note: Infrastructure spend could outrun near-term revenue conversion."
+      ],
+      "opportunities": [
+        "Higher utilization can improve cloud margin absorption."
+      ],
+      "position_label": "enterprise cloud platform",
+      "risks": [
+        "Infrastructure spend could outrun near-term revenue conversion."
+      ],
+      "themes": [
+        "ai infrastructure",
+        "cloud capex"
+      ],
+      "ticker": "MSFT",
+      "warnings": []
+    },
+    {
+      "affected_thesis_claims": [
+        "Search and YouTube monetization remain sensitive to ad targeting policy."
+      ],
+      "attention_score": 53,
+      "confidence": "medium",
+      "direction": "negative",
+      "event_ids": [
+        "evt-regulatory-ads-2026-06-20"
+      ],
+      "exposure_weight": 0.16,
+      "next_review_prompts": [
+        "Review whether GOOGL thesis sensitivities still match events evt-regulatory-ads-2026-06-20.",
+        "Check static exposure note for GOOGL at 16.0% portfolio weight.",
+        "Re-read risk note: Regulatory remedies could pressure ad monetization.",
+        "Resolve warning before relying on packet: evt-regulatory-ads-2026-06-20: source is 20 days old"
+      ],
+      "opportunities": [
+        "Cloud operating leverage could offset slower ad growth."
+      ],
+      "position_label": "ads and cloud platform",
+      "risks": [
+        "Regulatory remedies could pressure ad monetization."
+      ],
+      "themes": [
+        "digital ads",
+        "regulatory review"
+      ],
+      "ticker": "GOOGL",
+      "warnings": [
+        "evt-regulatory-ads-2026-06-20: source is 20 days old"
+      ]
+    },
+    {
+      "affected_thesis_claims": [
+        "Services mix and premium device retention support resilient cash generation.",
+        "Supply chain execution limits launch timing risk."
+      ],
+      "attention_score": 52,
+      "confidence": "medium",
+      "direction": "mixed",
+      "event_ids": [
+        "evt-supply-chain-2026-07-03"
+      ],
+      "exposure_weight": 0.18,
+      "next_review_prompts": [
+        "Review whether AAPL thesis sensitivities still match events evt-supply-chain-2026-07-03.",
+        "Check static exposure note for AAPL at 18.0% portfolio weight.",
+        "Re-read risk note: Hardware demand can weaken faster than services can offset."
+      ],
+      "opportunities": [
+        "Improved component availability may protect launch cadence."
+      ],
+      "position_label": "core hardware platform",
+      "risks": [
+        "Hardware demand can weaken faster than services can offset."
+      ],
+      "themes": [
+        "component availability",
+        "supply chain"
+      ],
+      "ticker": "AAPL",
+      "warnings": []
+    }
+  ],
+  "portfolio_weight_total": 0.7,
+  "review_queue": [
+    {
+      "attention_score": 67,
+      "prompt": "Review whether NVDA thesis sensitivities still match events evt-supply-chain-2026-07-03, evt-cloud-margin-2026-07-08.",
+      "ticker": "NVDA"
+    },
+    {
+      "attention_score": 60,
+      "prompt": "Review whether MSFT thesis sensitivities still match events evt-cloud-margin-2026-07-08.",
+      "ticker": "MSFT"
+    },
+    {
+      "attention_score": 53,
+      "prompt": "Review whether GOOGL thesis sensitivities still match events evt-regulatory-ads-2026-06-20.",
+      "ticker": "GOOGL"
+    },
+    {
+      "attention_score": 52,
+      "prompt": "Review whether AAPL thesis sensitivities still match events evt-supply-chain-2026-07-03.",
+      "ticker": "AAPL"
+    }
+  ],
+  "schema_version": "1.0",
+  "source_event_count": 3
+}

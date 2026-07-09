@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>news-thesis-impact-lab Demo Gallery</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; color: #17202a; background: #f7f8fa; }
+    main { max-width: 1040px; margin: 0 auto; padding: 2rem; }
+    h1 { font-size: 2rem; margin: 0 0 0.5rem; }
+    h2 { font-size: 1.15rem; margin-top: 2rem; }
+    p { line-height: 1.55; max-width: 760px; }
+    a { color: #2458a8; }
+    .grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .card { background: #fff; border: 1px solid #d8dee8; border-radius: 6px; padding: 1rem; }
+    .card strong { display: block; margin-bottom: 0.35rem; }
+    pre { background: #1f2933; color: #f7f8fa; padding: 1rem; overflow-x: auto; white-space: pre-wrap; }
+    ul { padding-left: 1.25rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>news-thesis-impact-lab Demo Gallery</h1>
+  <p>Static, local, research-only finance packet artifacts for reviewing how news catalysts touch thesis claims, exposure notes, warnings, and human review prompts.</p>
+
+  <h2>Demo Artifacts</h2>
+  <section class="grid" aria-label="Demo artifact links">
+    <a class="card" href="impact_packet.md"><strong>Impact Packet</strong>Markdown review packet with affected tickers, warnings, and prompts.</a>
+    <a class="card" href="index.html"><strong>Impact Packet HTML</strong>No-JavaScript table view for quick scanning.</a>
+    <a class="card" href="compare/compare.md"><strong>Compare Report</strong>Current versus previous packet deltas.</a>
+    <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>
+    <a class="card" href="../release/manifest.md"><strong>Release Manifest</strong>Hashes, commands, boundaries, and distribution placeholders.</a>
+  </section>
+
+  <h2>Quickstart</h2>
+  <pre><code>PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo
+PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare
+PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json</code></pre>
+
+  <h2>Finance Safety Boundaries</h2>
+  <ul><li>Static local research notes only; no live market data is fetched.</li><li>Not investment advice and not a buy, sell, hold, or allocation recommendation.</li><li>No broker integration, order routing, execution, or account access.</li><li>Scores are deterministic review aids for human research triage.</li></ul>
+</main>
+</body>
+</html>
