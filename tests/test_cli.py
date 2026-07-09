@@ -6,6 +6,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from news_thesis_impact_lab.trend import build_trend_history, load_packet_records
 
 
 def run_cli(*args):
@@ -71,6 +74,57 @@ def test_compare_outputs_delta(tmp_path):
     assert statuses["MSFT"] == "changed"
 
 
+def test_trend_history_calculates_statuses_warnings_and_queue():
+    history_paths = sorted((ROOT / "examples/history").glob("*.json"))
+    history = build_trend_history(load_packet_records(history_paths, lambda path: json.loads(path.read_text(encoding="utf-8"))))
+    histories = {item["ticker"]: item for item in history["ticker_histories"]}
+    queue = [item["ticker"] for item in history["next_review_queue"]]
+
+    assert [snapshot["generated_at"] for snapshot in history["snapshots"]] == [
+        "2026-06-26",
+        "2026-07-03",
+        "2026-07-10",
+    ]
+    assert histories["NVDA"]["timeline"][1]["status"] == "new"
+    assert histories["AAPL"]["timeline"][-1]["status"] == "absent"
+    assert histories["AAPL"]["timeline"][1]["status"] == "cleared"
+    assert histories["AAPL"]["score_trend"] == "decreased"
+    assert histories["MSFT"]["score_trend"] == "increased"
+    assert histories["MSFT"]["exposure_trend"] == "increased"
+    assert histories["GOOGL"]["exposure_trend"] == "decreased"
+    assert histories["GOOGL"]["persistent_warnings"][0]["period_count"] == 3
+    assert histories["GOOGL"]["persistent_warnings"][0]["warning"].endswith("source remained stale")
+    assert queue[:3] == ["GOOGL", "NVDA", "MSFT"]
+
+
+def test_trend_history_cli_outputs_files(tmp_path):
+    out = tmp_path / "trend"
+    run_cli(
+        "trend-history",
+        "--packets",
+        "examples/history/2026-07-10_packet.json",
+        "examples/history/2026-06-26_packet.json",
+        "examples/history/2026-07-03_packet.json",
+        "--out",
+        str(out),
+    )
+
+    history = json.loads((out / "trend_history.json").read_text(encoding="utf-8"))
+    markdown = (out / "trend_history.md").read_text(encoding="utf-8")
+    html = (out / "trend_history.html").read_text(encoding="utf-8")
+
+    assert history["history_period_count"] == 3
+    assert [snapshot["name"] for snapshot in history["snapshots"]] == [
+        "2026-06-26_packet",
+        "2026-07-03_packet",
+        "2026-07-10_packet",
+    ]
+    assert "Persistent Warnings" in markdown
+    assert "Not investment advice" in markdown
+    assert "<script" not in html.lower()
+    assert "Trend History" in html
+
+
 def test_selfcheck():
     result = run_cli("selfcheck")
     assert "selfcheck passed" in result.stdout
@@ -89,6 +143,7 @@ def test_validate_release_json_reports_expected_checks():
     assert checks["demo_boundaries_present"]["ok"] is True
     assert checks["referenced_example_files_exist"]["ok"] is True
     assert "examples/events.json" in checks["referenced_example_files_exist"]["referenced"]
+    assert checks["example_files_exist"]["ok"] is True
 
 
 def test_maturity_report_writes_markdown_and_json(tmp_path):
@@ -124,9 +179,11 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     readme_bytes = (ROOT / "README.md").read_bytes()
 
     assert "wrote" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.2.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.3.0"}
     assert artifacts["README.md"]["sha256"] == hashlib.sha256(readme_bytes).hexdigest()
     assert artifacts["demo/gallery.html"]["exists"] is True
+    assert artifacts["demo/trend/trend_history.json"]["exists"] is True
+    assert artifacts["examples/history/2026-07-10_packet.json"]["exists"] is True
     assert distributions["wheel"].get("placeholder") == "not built" or distributions["wheel"].get("exists") is True
     assert distributions["sdist"].get("placeholder") == "not built" or distributions["sdist"].get("exists") is True
     assert "validate-release --format json" in "\n".join(manifest["commands"]["verify"])
@@ -142,6 +199,8 @@ def test_demo_gallery_writes_static_landing_page(tmp_path):
     assert "<script" not in html.lower()
     assert "impact_packet.md" in html
     assert "compare/compare.md" in html
+    assert "trend/trend_history.md" in html
+    assert "trend/trend_history.html" in html
     assert "maturity/maturity_report.md" in html
     assert "../release/manifest.md" in html
     assert "release-manifest --out release" not in html

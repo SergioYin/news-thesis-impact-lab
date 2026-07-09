@@ -9,7 +9,16 @@ from typing import Any, Dict, Iterable, List
 from . import __version__
 from .engine import build_packet, compare_packets
 from .model import BOUNDARIES, load_events, load_portfolio, load_theses
-from .render import esc, render_compare_markdown, render_packet_html, render_packet_markdown, write_json
+from .render import (
+    esc,
+    render_compare_markdown,
+    render_packet_html,
+    render_packet_markdown,
+    render_trend_history_html,
+    render_trend_history_markdown,
+    write_json,
+)
+from .trend import build_trend_history
 
 
 DEMO_FILES = [
@@ -19,6 +28,9 @@ DEMO_FILES = [
     Path("demo/gallery.html"),
     Path("demo/compare/compare.json"),
     Path("demo/compare/compare.md"),
+    Path("demo/trend/trend_history.json"),
+    Path("demo/trend/trend_history.md"),
+    Path("demo/trend/trend_history.html"),
 ]
 RELEASE_FILES = [
     Path("release/manifest.json"),
@@ -29,6 +41,9 @@ EXAMPLE_FILES = [
     Path("examples/theses.json"),
     Path("examples/portfolio.json"),
     Path("examples/previous_packet.json"),
+    Path("examples/history/2026-06-26_packet.json"),
+    Path("examples/history/2026-07-03_packet.json"),
+    Path("examples/history/2026-07-10_packet.json"),
 ]
 KEY_ARTIFACTS = [
     Path("README.md"),
@@ -40,13 +55,15 @@ KEY_ARTIFACTS = [
     Path("demo/gallery.html"),
     Path("demo/compare/compare.json"),
     Path("demo/compare/compare.md"),
-    Path("demo/maturity/maturity_report.json"),
-    Path("demo/maturity/maturity_report.md"),
+    Path("demo/trend/trend_history.json"),
+    Path("demo/trend/trend_history.md"),
+    Path("demo/trend/trend_history.html"),
     *EXAMPLE_FILES,
 ]
 REGENERATE_COMMANDS = [
     "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
     "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
+    "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
     "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
     "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
     "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
@@ -114,6 +131,18 @@ def check_demo_deterministic(root: Path) -> Dict[str, Any]:
         compare_dir.mkdir()
         write_json(compare_dir / "compare.json", compare)
         (compare_dir / "compare.md").write_text(render_compare_markdown(compare), encoding="utf-8")
+
+        trend_dir = tmp_path / "trend"
+        trend_dir.mkdir()
+        history_records = [
+            {"name": path.stem, "path": path.relative_to(root).as_posix(), "packet": read_json(path)}
+            for path in sorted((root / "examples/history").glob("*.json"))
+        ]
+        history = build_trend_history(history_records)
+        write_json(trend_dir / "trend_history.json", history)
+        (trend_dir / "trend_history.md").write_text(render_trend_history_markdown(history), encoding="utf-8")
+        (trend_dir / "trend_history.html").write_text(render_trend_history_html(history), encoding="utf-8")
+
         write_demo_gallery(tmp_path / "gallery.html")
 
         changed = [
@@ -149,7 +178,7 @@ def find_example_references(root: Path) -> set[str]:
             continue
         for token in path.read_text(encoding="utf-8").replace("\\", "/").split():
             cleaned = token.strip("`'\"(),.:;")
-            if cleaned.startswith("examples/") and cleaned.endswith(".json"):
+            if "*" not in cleaned and cleaned.startswith("examples/") and cleaned.endswith(".json"):
                 references.add(cleaned)
     return references
 
@@ -294,6 +323,7 @@ def render_demo_gallery() -> str:
         [
             "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
             "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
+            "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
             "PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json",
         ]
     )
@@ -327,6 +357,8 @@ def render_demo_gallery() -> str:
     <a class="card" href="impact_packet.md"><strong>Impact Packet</strong>Markdown review packet with affected tickers, warnings, and prompts.</a>
     <a class="card" href="index.html"><strong>Impact Packet HTML</strong>No-JavaScript table view for quick scanning.</a>
     <a class="card" href="compare/compare.md"><strong>Compare Report</strong>Current versus previous packet deltas.</a>
+    <a class="card" href="trend/trend_history.md"><strong>Trend History</strong>Multi-period score direction, warning persistence, exposure trend, and review queue.</a>
+    <a class="card" href="trend/trend_history.html"><strong>Trend History HTML</strong>No-JavaScript table view for history review.</a>
     <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>
     <a class="card" href="../release/manifest.md"><strong>Release Manifest</strong>Hashes, commands, boundaries, and distribution placeholders.</a>
   </section>

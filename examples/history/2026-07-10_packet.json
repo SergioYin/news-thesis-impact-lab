@@ -1,0 +1,108 @@
+{
+  "boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+    "No broker integration, order routing, execution, or account access.",
+    "Scores are deterministic review aids for human research triage."
+  ],
+  "freshness_reference_date": "2026-07-10",
+  "generated_at": "2026-07-10",
+  "impacted_tickers": [
+    {
+      "affected_thesis_claims": [
+        "Accelerator demand remains tied to AI infrastructure buildouts.",
+        "Advanced packaging supply can constrain shipment timing."
+      ],
+      "attention_score": 69,
+      "confidence": "high",
+      "direction": "positive",
+      "event_ids": [
+        "hist-packaging-2026-07-08",
+        "hist-cloud-margin-2026-07-09"
+      ],
+      "exposure_weight": 0.12,
+      "next_review_prompts": [
+        "Review whether NVDA thesis sensitivities still match events hist-packaging-2026-07-08, hist-cloud-margin-2026-07-09.",
+        "Check static exposure note for NVDA at 12.0% portfolio weight."
+      ],
+      "position_label": "ai accelerator supplier",
+      "themes": [
+        "ai infrastructure",
+        "cloud capex",
+        "component availability"
+      ],
+      "ticker": "NVDA",
+      "warnings": []
+    },
+    {
+      "affected_thesis_claims": [
+        "Capex discipline is central to margin durability.",
+        "Cloud platform scale and enterprise distribution support AI infrastructure monetization."
+      ],
+      "attention_score": 60,
+      "confidence": "high",
+      "direction": "positive",
+      "event_ids": [
+        "hist-cloud-margin-2026-07-09"
+      ],
+      "exposure_weight": 0.24,
+      "next_review_prompts": [
+        "Review whether MSFT thesis sensitivities still match events hist-cloud-margin-2026-07-09.",
+        "Check static exposure note for MSFT at 24.0% portfolio weight."
+      ],
+      "position_label": "enterprise cloud platform",
+      "themes": [
+        "ai infrastructure",
+        "cloud capex"
+      ],
+      "ticker": "MSFT",
+      "warnings": []
+    },
+    {
+      "affected_thesis_claims": [
+        "Search and YouTube monetization remain sensitive to ad targeting policy."
+      ],
+      "attention_score": 52,
+      "confidence": "medium",
+      "direction": "negative",
+      "event_ids": [
+        "hist-regulatory-ads-2026-06-12"
+      ],
+      "exposure_weight": 0.15,
+      "next_review_prompts": [
+        "Review whether GOOGL thesis sensitivities still match events hist-regulatory-ads-2026-06-12.",
+        "Check static exposure note for GOOGL at 15.0% portfolio weight.",
+        "Resolve warning before relying on packet: hist-regulatory-ads-2026-06-12: source is 28 days old"
+      ],
+      "position_label": "ads and cloud platform",
+      "themes": [
+        "digital ads",
+        "regulatory review"
+      ],
+      "ticker": "GOOGL",
+      "warnings": [
+        "hist-regulatory-ads-2026-06-12: source is 28 days old"
+      ]
+    }
+  ],
+  "portfolio_weight_total": 0.51,
+  "review_queue": [
+    {
+      "attention_score": 69,
+      "prompt": "Review whether NVDA thesis sensitivities still match events hist-packaging-2026-07-08, hist-cloud-margin-2026-07-09.",
+      "ticker": "NVDA"
+    },
+    {
+      "attention_score": 60,
+      "prompt": "Review whether MSFT thesis sensitivities still match events hist-cloud-margin-2026-07-09.",
+      "ticker": "MSFT"
+    },
+    {
+      "attention_score": 52,
+      "prompt": "Review whether GOOGL thesis sensitivities still match events hist-regulatory-ads-2026-06-12.",
+      "ticker": "GOOGL"
+    }
+  ],
+  "schema_version": "1.0",
+  "source_event_count": 3
+}

@@ -4,11 +4,12 @@
 
 It is for analysts, builders, and agent workflows that need deterministic review packets from local JSON inputs without live market data, broker access, or private services.
 
-## 3-Command Quickstart
+## 4-Command Quickstart
 
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo
 PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare
+PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 ```
 
@@ -17,6 +18,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - [Demo gallery](demo/gallery.html): no-JavaScript landing page for the public artifact set.
 - [Impact packet](demo/impact_packet.md): affected tickers, scores, warnings, and review prompts.
 - [Compare report](demo/compare/compare.md): current versus previous packet deltas.
+- [Trend history](demo/trend/trend_history.md): multi-period score direction, new/cleared/changed statuses, persistent warnings, exposure trend, and next review queue.
 - [Maturity report](demo/maturity/maturity_report.md): release and promotion readiness gates.
 - [Release manifest](release/manifest.md): package version, hashes, regeneration commands, verification commands, boundaries, and distribution placeholders.
 
@@ -45,6 +47,10 @@ news-thesis-impact-lab compare \
   --previous examples/previous_packet.json \
   --out demo/compare
 
+news-thesis-impact-lab trend-history \
+  --packets examples/history/*.json \
+  --out demo/trend
+
 news-thesis-impact-lab selfcheck
 news-thesis-impact-lab validate-release
 news-thesis-impact-lab maturity-report --out demo/maturity
@@ -64,13 +70,14 @@ PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
 - `demo/impact_packet.md`: deterministic review packet.
 - `demo/index.html`: static no-JavaScript demo.
 - `demo/compare/compare.json` and `demo/compare/compare.md`: current versus previous packet deltas.
+- `demo/trend/trend_history.json`, `demo/trend/trend_history.md`, and `demo/trend/trend_history.html`: deterministic multi-period packet history.
 - `demo/maturity/maturity_report.json` and `demo/maturity/maturity_report.md`: release and promotion readiness scoring.
 - `demo/gallery.html`: static no-JavaScript gallery that links the public demo and release artifacts.
 - `release/manifest.json` and `release/manifest.md`: deterministic release manifest with hashes and build placeholders.
 
 ## Input Shape
 
-The examples under `examples/` are intentionally small and local. Events include tickers, themes, source dates, source labels, summaries, and impact hints. Theses include claims, sensitivities, risks, and opportunities. Portfolio entries include static weights.
+The examples under `examples/` are intentionally small and local. Events include tickers, themes, source dates, source labels, summaries, and impact hints. Theses include claims, sensitivities, risks, and opportunities. Portfolio entries include static weights. The packet fixtures under `examples/history/*.json` are prior/current review packets for exercising trend history without live data.
 
 ## Development
 
@@ -78,6 +85,7 @@ The examples under `examples/` are intentionally small and local. Events include
 python -m pytest -q
 PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
+PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
 PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
 PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html
 PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity

@@ -17,10 +17,17 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
    news-thesis-impact-lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare
    ```
 
-4. Run checks:
+4. Build trend history from prior/current packets:
+
+   ```bash
+   news-thesis-impact-lab trend-history --packets examples/history/*.json --out demo/trend
+   ```
+
+5. Run checks:
 
    ```bash
    python -m pytest -q
+   PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
    PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
    PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
    PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
@@ -30,7 +37,7 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
    git diff --check
    ```
 
-5. Public packaging artifacts:
+6. Public packaging artifacts:
 
    ```bash
    news-thesis-impact-lab release-manifest --out release
@@ -40,7 +47,8 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
 ## Acceptance Criteria
 
 - `release/manifest.json` and `release/manifest.md` are deterministic and include package version, key artifact hashes, regenerate commands, verify commands, finance safety boundaries, and wheel/sdist placeholders when `dist/` files are absent.
-- `demo/gallery.html` is static no-JavaScript HTML and links the impact packet, compare report, maturity report, release manifest, quickstart commands, and finance boundaries.
+- `demo/gallery.html` is static no-JavaScript HTML and links the impact packet, compare report, trend history, maturity report, release manifest, quickstart commands, and finance boundaries.
+- `demo/trend/trend_history.json`, `demo/trend/trend_history.md`, and `demo/trend/trend_history.html` are deterministic outputs from `examples/history/*.json`.
 - `validate-release --format json` passes after public artifacts are generated.
 - Tests, selfcheck, privacy scan, and `git diff --check` pass.
 - No runtime dependencies, workflow files, private references, live data fetches, broker actions, or investment advice are introduced.

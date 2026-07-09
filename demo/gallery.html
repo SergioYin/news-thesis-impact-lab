@@ -28,6 +28,8 @@
     <a class="card" href="impact_packet.md"><strong>Impact Packet</strong>Markdown review packet with affected tickers, warnings, and prompts.</a>
     <a class="card" href="index.html"><strong>Impact Packet HTML</strong>No-JavaScript table view for quick scanning.</a>
     <a class="card" href="compare/compare.md"><strong>Compare Report</strong>Current versus previous packet deltas.</a>
+    <a class="card" href="trend/trend_history.md"><strong>Trend History</strong>Multi-period score direction, warning persistence, exposure trend, and review queue.</a>
+    <a class="card" href="trend/trend_history.html"><strong>Trend History HTML</strong>No-JavaScript table view for history review.</a>
     <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>
     <a class="card" href="../release/manifest.md"><strong>Release Manifest</strong>Hashes, commands, boundaries, and distribution placeholders.</a>
   </section>
@@ -35,6 +37,7 @@
   <h2>Quickstart</h2>
   <pre><code>PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo
 PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare
+PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json</code></pre>
 
   <h2>Finance Safety Boundaries</h2>

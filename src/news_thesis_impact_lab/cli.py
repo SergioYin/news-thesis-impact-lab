@@ -9,7 +9,15 @@ from .engine import build_packet, compare_packets
 from .maturity import write_maturity_report
 from .model import load_events, load_portfolio, load_theses
 from .release import validate_release, write_demo_gallery, write_release_manifest
-from .render import render_compare_markdown, render_packet_html, render_packet_markdown, write_json
+from .render import (
+    render_compare_markdown,
+    render_packet_html,
+    render_packet_markdown,
+    render_trend_history_html,
+    render_trend_history_markdown,
+    write_json,
+)
+from .trend import build_trend_history, load_packet_records
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -26,6 +34,10 @@ def main(argv: list[str] | None = None) -> int:
     compare.add_argument("--current", required=True)
     compare.add_argument("--previous", required=True)
     compare.add_argument("--out", required=True)
+
+    trend = subparsers.add_parser("trend-history", help="Build trend history artifacts from packet JSON files.")
+    trend.add_argument("--packets", nargs="+", required=True)
+    trend.add_argument("--out", required=True)
 
     subparsers.add_parser("selfcheck", help="Validate package boundaries and runtime assumptions.")
 
@@ -47,6 +59,8 @@ def main(argv: list[str] | None = None) -> int:
             return command_build_packet(args)
         if args.command == "compare":
             return command_compare(args)
+        if args.command == "trend-history":
+            return command_trend_history(args)
         if args.command == "selfcheck":
             return command_selfcheck()
         if args.command == "validate-release":
@@ -89,6 +103,21 @@ def command_compare(args: argparse.Namespace) -> int:
     (out / "compare.md").write_text(render_compare_markdown(compare), encoding="utf-8")
     print(f"wrote {out / 'compare.json'}")
     print(f"wrote {out / 'compare.md'}")
+    return 0
+
+
+def command_trend_history(args: argparse.Namespace) -> int:
+    paths = [Path(path) for path in args.packets]
+    records = load_packet_records(paths, read_json)
+    history = build_trend_history(records)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    write_json(out / "trend_history.json", history)
+    (out / "trend_history.md").write_text(render_trend_history_markdown(history), encoding="utf-8")
+    (out / "trend_history.html").write_text(render_trend_history_html(history), encoding="utf-8")
+    print(f"wrote {out / 'trend_history.json'}")
+    print(f"wrote {out / 'trend_history.md'}")
+    print(f"wrote {out / 'trend_history.html'}")
     return 0
 
 

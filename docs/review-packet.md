@@ -11,6 +11,15 @@ The packet is designed for local research triage. It links static catalyst notes
 - `warnings`: stale source and missing thesis notices.
 - `boundaries`: explicit non-advice and non-broker constraints included in every generated packet.
 
+## Trend History Fields
+
+`trend-history --packets examples/history/*.json --out demo/trend` reads prior/current packet JSON files, sorts them by `generated_at` and file name, and writes `trend_history.json`, `trend_history.md`, and no-JavaScript `trend_history.html`.
+
+- `snapshots`: deterministic ordered packet periods.
+- `ticker_histories`: per-ticker timeline with score direction, new/cleared/changed status, latest direction, and exposure trend.
+- `persistent_warnings`: stale or repeated warning identities observed across multiple periods.
+- `next_review_queue`: latest-period research prompts prioritized by persistent warnings and attention score.
+
 ## Review Flow
 
 1. Read boundaries first.
@@ -18,7 +27,8 @@ The packet is designed for local research triage. It links static catalyst notes
 3. Use `review_queue` to identify notes needing thesis maintenance.
 4. Update local event or thesis JSON when research notes change.
 5. Rebuild the packet and compare against the previous packet.
-6. Run `validate-release` before publishing to confirm demo artifacts remain deterministic and retain the research boundaries.
+6. Build trend history from `examples/history/*.json` when reviewing multi-period drift.
+7. Run `validate-release` before publishing to confirm demo artifacts remain deterministic and retain the research boundaries.
 
 ## Release Readiness
 
