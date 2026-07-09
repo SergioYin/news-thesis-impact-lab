@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0 - 2026-07-10
+
+- Added `evidence-hub` CLI command for reviewer-facing release audit bundles over generated demo artifacts and `release/manifest.json`.
+- Added evidence hub JSON, Markdown, and no-JavaScript HTML artifacts with artifact classification, user question answered, maturity rubric category, release and promotion gate relevance, regeneration command, SHA-256, no-JavaScript status, boundary coverage, and limitations.
+- Integrated the evidence hub with release validation, release manifest commands, maturity evidence, demo gallery, cold-start walkthrough, README, review docs, agent skill, and tests.
+- Bumped package metadata to 0.7.0.
+
 ## 0.6.0 - 2026-07-10
 
 - Added `review-ledger` CLI command for repeated-use state across packet, trend history, scenario stress, and optional previous ledger artifacts.

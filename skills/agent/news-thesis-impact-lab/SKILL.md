@@ -44,9 +44,10 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
    PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
    PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
    PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough
+   PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
+   PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
    PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
    PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
-   PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
    PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html
    PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity
    python scripts/privacy_scan.py
@@ -57,6 +58,7 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
 
    ```bash
    news-thesis-impact-lab release-manifest --out release
+   news-thesis-impact-lab evidence-hub --out demo/evidence
    news-thesis-impact-lab demo-gallery --out demo/gallery.html
    ```
 
@@ -71,6 +73,7 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
 - Review ledger outputs include stable item keys, new/open/watch/resolved status transitions, severity, first/latest seen dates, evidence links, research-only next actions, expiry days, stale flags, and compact ticker/status/severity summary.
 - `demo/visual/visual_receipt.json` and `demo/visual/visual_receipt.md` are deterministic static HTML capture receipts with no-script and boundary checks.
 - `demo/walkthrough/walkthrough.json` and `demo/walkthrough/walkthrough.md` describe the 2-5 minute first-user path, exact commands, expected artifacts, interpretation guide, and failure modes.
+- `demo/evidence/evidence_hub.json`, `demo/evidence/evidence_hub.md`, and `demo/evidence/evidence_hub.html` are deterministic release audit artifacts with artifact classification, user question answered, maturity rubric category, release and promotion gate relevance, regeneration command, SHA-256, no-JavaScript status, boundary coverage, and limitations.
 - `validate-release --format json` passes after public artifacts are generated.
 - Tests, selfcheck, privacy scan, and `git diff --check` pass.
 - No runtime dependencies, workflow files, private references, live data fetches, broker actions, or investment advice are introduced.

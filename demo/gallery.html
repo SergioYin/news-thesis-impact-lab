@@ -36,6 +36,7 @@
     <a class="card" href="ledger/review_ledger.html"><strong>Review Ledger HTML</strong>No-JavaScript table view for ledger review.</a>
     <a class="card" href="visual/visual_receipt.md"><strong>Visual Receipt</strong>Static capture receipt with hashes, no-script checks, and boundary checks.</a>
     <a class="card" href="walkthrough/walkthrough.md"><strong>Cold-Start Walkthrough</strong>Two-to-five minute first-user path with commands and failure modes.</a>
+    <a class="card" href="evidence/evidence_hub.md"><strong>Evidence Hub</strong>Reviewer matrix with artifact purpose, gates, hashes, no-script checks, boundary coverage, and limitations.</a>
     <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>
     <a class="card" href="../release/manifest.md"><strong>Release Manifest</strong>Hashes, commands, boundaries, and distribution placeholders.</a>
   </section>
@@ -48,6 +49,8 @@ PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/im
 PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
 PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
 PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough
+PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
+PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json</code></pre>
 
   <h2>Finance Safety Boundaries</h2>

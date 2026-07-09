@@ -4,7 +4,7 @@ Generated: 2026-07-10
 Audience: First user reviewing the public demo from a clean checkout.
 Duration: 2-5 minutes
 
-Generate the local packet, compare, trend, scenario stress, repeated-use review ledger, visual receipt, walkthrough, and release validation evidence without network, broker, order, or advice behavior.
+Generate the local packet, compare, trend, scenario stress, repeated-use review ledger, visual receipt, walkthrough, evidence hub, and release validation evidence without network, broker, order, or advice behavior.
 
 ## Commands
 
@@ -30,6 +30,12 @@ PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
 PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough
 ```
 ```bash
+PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
+```
+```bash
+PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
+```
+```bash
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 ```
 
@@ -53,6 +59,9 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - `demo/visual/visual_receipt.md`
 - `demo/walkthrough/walkthrough.json`
 - `demo/walkthrough/walkthrough.md`
+- `demo/evidence/evidence_hub.json`
+- `demo/evidence/evidence_hub.md`
+- `demo/evidence/evidence_hub.html`
 
 ## Interpretation Guide
 
@@ -63,6 +72,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - Use demo/scenario/scenario_stress.md to review illustrative macro, sector, and company shock overlap against thesis language.
 - Use demo/ledger/review_ledger.md to carry repeated review issues forward, mark absent issues resolved, and identify stale research maintenance items.
 - Use demo/visual/visual_receipt.md to confirm static HTML pages pass no-script checks and retain boundaries.
+- Use demo/evidence/evidence_hub.md to audit artifact purpose, release and promotion gate relevance, hashes, no-script status, boundary coverage, and limitations.
 - Treat validate-release JSON as the promotion gate summary; every check should be true before publishing.
 
 ## Failure Modes And Boundaries

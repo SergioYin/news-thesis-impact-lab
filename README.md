@@ -4,7 +4,7 @@
 
 It is for analysts, builders, and agent workflows that need deterministic review packets from local JSON inputs without live market data, broker access, or private services.
 
-## 6-Command Quickstart
+## 8-Command Quickstart
 
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo
@@ -12,6 +12,8 @@ PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_pa
 PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
 PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario
 PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger
+PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
+PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
 PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 ```
 
@@ -25,6 +27,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - [Review ledger](demo/ledger/review_ledger.md): repeated-use issue ledger keyed by ticker, issue type, and source with carry-forward, resolved status, severity, stale flags, evidence links, and next research maintenance action.
 - [Visual receipt](demo/visual/visual_receipt.md): static HTML capture receipt with hashes, no-script checks, and boundary checks.
 - [Cold-start walkthrough](demo/walkthrough/walkthrough.md): 2-5 minute first-user path with exact commands, expected artifacts, interpretation guide, and failure modes.
+- [Evidence hub](demo/evidence/evidence_hub.md): reviewer-facing matrix with artifact purpose, rubric area, release and promotion gate relevance, regeneration command, SHA-256, no-JavaScript status, boundary coverage, and limitations.
 - [Maturity report](demo/maturity/maturity_report.md): release and promotion readiness gates.
 - [Release manifest](release/manifest.md): package version, hashes, regeneration commands, verification commands, boundaries, and distribution placeholders.
 
@@ -76,6 +79,7 @@ news-thesis-impact-lab demo-gallery --out demo/gallery.html
 news-thesis-impact-lab visual-receipt --out demo/visual
 news-thesis-impact-lab cold-start-walkthrough --out demo/walkthrough
 news-thesis-impact-lab release-manifest --out release
+news-thesis-impact-lab evidence-hub --out demo/evidence
 ```
 
 Equivalent module form:
@@ -96,6 +100,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
 - `demo/visual/visual_receipt.json` and `demo/visual/visual_receipt.md`: deterministic static capture receipt for promotion review.
 - `demo/walkthrough/walkthrough.json` and `demo/walkthrough/walkthrough.md`: first-user walkthrough with commands, artifacts, interpretation, and failure modes.
 - `demo/maturity/maturity_report.json` and `demo/maturity/maturity_report.md`: release and promotion readiness scoring.
+- `demo/evidence/evidence_hub.json`, `demo/evidence/evidence_hub.md`, and `demo/evidence/evidence_hub.html`: deterministic reviewer evidence matrix over generated demo artifacts and `release/manifest.json`.
 - `demo/gallery.html`: static no-JavaScript gallery that links the public demo and release artifacts.
 - `release/manifest.json` and `release/manifest.md`: deterministic release manifest with hashes and build placeholders.
 
@@ -117,6 +122,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.
 PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
 PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough
 PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity
+PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
 python scripts/privacy_scan.py
 git diff --check
 ```

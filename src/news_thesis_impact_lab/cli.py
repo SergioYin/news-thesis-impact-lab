@@ -5,6 +5,7 @@ import json
 import sys
 from pathlib import Path
 
+from .evidence import write_evidence_hub
 from .engine import build_packet, compare_packets
 from .ledger import build_review_ledger
 from .maturity import write_maturity_report
@@ -78,6 +79,9 @@ def main(argv: list[str] | None = None) -> int:
     walkthrough = subparsers.add_parser("cold-start-walkthrough", help="Write first-user walkthrough artifacts.")
     walkthrough.add_argument("--out", required=True)
 
+    evidence = subparsers.add_parser("evidence-hub", help="Write reviewer-facing release evidence hub artifacts.")
+    evidence.add_argument("--out", default="demo/evidence")
+
     args = parser.parse_args(argv)
     try:
         if args.command == "build-packet":
@@ -104,6 +108,8 @@ def main(argv: list[str] | None = None) -> int:
             return command_visual_receipt(args)
         if args.command == "cold-start-walkthrough":
             return command_cold_start_walkthrough(args)
+        if args.command == "evidence-hub":
+            return command_evidence_hub(args)
     except Exception as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
@@ -253,6 +259,15 @@ def command_cold_start_walkthrough(args: argparse.Namespace) -> int:
     write_cold_start_walkthrough(out)
     print(f"wrote {out / 'walkthrough.json'}")
     print(f"wrote {out / 'walkthrough.md'}")
+    return 0
+
+
+def command_evidence_hub(args: argparse.Namespace) -> int:
+    out = Path(args.out)
+    write_evidence_hub(Path.cwd(), out)
+    print(f"wrote {out / 'evidence_hub.json'}")
+    print(f"wrote {out / 'evidence_hub.md'}")
+    print(f"wrote {out / 'evidence_hub.html'}")
     return 0
 
 

@@ -1,6 +1,6 @@
 # Release Manifest
 
-Package: news-thesis-impact-lab 0.6.0
+Package: news-thesis-impact-lab 0.7.0
 Generated: 2026-07-10
 
 ## Finance Safety Boundaries
@@ -14,14 +14,14 @@ Generated: 2026-07-10
 
 | Path | Exists | SHA-256 | Bytes |
 | --- | --- | --- | ---: |
-| `README.md` | true | `ddc6fa700b9a9dcfc5da6ce5be3afd56e3f62fe244aa3e8bdccc112db61b6410` | 7937 |
-| `CHANGELOG.md` | true | `16c718897787c3bc45406476332cb956ee0945f03bb56d850e795d75edb31a77` | 2804 |
-| `pyproject.toml` | true | `114ea20203f081dcbbc02a066fd645653fb439cc21f48af72227e2aca7211321` | 876 |
-| `docs/review-packet.md` | true | `04d08fd7b4f055e236e4fa0644d0e568e2ab4de79a7ec8e5ddc1018e15a2e308` | 5563 |
+| `README.md` | true | `0dadfc17a584c4ff4ac52b1b257be5bd2a4e4d23e552048a82557876196bda72` | 8676 |
+| `CHANGELOG.md` | true | `146685a835ea70ccbb904e4e182286185598617e33bcdd4f4a203d462be5c682` | 3461 |
+| `pyproject.toml` | true | `2a8af8dae755d6b0daa927611c2a541cef2c8b1922ee25b92ee3f4799efad914` | 876 |
+| `docs/review-packet.md` | true | `bdc169460497e0d8c7f4fdd3cb480e06b5dbbdfead7bf64fcab5c53713379478` | 6594 |
 | `demo/impact_packet.json` | true | `8f598eee1faf86f0cc0f846f420ecad744d313cec958398907c44ad242fa6073` | 5780 |
 | `demo/impact_packet.md` | true | `59513e6d36d7081df9484642e02740b5a8014e4a5e733636ea98505ec09ced65` | 3597 |
 | `demo/index.html` | true | `593b6e4647d7b56f3f78cb4f6d4b73d80ce647bc729d61370029f2ee6906a10b` | 2940 |
-| `demo/gallery.html` | true | `43cda5f378d993bd7380c789a91cd037270c9a11de4741131169dbabb65de410` | 4748 |
+| `demo/gallery.html` | true | `fc94962a0e0a5587cfbd3c5abece96097ae696248a0d701b9a7691cebc00a64f` | 5101 |
 | `demo/compare/compare.json` | true | `aff81a073e9c644ddc280649398f1c13bfb159d81061db9c098d2be2f306ddf5` | 1439 |
 | `demo/compare/compare.md` | true | `adc9ac2a4b2744593687353b0f5c3371aa83379fb0215746a1d2898f6f934787` | 712 |
 | `demo/trend/trend_history.json` | true | `ff7b37f9ba163c0d7e863ac785f43e68373cff5b891e4b142c0a6e70714baa58` | 9470 |
@@ -33,10 +33,10 @@ Generated: 2026-07-10
 | `demo/ledger/review_ledger.json` | true | `6925ed2362ca483ea7ff1c1a582ae5a8de13a90128894c94e2888da5bb4d5220` | 13477 |
 | `demo/ledger/review_ledger.md` | true | `a69ea4916942d63dba0ae5a9143217bed9e740eff9f86f30f263cc64f0ac416f` | 8726 |
 | `demo/ledger/review_ledger.html` | true | `e33421e9c605deb57c62603957d753884655dab1c0435c99a981d2ba48c8e2d9` | 8961 |
-| `demo/visual/visual_receipt.json` | true | `6bcf21b27713035bb92d52e523430ba2b2fba3077523905bd9dc0f68c4801f3e` | 3816 |
-| `demo/visual/visual_receipt.md` | true | `93e2869891a69884f1590e063258813e3f2dbeb5469377355c601ddc99ce1eae` | 2813 |
-| `demo/walkthrough/walkthrough.json` | true | `b71f933aa36d5d42d1e43c553f552e5cb2be260b1f102a25e7d9253963053208` | 4062 |
-| `demo/walkthrough/walkthrough.md` | true | `c445a71a6cf4815f9d640a878827046981c4723509817601e0d895967f2d0005` | 3886 |
+| `demo/visual/visual_receipt.json` | true | `d8f9710e324a155932013e334ca04a966e82aff8556b31a5111727333618f585` | 3816 |
+| `demo/visual/visual_receipt.md` | true | `e3d08c38439207f6d775af5fdfbd8a9f38bfaa702bf884a5247bef6f104594b6` | 2813 |
+| `demo/walkthrough/walkthrough.json` | true | `34471de36d83f04c1ef32b5ae17d4ffcb5be3630d8a34b8a662c5c68cf315d96` | 4533 |
+| `demo/walkthrough/walkthrough.md` | true | `491efdcae84ec6955437935e642da837f8bf7f357045b42c26cd3fa8835d3533` | 4353 |
 | `examples/events.json` | true | `dc506f6452e1d37dc29ffef21ccd894c3e2b15b5e26e6e24bb2b0c5a7c3c0358` | 1410 |
 | `examples/theses.json` | true | `29c80ca03dd125602cb0b19234385132fb5d2ad84c1a6442247d529c93d776c9` | 1824 |
 | `examples/portfolio.json` | true | `c722c6bbe7cb29bf8f502a7d55cf7c3abac76451f3a18a9bb9ea708c268a260d` | 330 |
@@ -51,8 +51,8 @@ Generated: 2026-07-10
 
 | Kind | Path | Exists | SHA-256 | Bytes | Note |
 | --- | --- | --- | --- | ---: | --- |
-| wheel | `dist/news_thesis_impact_lab-0.6.0-py3-none-any.whl` | true | `a800e411fb3c1c47bfdc88d00eef141266b97cb597075b5abcc8e2abdeff1808` | 34239 |  |
-| sdist | `dist/news_thesis_impact_lab-0.6.0.tar.gz` | true | `9bc244e7171e171ffa81d89fa3835a40686f62042d00f6370410791ce6123579` | 33494 |  |
+| wheel | `dist/news_thesis_impact_lab-0.7.0-py3-none-any.whl` | true | `888d498dbe7313955a40e4f5e1dd7b7d1093f68e756e3fe2f78b91051fd0b129` | 39709 |  |
+| sdist | `dist/news_thesis_impact_lab-0.7.0.tar.gz` | true | `d0e7f21baec4da1c52ab085c124a5332b45b2e44353237b94b077ecca5f40eae` | 38875 |  |
 
 ## Regenerate
 
@@ -86,11 +86,17 @@ PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out dem
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
 ```
+```bash
+PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
+```
 
 ## Verify
 
 ```bash
 python -m pytest -q
+```
+```bash
+PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence
 ```
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab selfcheck

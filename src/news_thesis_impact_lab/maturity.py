@@ -22,9 +22,9 @@ RATIONALE = {
     "product": "Clear CLI asset with bounded static research workflow and public package metadata.",
     "runnable": "Stdlib-only commands, examples, demo artifacts, scenario stress review, repeated-use review ledger, visual receipt, cold-start walkthrough, tests, selfcheck, and privacy scan.",
     "user_value": "Maps local catalysts and illustrative stress scenarios to thesis claims, exposure, warnings, confidence review, ledger status, and human prompts.",
-    "evidence": "Includes deterministic demo JSON/Markdown/HTML, compare, trend, scenario stress, review ledger outputs, visual receipt, walkthrough, tests, and release validation.",
+    "evidence": "Includes deterministic demo JSON/Markdown/HTML, compare, trend, scenario stress, review ledger outputs, visual receipt, walkthrough, evidence hub, tests, and release validation.",
     "engineering": "Typed dataclasses, deterministic rendering, focused CLI surface, and no runtime dependencies.",
-    "showcase": "Demo packet, compare packet, trend history, scenario stress review, review ledger, visual receipt, cold-start walkthrough, review doc, and agent skill show the intended workflow.",
+    "showcase": "Demo packet, compare packet, trend history, scenario stress review, review ledger, visual receipt, cold-start walkthrough, evidence hub, review doc, and agent skill show the intended workflow.",
     "risk": "Strong research-only boundaries with no live data, broker access, orders, or advice.",
 }
 

@@ -1,0 +1,608 @@
+{
+  "description": "Reviewer-facing matrix for deterministic public demo artifacts and the release manifest.",
+  "finance_safety_boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+    "No broker integration, order routing, execution, or account access.",
+    "Scores are deterministic review aids for human research triage."
+  ],
+  "generated_at": "2026-07-10",
+  "known_limitations": [
+    "The hub indexes static local artifacts only; it does not fetch live market, broker, account, or news data.",
+    "Hashes prove file content identity, not investment correctness or external factual completeness.",
+    "Scenario stress records are illustrative research prompts, not forecasts, advice, or trade instructions.",
+    "No-JavaScript checks are static text checks for script tags, not full browser rendering tests."
+  ],
+  "matrix": [
+    {
+      "artifact_type": "packet-json",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 5780,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "user_value",
+      "no_js": null,
+      "path": "demo/impact_packet.json",
+      "promotion_gate_relevance": "primary reviewer workflow evidence",
+      "release_gate_relevance": "core deterministic demo evidence",
+      "sha256": "8f598eee1faf86f0cc0f846f420ecad744d313cec958398907c44ad242fa6073",
+      "user_question_answered": "Which tickers are affected by local catalysts, and why?"
+    },
+    {
+      "artifact_type": "packet-markdown",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 3597,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": null,
+      "path": "demo/impact_packet.md",
+      "promotion_gate_relevance": "human-readable reviewer packet",
+      "release_gate_relevance": "public review artifact",
+      "sha256": "59513e6d36d7081df9484642e02740b5a8014e4a5e733636ea98505ec09ced65",
+      "user_question_answered": "Can a reviewer read the catalyst-to-thesis packet without tooling?"
+    },
+    {
+      "artifact_type": "packet-html",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 2940,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness.",
+        "Static no-script check does not execute a browser layout engine."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": true,
+      "path": "demo/index.html",
+      "promotion_gate_relevance": "visual review surface",
+      "release_gate_relevance": "static HTML boundary evidence",
+      "sha256": "593b6e4647d7b56f3f78cb4f6d4b73d80ce647bc729d61370029f2ee6906a10b",
+      "user_question_answered": "Can the packet be scanned as static no-JavaScript HTML?"
+    },
+    {
+      "artifact_type": "gallery-html",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 5101,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness.",
+        "Static no-script check does not execute a browser layout engine."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": true,
+      "path": "demo/gallery.html",
+      "promotion_gate_relevance": "promotion entry point",
+      "release_gate_relevance": "artifact navigation evidence",
+      "sha256": "fc94962a0e0a5587cfbd3c5abece96097ae696248a0d701b9a7691cebc00a64f",
+      "user_question_answered": "Where does a reviewer start when inspecting the public artifact set?"
+    },
+    {
+      "artifact_type": "compare-json",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 1439,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "evidence",
+      "no_js": null,
+      "path": "demo/compare/compare.json",
+      "promotion_gate_relevance": "change-review evidence",
+      "release_gate_relevance": "deterministic comparison evidence",
+      "sha256": "aff81a073e9c644ddc280649398f1c13bfb159d81061db9c098d2be2f306ddf5",
+      "user_question_answered": "What changed versus the previous static packet?"
+    },
+    {
+      "artifact_type": "compare-markdown",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 712,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "evidence",
+      "no_js": null,
+      "path": "demo/compare/compare.md",
+      "promotion_gate_relevance": "change-review narrative",
+      "release_gate_relevance": "human-readable comparison evidence",
+      "sha256": "adc9ac2a4b2744593687353b0f5c3371aa83379fb0215746a1d2898f6f934787",
+      "user_question_answered": "Can packet changes be reviewed without parsing JSON?"
+    },
+    {
+      "artifact_type": "trend-json",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 9470,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "evidence",
+      "no_js": null,
+      "path": "demo/trend/trend_history.json",
+      "promotion_gate_relevance": "repeat-review signal",
+      "release_gate_relevance": "multi-period evidence",
+      "sha256": "ff7b37f9ba163c0d7e863ac785f43e68373cff5b891e4b142c0a6e70714baa58",
+      "user_question_answered": "How did ticker status, scores, warnings, and exposure change across periods?"
+    },
+    {
+      "artifact_type": "trend-markdown",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 1521,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": null,
+      "path": "demo/trend/trend_history.md",
+      "promotion_gate_relevance": "repeat-review narrative",
+      "release_gate_relevance": "trend review evidence",
+      "sha256": "c95ffd8fe3435bea357eef8185fc782397d65e8e350c79650bba7e5d7ef92abd",
+      "user_question_answered": "Can multi-period drift be reviewed without tooling?"
+    },
+    {
+      "artifact_type": "trend-html",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 3354,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness.",
+        "Static no-script check does not execute a browser layout engine."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": true,
+      "path": "demo/trend/trend_history.html",
+      "promotion_gate_relevance": "visual review surface",
+      "release_gate_relevance": "static HTML trend evidence",
+      "sha256": "6ee5d93b24967925391ec6d981bd5af49bc32efb2648cc89a92e7ae3ebb3186e",
+      "user_question_answered": "Can trend history be scanned as static no-JavaScript HTML?"
+    },
+    {
+      "artifact_type": "scenario-json",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 20347,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness.",
+        "Scenario fixtures are illustrative stress prompts, not forecasts."
+      ],
+      "maturity_rubric_category": "user_value",
+      "no_js": null,
+      "path": "demo/scenario/scenario_stress.json",
+      "promotion_gate_relevance": "stress-review evidence",
+      "release_gate_relevance": "scenario coverage evidence",
+      "sha256": "83efb2d43c8cfcd30d8c63930e3993d93870e7669810e2f41b6ec0be7af7a728",
+      "user_question_answered": "Which illustrative stresses overlap with thesis and exposure language?"
+    },
+    {
+      "artifact_type": "scenario-markdown",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 5879,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness.",
+        "Scenario fixtures are illustrative stress prompts, not forecasts."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": null,
+      "path": "demo/scenario/scenario_stress.md",
+      "promotion_gate_relevance": "stress-review narrative",
+      "release_gate_relevance": "scenario review evidence",
+      "sha256": "a994d02675e093fdb5405303ef8908d3dd4e59f70bf974bcc542c8c7056d8a4a",
+      "user_question_answered": "Can scenario stress prompts be reviewed without parsing JSON?"
+    },
+    {
+      "artifact_type": "scenario-html",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 5936,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness.",
+        "Static no-script check does not execute a browser layout engine.",
+        "Scenario fixtures are illustrative stress prompts, not forecasts."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": true,
+      "path": "demo/scenario/scenario_stress.html",
+      "promotion_gate_relevance": "visual review surface",
+      "release_gate_relevance": "static HTML stress evidence",
+      "sha256": "69ce3af70beb4015c7ba2aedfd055e37be504657b0c18ce3d7ba9b400cffed2c",
+      "user_question_answered": "Can stress review be scanned as static no-JavaScript HTML?"
+    },
+    {
+      "artifact_type": "ledger-json",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 13477,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "user_value",
+      "no_js": null,
+      "path": "demo/ledger/review_ledger.json",
+      "promotion_gate_relevance": "ongoing review evidence",
+      "release_gate_relevance": "repeat-use state evidence",
+      "sha256": "6925ed2362ca483ea7ff1c1a582ae5a8de13a90128894c94e2888da5bb4d5220",
+      "user_question_answered": "Which review issues are new, open, watch, resolved, stale, or severe?"
+    },
+    {
+      "artifact_type": "ledger-markdown",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 8726,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": null,
+      "path": "demo/ledger/review_ledger.md",
+      "promotion_gate_relevance": "ongoing review narrative",
+      "release_gate_relevance": "ledger review evidence",
+      "sha256": "a69ea4916942d63dba0ae5a9143217bed9e740eff9f86f30f263cc64f0ac416f",
+      "user_question_answered": "Can repeated-use review state be inspected without parsing JSON?"
+    },
+    {
+      "artifact_type": "ledger-html",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 8961,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness.",
+        "Static no-script check does not execute a browser layout engine."
+      ],
+      "maturity_rubric_category": "showcase",
+      "no_js": true,
+      "path": "demo/ledger/review_ledger.html",
+      "promotion_gate_relevance": "visual review surface",
+      "release_gate_relevance": "static HTML ledger evidence",
+      "sha256": "e33421e9c605deb57c62603957d753884655dab1c0435c99a981d2ba48c8e2d9",
+      "user_question_answered": "Can review ledger status be scanned as static no-JavaScript HTML?"
+    },
+    {
+      "artifact_type": "visual-receipt-json",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 3816,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "risk",
+      "no_js": null,
+      "path": "demo/visual/visual_receipt.json",
+      "promotion_gate_relevance": "promotion safety evidence",
+      "release_gate_relevance": "no-JavaScript and boundary evidence",
+      "sha256": "d8f9710e324a155932013e334ca04a966e82aff8556b31a5111727333618f585",
+      "user_question_answered": "Which static HTML pages prove no-script and boundary coverage?"
+    },
+    {
+      "artifact_type": "visual-receipt-markdown",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 2813,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "risk",
+      "no_js": null,
+      "path": "demo/visual/visual_receipt.md",
+      "promotion_gate_relevance": "promotion safety narrative",
+      "release_gate_relevance": "promotion receipt evidence",
+      "sha256": "e3d08c38439207f6d775af5fdfbd8a9f38bfaa702bf884a5247bef6f104594b6",
+      "user_question_answered": "Can visual review checks be audited without running a browser?"
+    },
+    {
+      "artifact_type": "walkthrough-json",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 4533,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "runnable",
+      "no_js": null,
+      "path": "demo/walkthrough/walkthrough.json",
+      "promotion_gate_relevance": "first-user promotion evidence",
+      "release_gate_relevance": "cold-start reproducibility evidence",
+      "sha256": "34471de36d83f04c1ef32b5ae17d4ffcb5be3630d8a34b8a662c5c68cf315d96",
+      "user_question_answered": "Can a first user reproduce the artifact set quickly from local files?"
+    },
+    {
+      "artifact_type": "walkthrough-markdown",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 4353,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "runnable",
+      "no_js": null,
+      "path": "demo/walkthrough/walkthrough.md",
+      "promotion_gate_relevance": "first-user narrative",
+      "release_gate_relevance": "cold-start review evidence",
+      "sha256": "491efdcae84ec6955437935e642da837f8bf7f357045b42c26cd3fa8835d3533",
+      "user_question_answered": "Can the cold-start path be followed without interpreting CLI internals?"
+    },
+    {
+      "artifact_type": "maturity-json",
+      "boundary_coverage": {
+        "all_present": false,
+        "missing": [
+          "Static local research notes only; no live market data is fetched.",
+          "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+          "No broker integration, order routing, execution, or account access.",
+          "Scores are deterministic review aids for human research triage."
+        ],
+        "missing_count": 4,
+        "present_count": 0
+      },
+      "bytes": 1569,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "engineering",
+      "no_js": null,
+      "path": "demo/maturity/maturity_report.json",
+      "promotion_gate_relevance": "promotion gate summary",
+      "release_gate_relevance": "release gate summary",
+      "sha256": "f9310fca83693ff1421f4b6f652756d15f23e11c6e8adc9144cb05a5f3936fc6",
+      "user_question_answered": "Do release and promotion gates pass by rubric area?"
+    },
+    {
+      "artifact_type": "maturity-markdown",
+      "boundary_coverage": {
+        "all_present": false,
+        "missing": [
+          "Static local research notes only; no live market data is fetched.",
+          "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+          "No broker integration, order routing, execution, or account access.",
+          "Scores are deterministic review aids for human research triage."
+        ],
+        "missing_count": 4,
+        "present_count": 0
+      },
+      "bytes": 1346,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness."
+      ],
+      "maturity_rubric_category": "engineering",
+      "no_js": null,
+      "path": "demo/maturity/maturity_report.md",
+      "promotion_gate_relevance": "promotion gate narrative",
+      "release_gate_relevance": "human-readable gate summary",
+      "sha256": "d1b1cf6e31f86cb98945fa529da19b11110ebd7e0509cfe4ee0fe8e10bda6627",
+      "user_question_answered": "Can readiness scoring be reviewed without parsing JSON?"
+    },
+    {
+      "artifact_type": "release-manifest-json",
+      "boundary_coverage": {
+        "all_present": true,
+        "missing": [],
+        "missing_count": 0,
+        "present_count": 4
+      },
+      "bytes": 8962,
+      "command_to_regenerate": "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
+      "exists": true,
+      "known_limitations": [
+        "Static local artifact; reviewer must inspect source inputs for research completeness.",
+        "Distribution entries may be placeholders until wheel and sdist files are built."
+      ],
+      "maturity_rubric_category": "engineering",
+      "no_js": null,
+      "path": "release/manifest.json",
+      "promotion_gate_relevance": "promotion audit input",
+      "release_gate_relevance": "release hash authority",
+      "sha256": "49988b8be87a64e6695ba77cb758748ecd5f9733079607a1e84ba37e3b2ee9cd",
+      "user_question_answered": "Which public artifacts, commands, hashes, and package metadata define this release?"
+    }
+  ],
+  "promotion_gate_evidence": [
+    "demo/impact_packet.json",
+    "demo/impact_packet.md",
+    "demo/index.html",
+    "demo/gallery.html",
+    "demo/compare/compare.json",
+    "demo/compare/compare.md",
+    "demo/trend/trend_history.json",
+    "demo/trend/trend_history.md",
+    "demo/trend/trend_history.html",
+    "demo/scenario/scenario_stress.json",
+    "demo/scenario/scenario_stress.md",
+    "demo/scenario/scenario_stress.html",
+    "demo/ledger/review_ledger.json",
+    "demo/ledger/review_ledger.md",
+    "demo/ledger/review_ledger.html",
+    "demo/visual/visual_receipt.json",
+    "demo/visual/visual_receipt.md",
+    "demo/walkthrough/walkthrough.json",
+    "demo/walkthrough/walkthrough.md",
+    "demo/maturity/maturity_report.json",
+    "demo/maturity/maturity_report.md",
+    "release/manifest.json"
+  ],
+  "release_gate_evidence": [
+    "demo/impact_packet.json",
+    "demo/impact_packet.md",
+    "demo/index.html",
+    "demo/gallery.html",
+    "demo/compare/compare.json",
+    "demo/compare/compare.md",
+    "demo/trend/trend_history.json",
+    "demo/trend/trend_history.md",
+    "demo/trend/trend_history.html",
+    "demo/scenario/scenario_stress.json",
+    "demo/scenario/scenario_stress.md",
+    "demo/scenario/scenario_stress.html",
+    "demo/ledger/review_ledger.json",
+    "demo/ledger/review_ledger.md",
+    "demo/ledger/review_ledger.html",
+    "demo/visual/visual_receipt.json",
+    "demo/visual/visual_receipt.md",
+    "demo/walkthrough/walkthrough.json",
+    "demo/walkthrough/walkthrough.md",
+    "demo/maturity/maturity_report.json",
+    "demo/maturity/maturity_report.md",
+    "release/manifest.json"
+  ],
+  "rubric_scores": {
+    "engineering": {
+      "artifact_count": 3,
+      "rationale": "Typed dataclasses, deterministic rendering, focused CLI surface, and no runtime dependencies.",
+      "score": 4
+    },
+    "evidence": {
+      "artifact_count": 3,
+      "rationale": "Includes deterministic demo JSON/Markdown/HTML, compare, trend, scenario stress, review ledger outputs, visual receipt, walkthrough, evidence hub, tests, and release validation.",
+      "score": 4
+    },
+    "product": {
+      "artifact_count": 0,
+      "rationale": "Clear CLI asset with bounded static research workflow and public package metadata.",
+      "score": 4
+    },
+    "risk": {
+      "artifact_count": 2,
+      "rationale": "Strong research-only boundaries with no live data, broker access, orders, or advice.",
+      "score": 5
+    },
+    "runnable": {
+      "artifact_count": 2,
+      "rationale": "Stdlib-only commands, examples, demo artifacts, scenario stress review, repeated-use review ledger, visual receipt, cold-start walkthrough, tests, selfcheck, and privacy scan.",
+      "score": 5
+    },
+    "showcase": {
+      "artifact_count": 9,
+      "rationale": "Demo packet, compare packet, trend history, scenario stress review, review ledger, visual receipt, cold-start walkthrough, evidence hub, review doc, and agent skill show the intended workflow.",
+      "score": 4
+    },
+    "user_value": {
+      "artifact_count": 3,
+      "rationale": "Maps local catalysts and illustrative stress scenarios to thesis claims, exposure, warnings, confidence review, ledger status, and human prompts.",
+      "score": 4
+    }
+  },
+  "schema_version": "1.0",
+  "title": "Evidence Hub"
+}

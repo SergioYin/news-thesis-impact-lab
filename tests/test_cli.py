@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from news_thesis_impact_lab.trend import build_trend_history, load_packet_records
 from news_thesis_impact_lab.scenario import build_scenario_stress, load_scenarios
 from news_thesis_impact_lab.ledger import build_review_ledger
+from news_thesis_impact_lab.evidence import build_evidence_hub
 
 
 def run_cli(*args):
@@ -249,6 +250,9 @@ def test_validate_release_json_reports_expected_checks():
     assert checks["release_artifacts_exist"]["ok"] is True
     assert checks["demo_artifacts_deterministic"]["ok"] is True
     assert checks["release_manifest_deterministic"]["ok"] is True
+    assert checks["evidence_hub_artifacts_exist"]["ok"] is True
+    assert checks["evidence_hub_deterministic"]["ok"] is True
+    assert checks["evidence_hub_no_js"]["ok"] is True
     assert checks["demo_boundaries_present"]["ok"] is True
     assert checks["referenced_example_files_exist"]["ok"] is True
     assert "examples/events.json" in checks["referenced_example_files_exist"]["referenced"]
@@ -258,6 +262,7 @@ def test_validate_release_json_reports_expected_checks():
     assert "demo/walkthrough/walkthrough.json" not in checks["demo_artifacts_exist"]["missing"]
     assert "demo/ledger/review_ledger.json" not in checks["demo_artifacts_exist"]["missing"]
     assert "examples/review_ledger_previous.json" not in checks["example_files_exist"]["missing"]
+    assert "demo/evidence/evidence_hub.json" not in checks["evidence_hub_artifacts_exist"]["missing"]
 
 
 def test_maturity_report_writes_markdown_and_json(tmp_path):
@@ -293,7 +298,7 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     readme_bytes = (ROOT / "README.md").read_bytes()
 
     assert "wrote" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.6.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.7.0"}
     assert artifacts["README.md"]["sha256"] == hashlib.sha256(readme_bytes).hexdigest()
     assert artifacts["demo/gallery.html"]["exists"] is True
     assert artifacts["demo/trend/trend_history.json"]["exists"] is True
@@ -310,6 +315,8 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     assert "scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario" in "\n".join(manifest["commands"]["regenerate"])
     assert "review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger" in "\n".join(manifest["commands"]["regenerate"])
     assert "cold-start-walkthrough --out demo/walkthrough" in "\n".join(manifest["commands"]["regenerate"])
+    assert "evidence-hub --out demo/evidence" in "\n".join(manifest["commands"]["regenerate"])
+    assert "evidence-hub --out demo/evidence" in "\n".join(manifest["commands"]["verify"])
     assert "validate-release --format json" in "\n".join(manifest["commands"]["verify"])
     assert "Not investment advice" in "\n".join(manifest["finance_safety_boundaries"])
     assert "# Release Manifest" in markdown
@@ -331,9 +338,10 @@ def test_demo_gallery_writes_static_landing_page(tmp_path):
     assert "ledger/review_ledger.html" in html
     assert "visual/visual_receipt.md" in html
     assert "walkthrough/walkthrough.md" in html
+    assert "evidence/evidence_hub.md" in html
     assert "maturity/maturity_report.md" in html
     assert "../release/manifest.md" in html
-    assert "release-manifest --out release" not in html
+    assert "release-manifest --out release" in html
     assert "Not investment advice" in html
 
 
@@ -375,6 +383,9 @@ def test_cold_start_walkthrough_content(tmp_path):
     assert "demo/scenario/scenario_stress.md" in walkthrough["expected_artifacts"]
     assert "demo/ledger/review_ledger.md" in walkthrough["expected_artifacts"]
     assert "demo/walkthrough/walkthrough.md" in walkthrough["expected_artifacts"]
+    assert "demo/evidence/evidence_hub.md" in walkthrough["expected_artifacts"]
+    assert "evidence-hub --out demo/evidence" in "\n".join(walkthrough["commands"])
+    assert any("evidence_hub" in item for item in walkthrough["interpretation_guide"])
     assert any("no-script" in item for item in walkthrough["interpretation_guide"])
     assert any("live market data" in item for item in walkthrough["failure_modes"])
     assert "No broker integration" in "\n".join(walkthrough["boundaries"])
@@ -396,3 +407,42 @@ def test_promotion_outputs_are_deterministic(tmp_path):
     assert (first_visual / "visual_receipt.md").read_bytes() == (second_visual / "visual_receipt.md").read_bytes()
     assert (first_walkthrough / "walkthrough.json").read_bytes() == (second_walkthrough / "walkthrough.json").read_bytes()
     assert (first_walkthrough / "walkthrough.md").read_bytes() == (second_walkthrough / "walkthrough.md").read_bytes()
+
+
+def test_evidence_hub_classification_hashes_and_boundaries():
+    hub = build_evidence_hub(ROOT)
+    matrix = {item["path"]: item for item in hub["matrix"]}
+    packet = matrix["demo/impact_packet.json"]
+    html = matrix["demo/index.html"]
+    manifest = matrix["release/manifest.json"]
+
+    assert packet["artifact_type"] == "packet-json"
+    assert packet["maturity_rubric_category"] == "user_value"
+    assert packet["sha256"] == hashlib.sha256((ROOT / "demo/impact_packet.json").read_bytes()).hexdigest()
+    assert packet["boundary_coverage"]["all_present"] is True
+    assert html["no_js"] is True
+    assert manifest["artifact_type"] == "release-manifest-json"
+    assert "release/manifest.json" in hub["release_gate_evidence"]
+    assert "demo/visual/visual_receipt.json" in hub["promotion_gate_evidence"]
+    assert hub["rubric_scores"]["risk"]["score"] == 5
+
+
+def test_evidence_hub_cli_outputs_no_js_and_is_deterministic(tmp_path):
+    first = tmp_path / "first"
+    second = tmp_path / "second"
+    run_cli("evidence-hub", "--out", str(first))
+    run_cli("evidence-hub", "--out", str(second))
+
+    hub = json.loads((first / "evidence_hub.json").read_text(encoding="utf-8"))
+    markdown = (first / "evidence_hub.md").read_text(encoding="utf-8")
+    html = (first / "evidence_hub.html").read_text(encoding="utf-8")
+    matrix = {item["path"]: item for item in hub["matrix"]}
+
+    assert "Artifact Matrix" in markdown
+    assert "<script" not in html.lower()
+    assert "No broker integration" in html
+    assert matrix["demo/gallery.html"]["no_js"] is True
+    assert matrix["demo/gallery.html"]["sha256"] == hashlib.sha256((ROOT / "demo/gallery.html").read_bytes()).hexdigest()
+    assert (first / "evidence_hub.json").read_bytes() == (second / "evidence_hub.json").read_bytes()
+    assert (first / "evidence_hub.md").read_bytes() == (second / "evidence_hub.md").read_bytes()
+    assert (first / "evidence_hub.html").read_bytes() == (second / "evidence_hub.html").read_bytes()

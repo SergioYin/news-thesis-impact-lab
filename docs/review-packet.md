@@ -49,6 +49,13 @@ The packet is designed for local research triage. It links static catalyst notes
 
 `cold-start-walkthrough --out demo/walkthrough` writes `walkthrough.json` and `walkthrough.md` for a 2-5 minute first-user path. It includes exact commands, expected artifacts, interpretation guidance, and failure modes that preserve the no-live-data, no-broker, no-orders, no-advice boundaries.
 
+`evidence-hub --out demo/evidence` reads generated artifacts under `demo/` plus `release/manifest.json` and writes `evidence_hub.json`, `evidence_hub.md`, and no-JavaScript `evidence_hub.html`.
+
+- `matrix`: reviewer-facing artifact rows with path, type, user question answered, maturity rubric category, release and promotion gate relevance, regeneration command, SHA-256, no-JavaScript status for HTML, boundary coverage, and limitations.
+- `rubric_scores`: product, runnable, user-value, evidence, engineering, showcase, and risk scores with artifact counts and rationale.
+- `release_gate_evidence` and `promotion_gate_evidence`: explicit artifact path lists for gate review.
+- `known_limitations`: static-review limits that preserve the no-live-data, no-broker, no-orders, no-advice boundaries.
+
 ## Review Flow
 
 1. Read boundaries first.
@@ -61,8 +68,9 @@ The packet is designed for local research triage. It links static catalyst notes
 8. Run `review-ledger` with `examples/review_ledger_previous.json` when checking repeated-use status transitions.
 9. Generate `visual-receipt --out demo/visual` and confirm no-script and boundary summaries are true.
 10. Generate `cold-start-walkthrough --out demo/walkthrough` and confirm the first-user path still matches the public artifacts.
-11. Run `validate-release` before publishing to confirm demo artifacts remain deterministic and retain the research boundaries.
+11. Generate `release-manifest --out release`, then `evidence-hub --out demo/evidence`, and confirm the hub includes hashes, gate relevance, no-script status, boundary coverage, and limitations.
+12. Run `validate-release` before publishing to confirm demo artifacts remain deterministic and retain the research boundaries.
 
 ## Release Readiness
 
-`maturity-report --out demo/maturity` writes Markdown and JSON scoring for product, runnable, user-value, evidence, engineering, showcase, and risk dimensions. The report includes release and promotion gate booleans derived from those scores and the release validation result.
+`maturity-report --out demo/maturity` writes Markdown and JSON scoring for product, runnable, user-value, evidence, engineering, showcase, and risk dimensions. The report includes release and promotion gate booleans derived from those scores and the release validation result, which now requires the evidence hub.

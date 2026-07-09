@@ -49,6 +49,11 @@ DEMO_FILES = [
     Path("demo/walkthrough/walkthrough.json"),
     Path("demo/walkthrough/walkthrough.md"),
 ]
+EVIDENCE_FILES = [
+    Path("demo/evidence/evidence_hub.json"),
+    Path("demo/evidence/evidence_hub.md"),
+    Path("demo/evidence/evidence_hub.html"),
+]
 RELEASE_FILES = [
     Path("release/manifest.json"),
     Path("release/manifest.md"),
@@ -101,9 +106,11 @@ REGENERATE_COMMANDS = [
     "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
     "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
     "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
+    "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
 ]
 VERIFY_COMMANDS = [
     "python -m pytest -q",
+    "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
     "PYTHONPATH=src python -m news_thesis_impact_lab selfcheck",
     "PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json",
     "python scripts/privacy_scan.py",
@@ -115,10 +122,13 @@ def validate_release(root: Path) -> Dict[str, Any]:
     root = root.resolve()
     checks = [
         check_files_exist(root, "demo_artifacts_exist", DEMO_FILES),
+        check_files_exist(root, "evidence_hub_artifacts_exist", EVIDENCE_FILES),
         check_files_exist(root, "release_artifacts_exist", RELEASE_FILES),
         check_files_exist(root, "example_files_exist", EXAMPLE_FILES),
         check_demo_boundaries(root),
+        check_evidence_hub_no_js(root),
         check_demo_deterministic(root),
+        check_evidence_hub_deterministic(root),
         check_release_manifest_deterministic(root),
         check_referenced_example_files(root),
     ]
@@ -213,6 +223,31 @@ def check_release_manifest_deterministic(root: Path) -> Dict[str, Any]:
             if not (root / path).is_file() or (root / path).read_bytes() != (tmp_path / path.relative_to("release")).read_bytes()
         ]
     return {"name": "release_manifest_deterministic", "ok": not changed, "changed": changed}
+
+
+def check_evidence_hub_deterministic(root: Path) -> Dict[str, Any]:
+    from .evidence import write_evidence_hub
+
+    with tempfile.TemporaryDirectory(prefix="news-thesis-impact-lab-evidence-") as tmp:
+        tmp_path = Path(tmp)
+        write_evidence_hub(root, tmp_path)
+        changed = [
+            path.as_posix()
+            for path in EVIDENCE_FILES
+            if not (root / path).is_file() or (root / path).read_bytes() != (tmp_path / path.name).read_bytes()
+        ]
+    return {"name": "evidence_hub_deterministic", "ok": not changed, "changed": changed}
+
+
+def check_evidence_hub_no_js(root: Path) -> Dict[str, Any]:
+    html_path = root / "demo/evidence/evidence_hub.html"
+    if not html_path.is_file():
+        return {"name": "evidence_hub_no_js", "ok": False, "path": "demo/evidence/evidence_hub.html"}
+    return {
+        "name": "evidence_hub_no_js",
+        "ok": "<script" not in html_path.read_text(encoding="utf-8").lower(),
+        "path": "demo/evidence/evidence_hub.html",
+    }
 
 
 def check_referenced_example_files(root: Path) -> Dict[str, Any]:
@@ -382,6 +417,8 @@ def render_demo_gallery() -> str:
             "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
             "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
             "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
+            "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
+            "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
             "PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json",
         ]
     )
@@ -423,6 +460,7 @@ def render_demo_gallery() -> str:
     <a class="card" href="ledger/review_ledger.html"><strong>Review Ledger HTML</strong>No-JavaScript table view for ledger review.</a>
     <a class="card" href="visual/visual_receipt.md"><strong>Visual Receipt</strong>Static capture receipt with hashes, no-script checks, and boundary checks.</a>
     <a class="card" href="walkthrough/walkthrough.md"><strong>Cold-Start Walkthrough</strong>Two-to-five minute first-user path with commands and failure modes.</a>
+    <a class="card" href="evidence/evidence_hub.md"><strong>Evidence Hub</strong>Reviewer matrix with artifact purpose, gates, hashes, no-script checks, boundary coverage, and limitations.</a>
     <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>
     <a class="card" href="../release/manifest.md"><strong>Release Manifest</strong>Hashes, commands, boundaries, and distribution placeholders.</a>
   </section>

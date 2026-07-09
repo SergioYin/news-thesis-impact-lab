@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "news-thesis-impact-lab"
-version = "0.6.0"
+version = "0.7.0"
 description = "Zero-dependency local CLI for mapping static news catalysts to finance thesis review packets."
 readme = "README.md"
 requires-python = ">=3.9"
