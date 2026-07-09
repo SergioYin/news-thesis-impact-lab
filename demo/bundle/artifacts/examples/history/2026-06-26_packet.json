@@ -1,0 +1,104 @@
+{
+  "boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+    "No broker integration, order routing, execution, or account access.",
+    "Scores are deterministic review aids for human research triage."
+  ],
+  "freshness_reference_date": "2026-06-26",
+  "generated_at": "2026-06-26",
+  "impacted_tickers": [
+    {
+      "affected_thesis_claims": [
+        "Search and YouTube monetization remain sensitive to ad targeting policy."
+      ],
+      "attention_score": 47,
+      "confidence": "medium",
+      "direction": "negative",
+      "event_ids": [
+        "hist-regulatory-ads-2026-06-12"
+      ],
+      "exposure_weight": 0.17,
+      "next_review_prompts": [
+        "Review whether GOOGL thesis sensitivities still match events hist-regulatory-ads-2026-06-12.",
+        "Check static exposure note for GOOGL at 17.0% portfolio weight.",
+        "Resolve warning before relying on packet: hist-regulatory-ads-2026-06-12: source is 14 days old"
+      ],
+      "position_label": "ads and cloud platform",
+      "themes": [
+        "digital ads",
+        "regulatory review"
+      ],
+      "ticker": "GOOGL",
+      "warnings": [
+        "hist-regulatory-ads-2026-06-12: source is 14 days old"
+      ]
+    },
+    {
+      "affected_thesis_claims": [
+        "Supply chain execution limits launch timing risk."
+      ],
+      "attention_score": 45,
+      "confidence": "medium",
+      "direction": "mixed",
+      "event_ids": [
+        "hist-components-2026-06-24"
+      ],
+      "exposure_weight": 0.18,
+      "next_review_prompts": [
+        "Review whether AAPL thesis sensitivities still match events hist-components-2026-06-24.",
+        "Check static exposure note for AAPL at 18.0% portfolio weight."
+      ],
+      "position_label": "core hardware platform",
+      "themes": [
+        "component availability",
+        "supply chain"
+      ],
+      "ticker": "AAPL",
+      "warnings": []
+    },
+    {
+      "affected_thesis_claims": [
+        "Cloud platform scale and enterprise distribution support AI infrastructure monetization."
+      ],
+      "attention_score": 42,
+      "confidence": "medium",
+      "direction": "positive",
+      "event_ids": [
+        "hist-cloud-utilization-2026-06-25"
+      ],
+      "exposure_weight": 0.22,
+      "next_review_prompts": [
+        "Review whether MSFT thesis sensitivities still match events hist-cloud-utilization-2026-06-25.",
+        "Check static exposure note for MSFT at 22.0% portfolio weight."
+      ],
+      "position_label": "enterprise cloud platform",
+      "themes": [
+        "ai infrastructure",
+        "cloud capex"
+      ],
+      "ticker": "MSFT",
+      "warnings": []
+    }
+  ],
+  "portfolio_weight_total": 0.57,
+  "review_queue": [
+    {
+      "attention_score": 47,
+      "prompt": "Review whether GOOGL thesis sensitivities still match events hist-regulatory-ads-2026-06-12.",
+      "ticker": "GOOGL"
+    },
+    {
+      "attention_score": 45,
+      "prompt": "Review whether AAPL thesis sensitivities still match events hist-components-2026-06-24.",
+      "ticker": "AAPL"
+    },
+    {
+      "attention_score": 42,
+      "prompt": "Review whether MSFT thesis sensitivities still match events hist-cloud-utilization-2026-06-25.",
+      "ticker": "MSFT"
+    }
+  ],
+  "schema_version": "1.0",
+  "source_event_count": 3
+}

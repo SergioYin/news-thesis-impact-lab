@@ -251,6 +251,10 @@ def test_validate_release_json_reports_expected_checks():
     assert checks["demo_artifacts_deterministic"]["ok"] is True
     assert checks["release_manifest_deterministic"]["ok"] is True
     assert checks["evidence_hub_artifacts_exist"]["ok"] is True
+    assert checks["bundle_artifacts_exist"]["ok"] is True
+    assert checks["bundle_manifest_no_js"]["ok"] is True
+    assert checks["bundle_artifacts_deterministic"]["ok"] is True
+    assert checks["bundle_inspect_passes"]["ok"] is True
     assert checks["evidence_hub_deterministic"]["ok"] is True
     assert checks["evidence_hub_no_js"]["ok"] is True
     assert checks["demo_boundaries_present"]["ok"] is True
@@ -298,7 +302,7 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     readme_bytes = (ROOT / "README.md").read_bytes()
 
     assert "wrote" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.7.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.8.0"}
     assert artifacts["README.md"]["sha256"] == hashlib.sha256(readme_bytes).hexdigest()
     assert artifacts["demo/gallery.html"]["exists"] is True
     assert artifacts["demo/trend/trend_history.json"]["exists"] is True
@@ -316,10 +320,85 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     assert "review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger" in "\n".join(manifest["commands"]["regenerate"])
     assert "cold-start-walkthrough --out demo/walkthrough" in "\n".join(manifest["commands"]["regenerate"])
     assert "evidence-hub --out demo/evidence" in "\n".join(manifest["commands"]["regenerate"])
+    assert "bundle-export --out demo/bundle" in "\n".join(manifest["commands"]["regenerate"])
     assert "evidence-hub --out demo/evidence" in "\n".join(manifest["commands"]["verify"])
+    assert "bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json" in "\n".join(manifest["commands"]["verify"])
     assert "validate-release --format json" in "\n".join(manifest["commands"]["verify"])
     assert "Not investment advice" in "\n".join(manifest["finance_safety_boundaries"])
     assert "# Release Manifest" in markdown
+
+
+def test_bundle_export_manifest_contents_and_no_js_html(tmp_path):
+    out = tmp_path / "bundle"
+    result = run_cli("bundle-export", "--out", str(out))
+
+    manifest = json.loads((out / "bundle_manifest.json").read_text(encoding="utf-8"))
+    copy_list = json.loads((out / "bundle_copy_list.json").read_text(encoding="utf-8"))
+    markdown = (out / "bundle_manifest.md").read_text(encoding="utf-8")
+    html = (out / "bundle_manifest.html").read_text(encoding="utf-8")
+    artifacts = {item["source_path"]: item for item in manifest["artifacts"]}
+
+    assert "copied" in result.stdout
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.8.0"}
+    assert manifest["bundle_type"] == "plain-file-agent-reuse-packet"
+    assert artifacts["demo/impact_packet.json"]["role"] == "primary demo artifact"
+    assert artifacts["demo/impact_packet.json"]["bundle_path"] == "artifacts/demo/impact_packet.json"
+    assert artifacts["demo/impact_packet.json"]["sha256"] == hashlib.sha256((ROOT / "demo/impact_packet.json").read_bytes()).hexdigest()
+    assert artifacts["demo/impact_packet.json"]["regenerate_command"].endswith("--out demo")
+    assert artifacts["examples/events.json"]["package_boundary"] == "examples"
+    assert "no-live-data" in artifacts["examples/events.json"]["safety_boundary_tags"]
+    assert "non-advice" in artifacts["release/manifest.json"]["safety_boundary_tags"]
+    assert len(copy_list["items"]) == len(manifest["artifacts"])
+    assert (out / "artifacts/demo/impact_packet.json").read_bytes() == (ROOT / "demo/impact_packet.json").read_bytes()
+    assert "<script" not in html.lower()
+    assert "No broker integration" in html
+    assert "# Bundle Manifest" in markdown
+
+
+def test_bundle_inspect_passes_and_fails_on_temp_mutation(tmp_path):
+    out = tmp_path / "bundle"
+    run_cli("bundle-export", "--out", str(out))
+
+    passed = run_cli("bundle-inspect", "--manifest", str(out / "bundle_manifest.json"), "--format", "json")
+    passed_payload = json.loads(passed.stdout)
+    assert passed_payload["ok"] is True
+    assert passed_payload["summary"]["missing"] == []
+    assert passed_payload["summary"]["changed"] == []
+
+    target = out / "artifacts/demo/impact_packet.json"
+    target.write_text(target.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+    failed = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "news_thesis_impact_lab",
+            "bundle-inspect",
+            "--manifest",
+            str(out / "bundle_manifest.json"),
+            "--format",
+            "md",
+        ],
+        cwd=ROOT,
+        env={"PYTHONPATH": str(ROOT / "src")},
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert failed.returncode == 1
+    assert "Status: failed" in failed.stdout
+    assert "artifacts/demo/impact_packet.json" in failed.stdout
+
+
+def test_bundle_export_is_deterministic(tmp_path):
+    first = tmp_path / "first"
+    second = tmp_path / "second"
+    run_cli("bundle-export", "--out", str(first))
+    run_cli("bundle-export", "--out", str(second))
+
+    assert (first / "bundle_manifest.json").read_bytes() == (second / "bundle_manifest.json").read_bytes()
+    assert (first / "bundle_manifest.md").read_bytes() == (second / "bundle_manifest.md").read_bytes()
+    assert (first / "bundle_manifest.html").read_bytes() == (second / "bundle_manifest.html").read_bytes()
+    assert (first / "bundle_copy_list.json").read_bytes() == (second / "bundle_copy_list.json").read_bytes()
 
 
 def test_demo_gallery_writes_static_landing_page(tmp_path):

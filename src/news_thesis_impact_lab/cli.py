@@ -11,7 +11,14 @@ from .ledger import build_review_ledger
 from .maturity import write_maturity_report
 from .model import load_events, load_portfolio, load_theses
 from .promotion import write_cold_start_walkthrough, write_visual_receipt
-from .release import validate_release, write_demo_gallery, write_release_manifest
+from .release import (
+    inspect_bundle_manifest,
+    render_bundle_inspection_markdown,
+    validate_release,
+    write_bundle_export,
+    write_demo_gallery,
+    write_release_manifest,
+)
 from .render import (
     render_compare_markdown,
     render_packet_html,
@@ -82,6 +89,13 @@ def main(argv: list[str] | None = None) -> int:
     evidence = subparsers.add_parser("evidence-hub", help="Write reviewer-facing release evidence hub artifacts.")
     evidence.add_argument("--out", default="demo/evidence")
 
+    bundle = subparsers.add_parser("bundle-export", help="Write plain-file bundle manifest and copied public artifacts.")
+    bundle.add_argument("--out", required=True)
+
+    inspect = subparsers.add_parser("bundle-inspect", help="Validate a plain-file bundle manifest and copied artifacts.")
+    inspect.add_argument("--manifest", required=True)
+    inspect.add_argument("--format", choices=["json", "md"], default="json")
+
     args = parser.parse_args(argv)
     try:
         if args.command == "build-packet":
@@ -110,6 +124,10 @@ def main(argv: list[str] | None = None) -> int:
             return command_cold_start_walkthrough(args)
         if args.command == "evidence-hub":
             return command_evidence_hub(args)
+        if args.command == "bundle-export":
+            return command_bundle_export(args)
+        if args.command == "bundle-inspect":
+            return command_bundle_inspect(args)
     except Exception as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
@@ -269,6 +287,26 @@ def command_evidence_hub(args: argparse.Namespace) -> int:
     print(f"wrote {out / 'evidence_hub.md'}")
     print(f"wrote {out / 'evidence_hub.html'}")
     return 0
+
+
+def command_bundle_export(args: argparse.Namespace) -> int:
+    out = Path(args.out)
+    manifest = write_bundle_export(Path.cwd(), out)
+    print(f"wrote {out / 'bundle_manifest.json'}")
+    print(f"wrote {out / 'bundle_manifest.md'}")
+    print(f"wrote {out / 'bundle_manifest.html'}")
+    print(f"wrote {out / 'bundle_copy_list.json'}")
+    print(f"copied {len(manifest['artifacts'])} artifacts under {out / 'artifacts'}")
+    return 0
+
+
+def command_bundle_inspect(args: argparse.Namespace) -> int:
+    inspection = inspect_bundle_manifest(Path(args.manifest))
+    if args.format == "json":
+        print(json.dumps(inspection, indent=2, sort_keys=True))
+    else:
+        print(render_bundle_inspection_markdown(inspection))
+    return 0 if inspection["ok"] else 1
 
 
 def read_json(path: Path):

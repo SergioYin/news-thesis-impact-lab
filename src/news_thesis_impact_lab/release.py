@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 import tempfile
 from pathlib import Path
 from typing import Any, Dict, Iterable, List
@@ -69,6 +70,12 @@ EXAMPLE_FILES = [
     Path("examples/history/2026-07-03_packet.json"),
     Path("examples/history/2026-07-10_packet.json"),
 ]
+BUNDLE_FILES = [
+    Path("demo/bundle/bundle_manifest.json"),
+    Path("demo/bundle/bundle_manifest.md"),
+    Path("demo/bundle/bundle_manifest.html"),
+    Path("demo/bundle/bundle_copy_list.json"),
+]
 KEY_ARTIFACTS = [
     Path("README.md"),
     Path("CHANGELOG.md"),
@@ -95,6 +102,20 @@ KEY_ARTIFACTS = [
     Path("demo/walkthrough/walkthrough.md"),
     *EXAMPLE_FILES,
 ]
+BUNDLE_SOURCE_FILES = sorted(
+    {
+        Path("README.md"),
+        Path("CHANGELOG.md"),
+        Path("pyproject.toml"),
+        Path("docs/review-packet.md"),
+        Path("skills/agent/news-thesis-impact-lab/SKILL.md"),
+        *DEMO_FILES,
+        *EVIDENCE_FILES,
+        *RELEASE_FILES,
+        *EXAMPLE_FILES,
+    },
+    key=lambda path: path.as_posix(),
+)
 REGENERATE_COMMANDS = [
     "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
     "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
@@ -107,10 +128,13 @@ REGENERATE_COMMANDS = [
     "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
     "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
     "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
+    "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
 ]
 VERIFY_COMMANDS = [
     "python -m pytest -q",
     "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
+    "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
+    "PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json",
     "PYTHONPATH=src python -m news_thesis_impact_lab selfcheck",
     "PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json",
     "python scripts/privacy_scan.py",
@@ -125,11 +149,15 @@ def validate_release(root: Path) -> Dict[str, Any]:
         check_files_exist(root, "evidence_hub_artifacts_exist", EVIDENCE_FILES),
         check_files_exist(root, "release_artifacts_exist", RELEASE_FILES),
         check_files_exist(root, "example_files_exist", EXAMPLE_FILES),
+        check_files_exist(root, "bundle_artifacts_exist", BUNDLE_FILES),
         check_demo_boundaries(root),
         check_evidence_hub_no_js(root),
+        check_bundle_no_js(root),
         check_demo_deterministic(root),
         check_evidence_hub_deterministic(root),
         check_release_manifest_deterministic(root),
+        check_bundle_deterministic(root),
+        check_bundle_inspect(root),
         check_referenced_example_files(root),
     ]
     passed = all(check["ok"] for check in checks)
@@ -250,6 +278,43 @@ def check_evidence_hub_no_js(root: Path) -> Dict[str, Any]:
     }
 
 
+def check_bundle_no_js(root: Path) -> Dict[str, Any]:
+    html_path = root / "demo/bundle/bundle_manifest.html"
+    if not html_path.is_file():
+        return {"name": "bundle_manifest_no_js", "ok": False, "path": "demo/bundle/bundle_manifest.html"}
+    return {
+        "name": "bundle_manifest_no_js",
+        "ok": "<script" not in html_path.read_text(encoding="utf-8").lower(),
+        "path": "demo/bundle/bundle_manifest.html",
+    }
+
+
+def check_bundle_deterministic(root: Path) -> Dict[str, Any]:
+    with tempfile.TemporaryDirectory(prefix="news-thesis-impact-lab-bundle-") as tmp:
+        tmp_path = Path(tmp)
+        write_bundle_export(root, tmp_path)
+        changed = [
+            path.as_posix()
+            for path in BUNDLE_FILES
+            if not (root / path).is_file() or (root / path).read_bytes() != (tmp_path / path.relative_to("demo/bundle")).read_bytes()
+        ]
+    return {"name": "bundle_artifacts_deterministic", "ok": not changed, "changed": changed}
+
+
+def check_bundle_inspect(root: Path) -> Dict[str, Any]:
+    manifest_path = root / "demo/bundle/bundle_manifest.json"
+    if not manifest_path.is_file():
+        return {"name": "bundle_inspect_passes", "ok": False, "error": "missing bundle manifest"}
+    inspection = inspect_bundle_manifest(manifest_path)
+    return {
+        "name": "bundle_inspect_passes",
+        "ok": inspection["ok"],
+        "missing": inspection["summary"]["missing"],
+        "changed": inspection["summary"]["changed"],
+        "error": inspection.get("error"),
+    }
+
+
 def check_referenced_example_files(root: Path) -> Dict[str, Any]:
     referenced = sorted(find_example_references(root))
     missing = [path for path in referenced if not (root / path).is_file()]
@@ -279,6 +344,137 @@ def write_release_manifest(root: Path, out: Path) -> Dict[str, Any]:
     write_json(out / "manifest.json", manifest)
     (out / "manifest.md").write_text(render_release_manifest_markdown(manifest), encoding="utf-8")
     return manifest
+
+
+def write_bundle_export(root: Path, out: Path) -> Dict[str, Any]:
+    root = root.resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    artifacts_root = out / "artifacts"
+    manifest = build_bundle_manifest(root, out)
+    copy_list = {
+        "schema_version": "1.0",
+        "generated_at": manifest["generated_at"],
+        "package": manifest["package"],
+        "copy_root": "artifacts",
+        "items": [
+            {
+                "source_path": artifact["source_path"],
+                "bundle_path": artifact["bundle_path"],
+                "sha256": artifact["sha256"],
+                "bytes": artifact["bytes"],
+                "role": artifact["role"],
+                "package_boundary": artifact["package_boundary"],
+                "safety_boundary_tags": artifact["safety_boundary_tags"],
+            }
+            for artifact in manifest["artifacts"]
+        ],
+    }
+    for artifact in manifest["artifacts"]:
+        source = root / artifact["source_path"]
+        target = out / artifact["bundle_path"]
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
+    write_json(out / "bundle_manifest.json", manifest)
+    (out / "bundle_manifest.md").write_text(render_bundle_manifest_markdown(manifest), encoding="utf-8")
+    (out / "bundle_manifest.html").write_text(render_bundle_manifest_html(manifest), encoding="utf-8")
+    write_json(out / "bundle_copy_list.json", copy_list)
+    return manifest
+
+
+def build_bundle_manifest(root: Path, out: Path | None = None) -> Dict[str, Any]:
+    root = root.resolve()
+    artifacts = [bundle_artifact_record(root, path) for path in BUNDLE_SOURCE_FILES]
+    return {
+        "schema_version": "1.0",
+        "bundle_type": "plain-file-agent-reuse-packet",
+        "generated_at": "2026-07-10",
+        "package": {"name": "news-thesis-impact-lab", "version": __version__},
+        "manifest_files": [
+            "bundle_manifest.json",
+            "bundle_manifest.md",
+            "bundle_manifest.html",
+            "bundle_copy_list.json",
+        ],
+        "artifact_root": "artifacts",
+        "finance_safety_boundaries": BOUNDARIES,
+        "global_safety_boundary_tags": safety_boundary_tags(),
+        "artifacts": artifacts,
+        "commands": {
+            "regenerate": REGENERATE_COMMANDS,
+            "inspect": "PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json",
+            "verify": VERIFY_COMMANDS,
+        },
+        "notes": [
+            "Bundle files are copied as plain files under artifacts/; no zip or archive is created.",
+            "The manifest validates bundled copies through bundle_path and keeps source_path for checkout-level regeneration.",
+            "The bundle contains public local demo, example, release, documentation, and agent skill artifacts only.",
+            "The bundle preserves research-only boundaries: no live data, no advice, no broker access, and no order behavior.",
+        ],
+    }
+
+
+def bundle_artifact_record(root: Path, relative_path: Path) -> Dict[str, Any]:
+    path = root / relative_path
+    data = path.read_bytes() if path.is_file() else b""
+    return {
+        "source_path": relative_path.as_posix(),
+        "bundle_path": (Path("artifacts") / relative_path).as_posix(),
+        "exists": path.is_file(),
+        "sha256": hashlib.sha256(data).hexdigest() if data else None,
+        "bytes": len(data) if data else None,
+        "role": bundle_role(relative_path),
+        "regenerate_command": command_to_regenerate(relative_path.as_posix()),
+        "package_boundary": package_boundary(relative_path),
+        "safety_boundary_tags": safety_boundary_tags(),
+    }
+
+
+def inspect_bundle_manifest(manifest_path: Path) -> Dict[str, Any]:
+    manifest_path = manifest_path.resolve()
+    try:
+        manifest = read_json(manifest_path)
+    except Exception as exc:
+        return {
+            "ok": False,
+            "manifest": str(manifest_path),
+            "error": str(exc),
+            "summary": {"total": 0, "present": [], "missing": [], "changed": []},
+        }
+    base = manifest_path.parent
+    present: List[str] = []
+    missing: List[str] = []
+    changed: List[Dict[str, Any]] = []
+    for artifact in manifest.get("artifacts", []):
+        bundle_path = artifact.get("bundle_path") or artifact.get("source_path")
+        expected_hash = artifact.get("sha256")
+        path = base / bundle_path
+        if not path.is_file():
+            missing.append(bundle_path)
+            continue
+        actual_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+        if actual_hash != expected_hash:
+            changed.append(
+                {
+                    "path": bundle_path,
+                    "expected_sha256": expected_hash,
+                    "actual_sha256": actual_hash,
+                }
+            )
+        else:
+            present.append(bundle_path)
+    ok = not missing and not changed
+    return {
+        "ok": ok,
+        "manifest": str(manifest_path),
+        "package": manifest.get("package", {}),
+        "summary": {
+            "total": len(manifest.get("artifacts", [])),
+            "present": present,
+            "missing": missing,
+            "changed": changed,
+        },
+        "finance_safety_boundaries": manifest.get("finance_safety_boundaries", []),
+    }
 
 
 def build_release_manifest(root: Path) -> Dict[str, Any]:
@@ -363,6 +559,92 @@ def distribution_suffix(kind: str) -> str:
     return "tar.gz"
 
 
+def command_to_regenerate(path_key: str) -> str:
+    command_by_prefix = {
+        "demo/impact_packet": REGENERATE_COMMANDS[0],
+        "demo/index.html": REGENERATE_COMMANDS[0],
+        "demo/compare/": REGENERATE_COMMANDS[1],
+        "demo/trend/": REGENERATE_COMMANDS[2],
+        "demo/scenario/": REGENERATE_COMMANDS[3],
+        "demo/ledger/": REGENERATE_COMMANDS[4],
+        "demo/maturity/": REGENERATE_COMMANDS[5],
+        "demo/gallery.html": REGENERATE_COMMANDS[6],
+        "demo/visual/": REGENERATE_COMMANDS[7],
+        "demo/walkthrough/": REGENERATE_COMMANDS[8],
+        "release/manifest": REGENERATE_COMMANDS[9],
+        "demo/evidence/": REGENERATE_COMMANDS[10],
+        "demo/bundle/": REGENERATE_COMMANDS[11],
+    }
+    for prefix, command in command_by_prefix.items():
+        if path_key.startswith(prefix):
+            return command
+    if path_key.startswith("examples/"):
+        return "static fixture input; edit local JSON then rerun regenerate commands"
+    if path_key in {"README.md", "CHANGELOG.md", "pyproject.toml", "docs/review-packet.md"}:
+        return "maintained source documentation or package metadata"
+    if path_key.startswith("skills/"):
+        return "maintained agent skill documentation"
+    return "not generated by a public CLI command"
+
+
+def bundle_role(path: Path) -> str:
+    key = path.as_posix()
+    if key.startswith("examples/"):
+        return "fixture input for deterministic reproduction"
+    if key.startswith("release/"):
+        return "release manifest evidence"
+    if key.startswith("demo/evidence/"):
+        return "reviewer evidence hub"
+    if key.startswith("demo/bundle/"):
+        return "bundle metadata"
+    if key.startswith("demo/maturity/"):
+        return "release readiness gate evidence"
+    if key.startswith("demo/walkthrough/"):
+        return "cold-start reproduction guide"
+    if key.startswith("demo/visual/"):
+        return "static visual and boundary receipt"
+    if key.startswith("demo/ledger/"):
+        return "repeated-use review ledger"
+    if key.startswith("demo/scenario/"):
+        return "illustrative scenario stress review"
+    if key.startswith("demo/trend/"):
+        return "multi-period trend review"
+    if key.startswith("demo/compare/"):
+        return "packet comparison evidence"
+    if key.startswith("demo/"):
+        return "primary demo artifact"
+    if key.startswith("docs/"):
+        return "review documentation"
+    if key.startswith("skills/"):
+        return "agent reuse skill"
+    if key == "README.md":
+        return "public entrypoint documentation"
+    if key == "CHANGELOG.md":
+        return "release history"
+    if key == "pyproject.toml":
+        return "package metadata"
+    return "public support artifact"
+
+
+def package_boundary(path: Path) -> str:
+    key = path.as_posix()
+    if key.startswith("demo/"):
+        return "demo"
+    if key.startswith("examples/"):
+        return "examples"
+    if key.startswith("release/"):
+        return "release"
+    if key.startswith("docs/"):
+        return "docs"
+    if key.startswith("skills/"):
+        return "agent-skill"
+    return "package-root"
+
+
+def safety_boundary_tags() -> List[str]:
+    return ["static-local", "no-live-data", "non-advice", "no-broker", "no-orders", "human-review"]
+
+
 def render_release_manifest_markdown(manifest: Dict[str, Any]) -> str:
     lines = [
         "# Release Manifest",
@@ -401,6 +683,121 @@ def render_release_manifest_markdown(manifest: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def render_bundle_manifest_markdown(manifest: Dict[str, Any]) -> str:
+    lines: List[str] = [
+        "# Bundle Manifest",
+        "",
+        f"Package: {manifest['package']['name']} {manifest['package']['version']}",
+        f"Generated: {manifest['generated_at']}",
+        f"Bundle type: {manifest['bundle_type']}",
+        f"Artifact root: `{manifest['artifact_root']}`",
+        "",
+        "## Finance Safety Boundaries",
+        "",
+        *[f"- {boundary}" for boundary in manifest["finance_safety_boundaries"]],
+        "",
+        "## Boundary Tags",
+        "",
+        *[f"- `{tag}`" for tag in manifest["global_safety_boundary_tags"]],
+        "",
+        "## Artifacts",
+        "",
+        "| Source path | Bundle path | Role | Package boundary | Safety tags | Regenerate | SHA-256 | Bytes |",
+        "| --- | --- | --- | --- | --- | --- | --- | ---: |",
+    ]
+    for artifact in manifest["artifacts"]:
+        lines.append(
+            f"| `{artifact['source_path']}` | `{artifact['bundle_path']}` | {artifact['role']} | "
+            f"{artifact['package_boundary']} | {', '.join(artifact['safety_boundary_tags'])} | "
+            f"`{artifact['regenerate_command']}` | `{artifact['sha256'] or 'missing'}` | {artifact['bytes'] or 0} |"
+        )
+    lines.extend(["", "## Inspect", "", f"```bash\n{manifest['commands']['inspect']}\n```", "", "## Notes", ""])
+    lines.extend(f"- {note}" for note in manifest["notes"])
+    lines.append("")
+    return "\n".join(lines)
+
+
+def render_bundle_manifest_html(manifest: Dict[str, Any]) -> str:
+    boundaries = "".join(f"<li>{esc(boundary)}</li>" for boundary in manifest["finance_safety_boundaries"])
+    tags = "".join(f"<li><code>{esc(tag)}</code></li>" for tag in manifest["global_safety_boundary_tags"])
+    rows = "".join(
+        "<tr>"
+        f"<td><code>{esc(artifact['source_path'])}</code></td>"
+        f"<td><code>{esc(artifact['bundle_path'])}</code></td>"
+        f"<td>{esc(artifact['role'])}</td>"
+        f"<td>{esc(artifact['package_boundary'])}</td>"
+        f"<td>{esc(', '.join(artifact['safety_boundary_tags']))}</td>"
+        f"<td><code>{esc(artifact['regenerate_command'])}</code></td>"
+        f"<td><code>{esc(artifact['sha256'] or 'missing')}</code></td>"
+        f"<td>{artifact['bytes'] or 0}</td>"
+        "</tr>"
+        for artifact in manifest["artifacts"]
+    )
+    notes = "".join(f"<li>{esc(note)}</li>" for note in manifest["notes"])
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bundle Manifest</title>
+  <style>
+    body {{ font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 2rem; color: #17202a; background: #f7f8fa; }}
+    main {{ max-width: 1280px; margin: 0 auto; }}
+    h1 {{ font-size: 2rem; margin-bottom: 0.25rem; }}
+    h2 {{ font-size: 1.2rem; margin-top: 1.75rem; }}
+    table {{ border-collapse: collapse; width: 100%; background: white; margin-top: 0.75rem; }}
+    th, td {{ border: 1px solid #d8dee8; padding: 0.6rem; vertical-align: top; text-align: left; }}
+    th {{ background: #e9eef5; }}
+    code {{ white-space: normal; overflow-wrap: anywhere; }}
+    .note {{ background: #fff; border: 1px solid #d8dee8; padding: 1rem; margin: 1rem 0; }}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Bundle Manifest</h1>
+  <p>Package {esc(manifest['package']['name'])} {esc(manifest['package']['version'])}; generated {esc(manifest['generated_at'])}. Plain files are copied under <code>{esc(manifest['artifact_root'])}</code>.</p>
+  <section class="note"><h2>Finance Safety Boundaries</h2><ul>{boundaries}</ul><h2>Boundary Tags</h2><ul>{tags}</ul></section>
+  <h2>Artifacts</h2>
+  <table><thead><tr><th>Source path</th><th>Bundle path</th><th>Role</th><th>Package boundary</th><th>Safety tags</th><th>Regenerate</th><th>SHA-256</th><th>Bytes</th></tr></thead><tbody>{rows}</tbody></table>
+  <h2>Inspect</h2>
+  <pre><code>{esc(manifest['commands']['inspect'])}</code></pre>
+  <h2>Notes</h2>
+  <ul>{notes}</ul>
+</main>
+</body>
+</html>
+"""
+
+
+def render_bundle_inspection_markdown(inspection: Dict[str, Any]) -> str:
+    lines = [
+        "# Bundle Inspection",
+        "",
+        f"Manifest: `{inspection['manifest']}`",
+        f"Status: {'passed' if inspection['ok'] else 'failed'}",
+        f"Total artifacts: {inspection['summary']['total']}",
+        f"Present artifacts: {len(inspection['summary']['present'])}",
+        f"Missing artifacts: {len(inspection['summary']['missing'])}",
+        f"Changed artifacts: {len(inspection['summary']['changed'])}",
+        "",
+        "## Missing",
+        "",
+    ]
+    lines.extend(f"- `{path}`" for path in inspection["summary"]["missing"] or ["none"])
+    lines.extend(["", "## Changed", ""])
+    if inspection["summary"]["changed"]:
+        lines.extend(
+            f"- `{item['path']}` expected `{item['expected_sha256']}` actual `{item['actual_sha256']}`"
+            for item in inspection["summary"]["changed"]
+        )
+    else:
+        lines.append("- none")
+    lines.extend(["", "## Finance Safety Boundaries", ""])
+    lines.extend(f"- {boundary}" for boundary in inspection.get("finance_safety_boundaries", []))
+    lines.append("")
+    return "\n".join(lines)
+
+
 def write_demo_gallery(out: Path) -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(render_demo_gallery(), encoding="utf-8")
@@ -419,6 +816,8 @@ def render_demo_gallery() -> str:
             "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
             "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
             "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
+            "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
+            "PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json",
             "PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json",
         ]
     )
@@ -461,6 +860,8 @@ def render_demo_gallery() -> str:
     <a class="card" href="visual/visual_receipt.md"><strong>Visual Receipt</strong>Static capture receipt with hashes, no-script checks, and boundary checks.</a>
     <a class="card" href="walkthrough/walkthrough.md"><strong>Cold-Start Walkthrough</strong>Two-to-five minute first-user path with commands and failure modes.</a>
     <a class="card" href="evidence/evidence_hub.md"><strong>Evidence Hub</strong>Reviewer matrix with artifact purpose, gates, hashes, no-script checks, boundary coverage, and limitations.</a>
+    <a class="card" href="bundle/bundle_manifest.md"><strong>Bundle Manifest</strong>Plain-file agent reuse bundle with hashes, roles, regenerate commands, package boundaries, and safety tags.</a>
+    <a class="card" href="bundle/bundle_copy_list.json"><strong>Bundle Copy List</strong>Deterministic copy list for public artifacts under the bundle artifacts directory.</a>
     <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>
     <a class="card" href="../release/manifest.md"><strong>Release Manifest</strong>Hashes, commands, boundaries, and distribution placeholders.</a>
   </section>

@@ -1,0 +1,300 @@
+{
+  "boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+    "No broker integration, order routing, execution, or account access.",
+    "Scores are deterministic review aids for human research triage."
+  ],
+  "generated_at": "2026-07-10",
+  "history_period_count": 3,
+  "next_review_queue": [
+    {
+      "exposure_trend": "decreased",
+      "latest_attention_score": 52,
+      "latest_status": "changed",
+      "persistent_warning_count": 1,
+      "prompt": "Review whether GOOGL thesis sensitivities still match events hist-regulatory-ads-2026-06-12.",
+      "score_trend": "increased",
+      "ticker": "GOOGL"
+    },
+    {
+      "exposure_trend": "increased",
+      "latest_attention_score": 69,
+      "latest_status": "changed",
+      "persistent_warning_count": 0,
+      "prompt": "Review whether NVDA thesis sensitivities still match events hist-packaging-2026-07-08, hist-cloud-margin-2026-07-09.",
+      "score_trend": "increased",
+      "ticker": "NVDA"
+    },
+    {
+      "exposure_trend": "increased",
+      "latest_attention_score": 60,
+      "latest_status": "changed",
+      "persistent_warning_count": 0,
+      "prompt": "Review whether MSFT thesis sensitivities still match events hist-cloud-margin-2026-07-09.",
+      "score_trend": "increased",
+      "ticker": "MSFT"
+    }
+  ],
+  "persistent_warnings": [
+    {
+      "latest_example": "hist-regulatory-ads-2026-06-12: source is 28 days old",
+      "period_count": 3,
+      "snapshots": [
+        "2026-06-26_packet",
+        "2026-07-03_packet",
+        "2026-07-10_packet"
+      ],
+      "ticker": "GOOGL",
+      "warning": "hist-regulatory-ads-2026-06-12: source remained stale"
+    }
+  ],
+  "schema_version": "1.0",
+  "snapshots": [
+    {
+      "generated_at": "2026-06-26",
+      "impacted_ticker_count": 3,
+      "name": "2026-06-26_packet",
+      "path": "examples/history/2026-06-26_packet.json"
+    },
+    {
+      "generated_at": "2026-07-03",
+      "impacted_ticker_count": 3,
+      "name": "2026-07-03_packet",
+      "path": "examples/history/2026-07-03_packet.json"
+    },
+    {
+      "generated_at": "2026-07-10",
+      "impacted_ticker_count": 3,
+      "name": "2026-07-10_packet",
+      "path": "examples/history/2026-07-10_packet.json"
+    }
+  ],
+  "ticker_histories": [
+    {
+      "exposure_delta_from_first_seen": 0.02,
+      "exposure_trend": "increased",
+      "first_seen": "2026-07-03",
+      "last_seen": "2026-07-10",
+      "latest_attention_score": 69,
+      "latest_direction": "positive",
+      "latest_review_prompt": "Review whether NVDA thesis sensitivities still match events hist-packaging-2026-07-08, hist-cloud-margin-2026-07-09.",
+      "latest_status": "changed",
+      "persistent_warnings": [],
+      "score_delta_from_first_seen": 11,
+      "score_trend": "increased",
+      "ticker": "NVDA",
+      "timeline": [
+        {
+          "attention_score": 0,
+          "direction": "absent",
+          "exposure_weight": 0.0,
+          "generated_at": "2026-06-26",
+          "present": false,
+          "score_direction": "absent",
+          "snapshot": "2026-06-26_packet",
+          "status": "absent",
+          "warning_count": 0,
+          "warnings": []
+        },
+        {
+          "attention_score": 58,
+          "direction": "positive",
+          "exposure_weight": 0.1,
+          "generated_at": "2026-07-03",
+          "present": true,
+          "score_direction": "new",
+          "snapshot": "2026-07-03_packet",
+          "status": "new",
+          "warning_count": 0,
+          "warnings": []
+        },
+        {
+          "attention_score": 69,
+          "direction": "positive",
+          "exposure_weight": 0.12,
+          "generated_at": "2026-07-10",
+          "present": true,
+          "score_direction": "increased",
+          "snapshot": "2026-07-10_packet",
+          "status": "changed",
+          "warning_count": 0,
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "exposure_delta_from_first_seen": 0.02,
+      "exposure_trend": "increased",
+      "first_seen": "2026-06-26",
+      "last_seen": "2026-07-10",
+      "latest_attention_score": 60,
+      "latest_direction": "positive",
+      "latest_review_prompt": "Review whether MSFT thesis sensitivities still match events hist-cloud-margin-2026-07-09.",
+      "latest_status": "changed",
+      "persistent_warnings": [],
+      "score_delta_from_first_seen": 18,
+      "score_trend": "increased",
+      "ticker": "MSFT",
+      "timeline": [
+        {
+          "attention_score": 42,
+          "direction": "positive",
+          "exposure_weight": 0.22,
+          "generated_at": "2026-06-26",
+          "present": true,
+          "score_direction": "new",
+          "snapshot": "2026-06-26_packet",
+          "status": "new",
+          "warning_count": 0,
+          "warnings": []
+        },
+        {
+          "attention_score": 55,
+          "direction": "positive",
+          "exposure_weight": 0.23,
+          "generated_at": "2026-07-03",
+          "present": true,
+          "score_direction": "increased",
+          "snapshot": "2026-07-03_packet",
+          "status": "changed",
+          "warning_count": 0,
+          "warnings": []
+        },
+        {
+          "attention_score": 60,
+          "direction": "positive",
+          "exposure_weight": 0.24,
+          "generated_at": "2026-07-10",
+          "present": true,
+          "score_direction": "increased",
+          "snapshot": "2026-07-10_packet",
+          "status": "changed",
+          "warning_count": 0,
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "exposure_delta_from_first_seen": -0.02,
+      "exposure_trend": "decreased",
+      "first_seen": "2026-06-26",
+      "last_seen": "2026-07-10",
+      "latest_attention_score": 52,
+      "latest_direction": "negative",
+      "latest_review_prompt": "Review whether GOOGL thesis sensitivities still match events hist-regulatory-ads-2026-06-12.",
+      "latest_status": "changed",
+      "persistent_warnings": [
+        {
+          "latest_example": "hist-regulatory-ads-2026-06-12: source is 28 days old",
+          "period_count": 3,
+          "snapshots": [
+            "2026-06-26_packet",
+            "2026-07-03_packet",
+            "2026-07-10_packet"
+          ],
+          "warning": "hist-regulatory-ads-2026-06-12: source remained stale"
+        }
+      ],
+      "score_delta_from_first_seen": 5,
+      "score_trend": "increased",
+      "ticker": "GOOGL",
+      "timeline": [
+        {
+          "attention_score": 47,
+          "direction": "negative",
+          "exposure_weight": 0.17,
+          "generated_at": "2026-06-26",
+          "present": true,
+          "score_direction": "new",
+          "snapshot": "2026-06-26_packet",
+          "status": "new",
+          "warning_count": 1,
+          "warnings": [
+            "hist-regulatory-ads-2026-06-12: source is 14 days old"
+          ]
+        },
+        {
+          "attention_score": 51,
+          "direction": "negative",
+          "exposure_weight": 0.16,
+          "generated_at": "2026-07-03",
+          "present": true,
+          "score_direction": "increased",
+          "snapshot": "2026-07-03_packet",
+          "status": "changed",
+          "warning_count": 1,
+          "warnings": [
+            "hist-regulatory-ads-2026-06-12: source is 21 days old"
+          ]
+        },
+        {
+          "attention_score": 52,
+          "direction": "negative",
+          "exposure_weight": 0.15,
+          "generated_at": "2026-07-10",
+          "present": true,
+          "score_direction": "increased",
+          "snapshot": "2026-07-10_packet",
+          "status": "changed",
+          "warning_count": 1,
+          "warnings": [
+            "hist-regulatory-ads-2026-06-12: source is 28 days old"
+          ]
+        }
+      ]
+    },
+    {
+      "exposure_delta_from_first_seen": -0.18,
+      "exposure_trend": "decreased",
+      "first_seen": "2026-06-26",
+      "last_seen": "2026-06-26",
+      "latest_attention_score": 0,
+      "latest_direction": "absent",
+      "latest_review_prompt": "Review whether AAPL still belongs in the static research packet.",
+      "latest_status": "absent",
+      "persistent_warnings": [],
+      "score_delta_from_first_seen": -45,
+      "score_trend": "decreased",
+      "ticker": "AAPL",
+      "timeline": [
+        {
+          "attention_score": 45,
+          "direction": "mixed",
+          "exposure_weight": 0.18,
+          "generated_at": "2026-06-26",
+          "present": true,
+          "score_direction": "new",
+          "snapshot": "2026-06-26_packet",
+          "status": "new",
+          "warning_count": 0,
+          "warnings": []
+        },
+        {
+          "attention_score": 0,
+          "direction": "absent",
+          "exposure_weight": 0.0,
+          "generated_at": "2026-07-03",
+          "present": false,
+          "score_direction": "cleared",
+          "snapshot": "2026-07-03_packet",
+          "status": "cleared",
+          "warning_count": 0,
+          "warnings": []
+        },
+        {
+          "attention_score": 0,
+          "direction": "absent",
+          "exposure_weight": 0.0,
+          "generated_at": "2026-07-10",
+          "present": false,
+          "score_direction": "absent",
+          "snapshot": "2026-07-10_packet",
+          "status": "absent",
+          "warning_count": 0,
+          "warnings": []
+        }
+      ]
+    }
+  ]
+}

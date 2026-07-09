@@ -53,6 +53,8 @@ WALKTHROUGH_COMMANDS = [
     "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
     "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
     "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
+    "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
+    "PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json",
     "PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json",
 ]
 
@@ -79,6 +81,10 @@ WALKTHROUGH_ARTIFACTS = [
     "demo/evidence/evidence_hub.json",
     "demo/evidence/evidence_hub.md",
     "demo/evidence/evidence_hub.html",
+    "demo/bundle/bundle_manifest.json",
+    "demo/bundle/bundle_manifest.md",
+    "demo/bundle/bundle_manifest.html",
+    "demo/bundle/bundle_copy_list.json",
 ]
 
 
@@ -188,7 +194,7 @@ def build_cold_start_walkthrough() -> Dict[str, Any]:
         "title": "Cold-Start Walkthrough",
         "audience": "First user reviewing the public demo from a clean checkout.",
         "duration": "2-5 minutes",
-            "goal": "Generate the local packet, compare, trend, scenario stress, repeated-use review ledger, visual receipt, walkthrough, evidence hub, and release validation evidence without network, broker, order, or advice behavior.",
+            "goal": "Generate the local packet, compare, trend, scenario stress, repeated-use review ledger, visual receipt, walkthrough, evidence hub, plain-file bundle, and release validation evidence without network, broker, order, or advice behavior.",
         "commands": WALKTHROUGH_COMMANDS,
         "expected_artifacts": WALKTHROUGH_ARTIFACTS,
         "interpretation_guide": [
@@ -200,6 +206,7 @@ def build_cold_start_walkthrough() -> Dict[str, Any]:
             "Use demo/ledger/review_ledger.md to carry repeated review issues forward, mark absent issues resolved, and identify stale research maintenance items.",
             "Use demo/visual/visual_receipt.md to confirm static HTML pages pass no-script checks and retain boundaries.",
             "Use demo/evidence/evidence_hub.md to audit artifact purpose, release and promotion gate relevance, hashes, no-script status, boundary coverage, and limitations.",
+            "Use demo/bundle/bundle_manifest.md for agent reuse; inspect it before handoff to confirm copied artifacts exist and hashes match.",
             "Treat validate-release JSON as the promotion gate summary; every check should be true before publishing.",
         ],
         "failure_modes": [
@@ -207,6 +214,7 @@ def build_cold_start_walkthrough() -> Dict[str, Any]:
             "Edited generated files cause deterministic release validation to report changed artifacts.",
             "Removing finance boundaries from public artifacts causes boundary validation to fail.",
             "Adding script tags to static demo HTML causes the visual receipt no-script summary to fail.",
+            "Mutating copied bundle artifacts causes bundle-inspect and validate-release to fail.",
             "Using live market data, broker integrations, orders, or advice language is outside project scope.",
         ],
         "boundaries": BOUNDARIES,

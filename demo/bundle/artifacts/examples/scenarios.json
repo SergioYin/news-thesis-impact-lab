@@ -1,0 +1,105 @@
+{
+  "description": "Illustrative, static stress scenarios for local research triage only. These are not live data, forecasts, recommendations, or trading instructions.",
+  "scenarios": [
+    {
+      "id": "scn-ai-capex-digestion",
+      "name": "AI capex digestion",
+      "description": "A hypothetical moderation in AI infrastructure spending forces review of demand, utilization, and margin assumptions.",
+      "shocks": [
+        {
+          "id": "shock-cloud-capex-pause",
+          "name": "Cloud capex pause",
+          "category": "macro",
+          "risk_level": "high",
+          "description": "Large cloud buyers slow incremental AI infrastructure commitments while absorbing prior capacity.",
+          "exposure_tickers": ["MSFT", "NVDA"],
+          "exposure_tags": ["cloud capex", "ai infrastructure", "accelerator demand"]
+        },
+        {
+          "id": "shock-accelerator-lead-times-normalize",
+          "name": "Accelerator lead times normalize",
+          "category": "sector",
+          "risk_level": "medium",
+          "description": "Supply availability improves faster than demand visibility, changing the scarcity narrative.",
+          "exposure_tickers": ["NVDA"],
+          "exposure_tags": ["component availability", "advanced packaging", "supply chain"]
+        }
+      ]
+    },
+    {
+      "id": "scn-regulatory-ad-tightening",
+      "name": "Digital ads policy tightening",
+      "description": "A hypothetical policy review increases scrutiny of targeting, reporting, and data-use practices.",
+      "shocks": [
+        {
+          "id": "shock-ad-targeting-limits",
+          "name": "Ad targeting limits",
+          "category": "sector",
+          "risk_level": "severe",
+          "description": "New restrictions reduce flexibility in targeted digital advertising products.",
+          "exposure_tickers": ["GOOGL"],
+          "exposure_tags": ["digital ads", "regulatory review", "ad monetization"]
+        },
+        {
+          "id": "shock-platform-reporting-costs",
+          "name": "Platform reporting costs",
+          "category": "company",
+          "risk_level": "medium",
+          "description": "Compliance work absorbs management attention and raises operating complexity.",
+          "exposure_tickers": ["GOOGL"],
+          "exposure_tags": ["regulatory remedies", "policy", "reporting obligations"]
+        }
+      ]
+    },
+    {
+      "id": "scn-premium-device-demand",
+      "name": "Premium device demand fade",
+      "description": "A hypothetical consumer replacement-cycle slowdown tests hardware resilience and services offset claims.",
+      "shocks": [
+        {
+          "id": "shock-replacement-cycle-extends",
+          "name": "Replacement cycle extends",
+          "category": "macro",
+          "risk_level": "high",
+          "description": "Consumers extend premium device replacement cycles despite stable installed-base engagement.",
+          "exposure_tickers": ["AAPL"],
+          "exposure_tags": ["consumer replacement cycles", "hardware demand", "premium device"]
+        },
+        {
+          "id": "shock-launch-cadence-slip",
+          "name": "Launch cadence slip",
+          "category": "company",
+          "risk_level": "medium",
+          "description": "Component timing creates narrower launch windows for high-end devices.",
+          "exposure_tickers": ["AAPL"],
+          "exposure_tags": ["component availability", "supply chain", "launch cadence"]
+        }
+      ]
+    },
+    {
+      "id": "scn-cloud-margin-compression",
+      "name": "Cloud margin compression",
+      "description": "A hypothetical cost absorption issue tests whether AI infrastructure utilization can support margins.",
+      "shocks": [
+        {
+          "id": "shock-utilization-lag",
+          "name": "Utilization lag",
+          "category": "sector",
+          "risk_level": "high",
+          "description": "New AI infrastructure capacity takes longer to reach efficient utilization.",
+          "exposure_tickers": ["MSFT", "GOOGL"],
+          "exposure_tags": ["cloud margin", "cloud profitability", "ai infrastructure"]
+        },
+        {
+          "id": "shock-enterprise-budget-delay",
+          "name": "Enterprise budget delay",
+          "category": "macro",
+          "risk_level": "medium",
+          "description": "Enterprise buyers defer some new AI platform commitments into later planning cycles.",
+          "exposure_tickers": ["MSFT"],
+          "exposure_tags": ["enterprise distribution", "near-term revenue conversion", "cloud platform"]
+        }
+      ]
+    }
+  ]
+}

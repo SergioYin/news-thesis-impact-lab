@@ -1,0 +1,749 @@
+{
+  "artifact_root": "artifacts",
+  "artifacts": [
+    {
+      "bundle_path": "artifacts/CHANGELOG.md",
+      "bytes": 4288,
+      "exists": true,
+      "package_boundary": "package-root",
+      "regenerate_command": "maintained source documentation or package metadata",
+      "role": "release history",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "66a1cfd46af50523ea5f2db86b70b58f59cc27a80cceee458c34da81dd3c0813",
+      "source_path": "CHANGELOG.md"
+    },
+    {
+      "bundle_path": "artifacts/README.md",
+      "bytes": 9928,
+      "exists": true,
+      "package_boundary": "package-root",
+      "regenerate_command": "maintained source documentation or package metadata",
+      "role": "public entrypoint documentation",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "a0dc8664e7b3e25c53824a4b04df05b1c8d3cb5f16ddc3aebab7edd75077f2db",
+      "source_path": "README.md"
+    },
+    {
+      "bundle_path": "artifacts/demo/compare/compare.json",
+      "bytes": 1439,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
+      "role": "packet comparison evidence",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "aff81a073e9c644ddc280649398f1c13bfb159d81061db9c098d2be2f306ddf5",
+      "source_path": "demo/compare/compare.json"
+    },
+    {
+      "bundle_path": "artifacts/demo/compare/compare.md",
+      "bytes": 712,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
+      "role": "packet comparison evidence",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "adc9ac2a4b2744593687353b0f5c3371aa83379fb0215746a1d2898f6f934787",
+      "source_path": "demo/compare/compare.md"
+    },
+    {
+      "bundle_path": "artifacts/demo/evidence/evidence_hub.html",
+      "bytes": 19951,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
+      "role": "reviewer evidence hub",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "1ad13b1fc07cdcaa36464c13d738fa64577127f787f8a392a97634852901ba80",
+      "source_path": "demo/evidence/evidence_hub.html"
+    },
+    {
+      "bundle_path": "artifacts/demo/evidence/evidence_hub.json",
+      "bytes": 26905,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
+      "role": "reviewer evidence hub",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "214015c622ff76ef50b61b9d616a7147cb3c1c98729804a14aeb162aa2cefa16",
+      "source_path": "demo/evidence/evidence_hub.json"
+    },
+    {
+      "bundle_path": "artifacts/demo/evidence/evidence_hub.md",
+      "bytes": 15341,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
+      "role": "reviewer evidence hub",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "6a70f53b0f7466594e76ec5f075488a8a4cb62f86d315341b26a0dcb72e7955d",
+      "source_path": "demo/evidence/evidence_hub.md"
+    },
+    {
+      "bundle_path": "artifacts/demo/gallery.html",
+      "bytes": 5675,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
+      "role": "primary demo artifact",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "257d014acc8cf75e02c2b475e1b33952af4f2c63d79b64c64a73883f2cce0552",
+      "source_path": "demo/gallery.html"
+    },
+    {
+      "bundle_path": "artifacts/demo/impact_packet.json",
+      "bytes": 5780,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
+      "role": "primary demo artifact",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "8f598eee1faf86f0cc0f846f420ecad744d313cec958398907c44ad242fa6073",
+      "source_path": "demo/impact_packet.json"
+    },
+    {
+      "bundle_path": "artifacts/demo/impact_packet.md",
+      "bytes": 3597,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
+      "role": "primary demo artifact",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "59513e6d36d7081df9484642e02740b5a8014e4a5e733636ea98505ec09ced65",
+      "source_path": "demo/impact_packet.md"
+    },
+    {
+      "bundle_path": "artifacts/demo/index.html",
+      "bytes": 2940,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
+      "role": "primary demo artifact",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "593b6e4647d7b56f3f78cb4f6d4b73d80ce647bc729d61370029f2ee6906a10b",
+      "source_path": "demo/index.html"
+    },
+    {
+      "bundle_path": "artifacts/demo/ledger/review_ledger.html",
+      "bytes": 8961,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
+      "role": "repeated-use review ledger",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "e33421e9c605deb57c62603957d753884655dab1c0435c99a981d2ba48c8e2d9",
+      "source_path": "demo/ledger/review_ledger.html"
+    },
+    {
+      "bundle_path": "artifacts/demo/ledger/review_ledger.json",
+      "bytes": 13477,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
+      "role": "repeated-use review ledger",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "6925ed2362ca483ea7ff1c1a582ae5a8de13a90128894c94e2888da5bb4d5220",
+      "source_path": "demo/ledger/review_ledger.json"
+    },
+    {
+      "bundle_path": "artifacts/demo/ledger/review_ledger.md",
+      "bytes": 8726,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
+      "role": "repeated-use review ledger",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "a69ea4916942d63dba0ae5a9143217bed9e740eff9f86f30f263cc64f0ac416f",
+      "source_path": "demo/ledger/review_ledger.md"
+    },
+    {
+      "bundle_path": "artifacts/demo/scenario/scenario_stress.html",
+      "bytes": 5936,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
+      "role": "illustrative scenario stress review",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "69ce3af70beb4015c7ba2aedfd055e37be504657b0c18ce3d7ba9b400cffed2c",
+      "source_path": "demo/scenario/scenario_stress.html"
+    },
+    {
+      "bundle_path": "artifacts/demo/scenario/scenario_stress.json",
+      "bytes": 20347,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
+      "role": "illustrative scenario stress review",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "83efb2d43c8cfcd30d8c63930e3993d93870e7669810e2f41b6ec0be7af7a728",
+      "source_path": "demo/scenario/scenario_stress.json"
+    },
+    {
+      "bundle_path": "artifacts/demo/scenario/scenario_stress.md",
+      "bytes": 5879,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
+      "role": "illustrative scenario stress review",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "a994d02675e093fdb5405303ef8908d3dd4e59f70bf974bcc542c8c7056d8a4a",
+      "source_path": "demo/scenario/scenario_stress.md"
+    },
+    {
+      "bundle_path": "artifacts/demo/trend/trend_history.html",
+      "bytes": 3354,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
+      "role": "multi-period trend review",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "6ee5d93b24967925391ec6d981bd5af49bc32efb2648cc89a92e7ae3ebb3186e",
+      "source_path": "demo/trend/trend_history.html"
+    },
+    {
+      "bundle_path": "artifacts/demo/trend/trend_history.json",
+      "bytes": 9470,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
+      "role": "multi-period trend review",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "ff7b37f9ba163c0d7e863ac785f43e68373cff5b891e4b142c0a6e70714baa58",
+      "source_path": "demo/trend/trend_history.json"
+    },
+    {
+      "bundle_path": "artifacts/demo/trend/trend_history.md",
+      "bytes": 1521,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
+      "role": "multi-period trend review",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "c95ffd8fe3435bea357eef8185fc782397d65e8e350c79650bba7e5d7ef92abd",
+      "source_path": "demo/trend/trend_history.md"
+    },
+    {
+      "bundle_path": "artifacts/demo/visual/visual_receipt.json",
+      "bytes": 3816,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
+      "role": "static visual and boundary receipt",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "f297538e39ed0ce71a73ca15206b78def1f63a2d7b806680aa53dfe3e89b4b69",
+      "source_path": "demo/visual/visual_receipt.json"
+    },
+    {
+      "bundle_path": "artifacts/demo/visual/visual_receipt.md",
+      "bytes": 2813,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
+      "role": "static visual and boundary receipt",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "8881dc42e9242631452e648dc1b3a88559eb6d2f0fde1e7623ea0aa003b9135a",
+      "source_path": "demo/visual/visual_receipt.md"
+    },
+    {
+      "bundle_path": "artifacts/demo/walkthrough/walkthrough.json",
+      "bytes": 5155,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
+      "role": "cold-start reproduction guide",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "c2203f06d7d546669a86d094189af0addd014c1a7425fe66678712124aa9ea6d",
+      "source_path": "demo/walkthrough/walkthrough.json"
+    },
+    {
+      "bundle_path": "artifacts/demo/walkthrough/walkthrough.md",
+      "bytes": 4963,
+      "exists": true,
+      "package_boundary": "demo",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
+      "role": "cold-start reproduction guide",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "efb8bad3002c672616e025362645998bccb212a9510b4eb7c4bcd58ec72b32f4",
+      "source_path": "demo/walkthrough/walkthrough.md"
+    },
+    {
+      "bundle_path": "artifacts/docs/review-packet.md",
+      "bytes": 7840,
+      "exists": true,
+      "package_boundary": "docs",
+      "regenerate_command": "maintained source documentation or package metadata",
+      "role": "review documentation",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "2216c8a80c75c0948db1fbcc4286fe83c045652486c9ba351274992e950501ce",
+      "source_path": "docs/review-packet.md"
+    },
+    {
+      "bundle_path": "artifacts/examples/events.json",
+      "bytes": 1410,
+      "exists": true,
+      "package_boundary": "examples",
+      "regenerate_command": "static fixture input; edit local JSON then rerun regenerate commands",
+      "role": "fixture input for deterministic reproduction",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "dc506f6452e1d37dc29ffef21ccd894c3e2b15b5e26e6e24bb2b0c5a7c3c0358",
+      "source_path": "examples/events.json"
+    },
+    {
+      "bundle_path": "artifacts/examples/history/2026-06-26_packet.json",
+      "bytes": 3413,
+      "exists": true,
+      "package_boundary": "examples",
+      "regenerate_command": "static fixture input; edit local JSON then rerun regenerate commands",
+      "role": "fixture input for deterministic reproduction",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "e130eef99267251390bd01f72313e0bff7166bd0597521704f318d306448bbf4",
+      "source_path": "examples/history/2026-06-26_packet.json"
+    },
+    {
+      "bundle_path": "artifacts/examples/history/2026-07-03_packet.json",
+      "bytes": 3372,
+      "exists": true,
+      "package_boundary": "examples",
+      "regenerate_command": "static fixture input; edit local JSON then rerun regenerate commands",
+      "role": "fixture input for deterministic reproduction",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "dc36230a0f3f6708e63973421ce71dc99d7bb5eafde807a27b0c210f1168ab94",
+      "source_path": "examples/history/2026-07-03_packet.json"
+    },
+    {
+      "bundle_path": "artifacts/examples/history/2026-07-10_packet.json",
+      "bytes": 3666,
+      "exists": true,
+      "package_boundary": "examples",
+      "regenerate_command": "static fixture input; edit local JSON then rerun regenerate commands",
+      "role": "fixture input for deterministic reproduction",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "8255855ee91618f3016aade3859f923730536b6840452a4011988f242ae68e97",
+      "source_path": "examples/history/2026-07-10_packet.json"
+    },
+    {
+      "bundle_path": "artifacts/examples/portfolio.json",
+      "bytes": 330,
+      "exists": true,
+      "package_boundary": "examples",
+      "regenerate_command": "static fixture input; edit local JSON then rerun regenerate commands",
+      "role": "fixture input for deterministic reproduction",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "c722c6bbe7cb29bf8f502a7d55cf7c3abac76451f3a18a9bb9ea708c268a260d",
+      "source_path": "examples/portfolio.json"
+    },
+    {
+      "bundle_path": "artifacts/examples/previous_packet.json",
+      "bytes": 929,
+      "exists": true,
+      "package_boundary": "examples",
+      "regenerate_command": "static fixture input; edit local JSON then rerun regenerate commands",
+      "role": "fixture input for deterministic reproduction",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "a7f6cb631961c966fb3cea925e0b99a6cf192212eb6649070fddb86eae2ce274",
+      "source_path": "examples/previous_packet.json"
+    },
+    {
+      "bundle_path": "artifacts/examples/review_ledger_previous.json",
+      "bytes": 3805,
+      "exists": true,
+      "package_boundary": "examples",
+      "regenerate_command": "static fixture input; edit local JSON then rerun regenerate commands",
+      "role": "fixture input for deterministic reproduction",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "e888838a9baaebee26477ef3dee6f0d43f2d8149093f81d1909f75b58af3bd98",
+      "source_path": "examples/review_ledger_previous.json"
+    },
+    {
+      "bundle_path": "artifacts/examples/scenarios.json",
+      "bytes": 4578,
+      "exists": true,
+      "package_boundary": "examples",
+      "regenerate_command": "static fixture input; edit local JSON then rerun regenerate commands",
+      "role": "fixture input for deterministic reproduction",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "bd08d77d5f290d5a058dc01ee869d9f044b96013fe877529b748b0f11669b1d7",
+      "source_path": "examples/scenarios.json"
+    },
+    {
+      "bundle_path": "artifacts/examples/theses.json",
+      "bytes": 1824,
+      "exists": true,
+      "package_boundary": "examples",
+      "regenerate_command": "static fixture input; edit local JSON then rerun regenerate commands",
+      "role": "fixture input for deterministic reproduction",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "29c80ca03dd125602cb0b19234385132fb5d2ad84c1a6442247d529c93d776c9",
+      "source_path": "examples/theses.json"
+    },
+    {
+      "bundle_path": "artifacts/pyproject.toml",
+      "bytes": 876,
+      "exists": true,
+      "package_boundary": "package-root",
+      "regenerate_command": "maintained source documentation or package metadata",
+      "role": "package metadata",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "2e5be182f0cb766ac560b803fc7a16ac0ee35d44f3fdc93dbb510601a0165b06",
+      "source_path": "pyproject.toml"
+    },
+    {
+      "bundle_path": "artifacts/release/manifest.json",
+      "bytes": 9270,
+      "exists": true,
+      "package_boundary": "release",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
+      "role": "release manifest evidence",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "7f80b9019a7487033eb45cdbe981a8f8dba6a94ea5a4e14b832b6b73f9f5d3f7",
+      "source_path": "release/manifest.json"
+    },
+    {
+      "bundle_path": "artifacts/release/manifest.md",
+      "bytes": 6893,
+      "exists": true,
+      "package_boundary": "release",
+      "regenerate_command": "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
+      "role": "release manifest evidence",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "f28acbe6f5f09cc5cdbfb097e5c60f81c06230c277d45765ead7e422a019662e",
+      "source_path": "release/manifest.md"
+    },
+    {
+      "bundle_path": "artifacts/skills/agent/news-thesis-impact-lab/SKILL.md",
+      "bytes": 6230,
+      "exists": true,
+      "package_boundary": "agent-skill",
+      "regenerate_command": "maintained agent skill documentation",
+      "role": "agent reuse skill",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "f10291b116395891fae5fd805693b3f1d5e016abcbd5368f4122613da0a0e5fe",
+      "source_path": "skills/agent/news-thesis-impact-lab/SKILL.md"
+    }
+  ],
+  "bundle_type": "plain-file-agent-reuse-packet",
+  "commands": {
+    "inspect": "PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json",
+    "regenerate": [
+      "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
+      "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
+      "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
+      "PYTHONPATH=src python -m news_thesis_impact_lab scenario-stress --packet demo/impact_packet.json --scenarios examples/scenarios.json --out demo/scenario",
+      "PYTHONPATH=src python -m news_thesis_impact_lab review-ledger --packet demo/impact_packet.json --trend demo/trend/trend_history.json --scenario demo/scenario/scenario_stress.json --previous examples/review_ledger_previous.json --out demo/ledger",
+      "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
+      "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
+      "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
+      "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
+      "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
+      "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
+      "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle"
+    ],
+    "verify": [
+      "python -m pytest -q",
+      "PYTHONPATH=src python -m news_thesis_impact_lab evidence-hub --out demo/evidence",
+      "PYTHONPATH=src python -m news_thesis_impact_lab bundle-export --out demo/bundle",
+      "PYTHONPATH=src python -m news_thesis_impact_lab bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json",
+      "PYTHONPATH=src python -m news_thesis_impact_lab selfcheck",
+      "PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json",
+      "python scripts/privacy_scan.py",
+      "git diff --check"
+    ]
+  },
+  "finance_safety_boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+    "No broker integration, order routing, execution, or account access.",
+    "Scores are deterministic review aids for human research triage."
+  ],
+  "generated_at": "2026-07-10",
+  "global_safety_boundary_tags": [
+    "static-local",
+    "no-live-data",
+    "non-advice",
+    "no-broker",
+    "no-orders",
+    "human-review"
+  ],
+  "manifest_files": [
+    "bundle_manifest.json",
+    "bundle_manifest.md",
+    "bundle_manifest.html",
+    "bundle_copy_list.json"
+  ],
+  "notes": [
+    "Bundle files are copied as plain files under artifacts/; no zip or archive is created.",
+    "The manifest validates bundled copies through bundle_path and keeps source_path for checkout-level regeneration.",
+    "The bundle contains public local demo, example, release, documentation, and agent skill artifacts only.",
+    "The bundle preserves research-only boundaries: no live data, no advice, no broker access, and no order behavior."
+  ],
+  "package": {
+    "name": "news-thesis-impact-lab",
+    "version": "0.8.0"
+  },
+  "schema_version": "1.0"
+}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scenario Stress Review</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 2rem; color: #17202a; background: #f7f8fa; }
+    main { max-width: 1180px; margin: 0 auto; }
+    h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+    h2 { font-size: 1.2rem; margin-top: 1.75rem; }
+    table { border-collapse: collapse; width: 100%; background: white; margin: 0.75rem 0 1.25rem; }
+    th, td { border: 1px solid #d8dee8; padding: 0.65rem; vertical-align: top; text-align: left; }
+    th { background: #e9eef5; }
+    .note { background: #fff; border: 1px solid #d8dee8; padding: 1rem; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Scenario Stress Review</h1>
+  <p>Generated 2026-07-10; source packet generated 2026-07-10; 4 illustrative scenarios.</p>
+  <section class="note"><h2>Boundaries</h2><ul><li>Static local research notes only; no live market data is fetched.</li><li>Not investment advice and not a buy, sell, hold, or allocation recommendation.</li><li>No broker integration, order routing, execution, or account access.</li><li>Scores are deterministic review aids for human research triage.</li></ul></section>
+  <h2>Scenario Coverage</h2>
+  <table><thead><tr><th>Scenario</th><th>ID</th><th>Highest risk</th><th>Shocks</th><th>Matched tickers</th></tr></thead><tbody><tr><td>AI capex digestion</td><td>scn-ai-capex-digestion</td><td>high</td><td>2</td><td>AAPL, MSFT, NVDA</td></tr><tr><td>Cloud margin compression</td><td>scn-cloud-margin-compression</td><td>high</td><td>2</td><td>GOOGL, MSFT, NVDA</td></tr><tr><td>Premium device demand fade</td><td>scn-premium-device-demand</td><td>high</td><td>2</td><td>AAPL, NVDA</td></tr><tr><td>Digital ads policy tightening</td><td>scn-regulatory-ad-tightening</td><td>severe</td><td>2</td><td>GOOGL</td></tr></tbody></table>
+  <h2>Ticker Stress Flags</h2>
+  <table><thead><tr><th>Ticker</th><th>Stress score</th><th>Risk</th><th>Exposure</th><th>Flags</th><th>Contradiction prompts</th><th>Confidence suggestion</th></tr></thead><tbody><tr><td>MSFT</td><td>100</td><td>high</td><td>24.00%</td><td>direct ticker shock exposure; scenario tags overlap thesis, themes, or position label; high-risk stress case intersects the thesis; current positive read has adverse stress overlap</td><td>Test whether the current positive read for MSFT still holds under the matched stress shocks.; Re-read the MSFT thesis language that depends on `ai infrastructure` and mark what evidence would confirm or weaken it.; Re-read the MSFT thesis language that depends on `cloud capex` and mark what evidence would confirm or weaken it.; Re-read the MSFT thesis language that depends on `cloud margin` and mark what evidence would confirm or weaken it.</td><td>high -> medium</td></tr><tr><td>GOOGL</td><td>100</td><td>severe</td><td>16.00%</td><td>direct ticker shock exposure; scenario tags overlap thesis, themes, or position label; high-risk stress case intersects the thesis; existing packet warning remains unresolved under stress review</td><td>Check whether matched stress shocks add a separate reason for GOOGL thesis pressure or duplicate an existing concern.; Re-read the GOOGL thesis language that depends on `ad monetization` and mark what evidence would confirm or weaken it.; Re-read the GOOGL thesis language that depends on `cloud platform` and mark what evidence would confirm or weaken it.; Re-read the GOOGL thesis language that depends on `digital ads` and mark what evidence would confirm or weaken it.</td><td>medium -> low</td></tr><tr><td>NVDA</td><td>100</td><td>high</td><td>12.00%</td><td>direct ticker shock exposure; scenario tags overlap thesis, themes, or position label; high-risk stress case intersects the thesis; current positive read has adverse stress overlap</td><td>Test whether the current positive read for NVDA still holds under the matched stress shocks.; Re-read the NVDA thesis language that depends on `accelerator demand` and mark what evidence would confirm or weaken it.; Re-read the NVDA thesis language that depends on `advanced packaging` and mark what evidence would confirm or weaken it.; Re-read the NVDA thesis language that depends on `ai infrastructure` and mark what evidence would confirm or weaken it.</td><td>high -> medium</td></tr><tr><td>AAPL</td><td>88</td><td>high</td><td>18.00%</td><td>direct ticker shock exposure; scenario tags overlap thesis, themes, or position label; high-risk stress case intersects the thesis</td><td>Clarify whether matched stress shocks turn the current AAPL read into a directional thesis question.; Re-read the AAPL thesis language that depends on `component availability` and mark what evidence would confirm or weaken it.; Re-read the AAPL thesis language that depends on `hardware demand` and mark what evidence would confirm or weaken it.; Re-read the AAPL thesis language that depends on `launch cadence` and mark what evidence would confirm or weaken it.</td><td>medium -> low</td></tr></tbody></table>
+  <h2>Next Review Queue</h2>
+  <table><thead><tr><th>Ticker</th><th>Stress score</th><th>Risk</th><th>Prompt</th></tr></thead><tbody><tr><td>GOOGL</td><td>100</td><td>severe</td><td>Check whether matched stress shocks add a separate reason for GOOGL thesis pressure or duplicate an existing concern.</td></tr><tr><td>MSFT</td><td>100</td><td>high</td><td>Test whether the current positive read for MSFT still holds under the matched stress shocks.</td></tr><tr><td>NVDA</td><td>100</td><td>high</td><td>Test whether the current positive read for NVDA still holds under the matched stress shocks.</td></tr><tr><td>AAPL</td><td>88</td><td>high</td><td>Clarify whether matched stress shocks turn the current AAPL read into a directional thesis question.</td></tr></tbody></table>
+</main>
+</body>
+</html>

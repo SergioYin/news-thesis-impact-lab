@@ -1,0 +1,9 @@
+{
+  "positions": [
+    {"ticker": "AAPL", "weight": 0.18, "label": "core hardware platform"},
+    {"ticker": "GOOGL", "weight": 0.16, "label": "ads and cloud platform"},
+    {"ticker": "MSFT", "weight": 0.24, "label": "enterprise cloud platform"},
+    {"ticker": "NVDA", "weight": 0.12, "label": "ai accelerator supplier"}
+  ]
+}
+

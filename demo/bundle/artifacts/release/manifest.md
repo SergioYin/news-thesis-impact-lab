@@ -51,8 +51,8 @@ Generated: 2026-07-10
 
 | Kind | Path | Exists | SHA-256 | Bytes | Note |
 | --- | --- | --- | --- | ---: | --- |
-| wheel | `dist/news_thesis_impact_lab-0.8.0-py3-none-any.whl` | true | `accfa7c698c78f71c078699ccf149b72b49453a8a6e01ae0de6026e6389412ad` | 43331 |  |
-| sdist | `dist/news_thesis_impact_lab-0.8.0.tar.gz` | true | `c650a8a326e0ab7749d5e3f4cf942190f19a93710ae3cbb0e18aa401f18a25a0` | 43214 |  |
+| wheel | `dist/news_thesis_impact_lab-0.8.0-py3-none-any.whl` | false | `missing` | 0 | not built |
+| sdist | `dist/news_thesis_impact_lab-0.8.0.tar.gz` | false | `missing` | 0 | not built |
 
 ## Regenerate
 

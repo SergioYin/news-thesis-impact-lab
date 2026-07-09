@@ -1,0 +1,124 @@
+{
+  "boundaries": [
+    "Static local research notes only; no live market data is fetched.",
+    "Not investment advice and not a buy, sell, hold, or allocation recommendation.",
+    "No broker integration, order routing, execution, or account access.",
+    "Scores are deterministic review aids for human research triage."
+  ],
+  "generated_at": "2026-07-03",
+  "items": [
+    {
+      "evidence_links": [
+        {
+          "label": "hist-regulatory-ads-2026-06-12: source remained stale across 2 periods",
+          "path": "demo/trend/trend_history.json",
+          "source": "2026-06-26_packet, 2026-07-03_packet"
+        }
+      ],
+      "expiry_days": 7,
+      "first_seen": "2026-07-03",
+      "issue_type": "persistent_warning",
+      "item_key": "GOOGL|persistent_warning|hist-regulatory-ads-2026-06-12",
+      "latest_seen": "2026-07-03",
+      "next_action": "Resolve the repeated GOOGL warning with updated local evidence or mark why it remains valid.",
+      "resolved_at": null,
+      "severity": "severe",
+      "source": "hist-regulatory-ads-2026-06-12",
+      "stale": false,
+      "status": "open",
+      "ticker": "GOOGL"
+    },
+    {
+      "evidence_links": [
+        {
+          "label": "high risk; stress score 96: Test whether the current positive read for MSFT still holds under the matched stress shocks.",
+          "path": "demo/scenario/scenario_stress.json",
+          "source": "scn-cloud-margin-compression"
+        }
+      ],
+      "expiry_days": 14,
+      "first_seen": "2026-06-26",
+      "issue_type": "scenario_stress",
+      "item_key": "MSFT|scenario_stress|scn-cloud-margin-compression",
+      "latest_seen": "2026-07-03",
+      "next_action": "Document whether the MSFT thesis still holds under the static scn-cloud-margin-compression stress case.",
+      "resolved_at": null,
+      "severity": "high",
+      "source": "scn-cloud-margin-compression",
+      "stale": false,
+      "status": "watch",
+      "ticker": "MSFT"
+    },
+    {
+      "evidence_links": [
+        {
+          "label": "attention score 64: Review whether META thesis sensitivities still match events old-social-ads-review.",
+          "path": "demo/impact_packet.json",
+          "source": "review_queue"
+        }
+      ],
+      "expiry_days": 14,
+      "first_seen": "2026-07-03",
+      "issue_type": "attention_review",
+      "item_key": "META|attention_review|impact_packet_review_queue",
+      "latest_seen": "2026-07-03",
+      "next_action": "Re-read the current META thesis claims and record whether the static catalyst changes the research note.",
+      "resolved_at": null,
+      "severity": "high",
+      "source": "impact_packet_review_queue",
+      "stale": false,
+      "status": "open",
+      "ticker": "META"
+    }
+  ],
+  "schema_version": "1.0",
+  "source_packet_generated_at": "2026-07-03",
+  "source_scenario_generated_at": "2026-07-03",
+  "source_trend_generated_at": "2026-07-03",
+  "summary": {
+    "by_severity": {
+      "high": 2,
+      "severe": 1
+    },
+    "by_status": {
+      "open": 2,
+      "watch": 1
+    },
+    "by_ticker": {
+      "GOOGL": {
+        "by_severity": {
+          "severe": 1
+        },
+        "by_status": {
+          "open": 1
+        },
+        "total": 1
+      },
+      "META": {
+        "by_severity": {
+          "high": 1
+        },
+        "by_status": {
+          "open": 1
+        },
+        "total": 1
+      },
+      "MSFT": {
+        "by_severity": {
+          "high": 1
+        },
+        "by_status": {
+          "watch": 1
+        },
+        "total": 1
+      }
+    },
+    "open_item_keys": [
+      "GOOGL|persistent_warning|hist-regulatory-ads-2026-06-12",
+      "MSFT|scenario_stress|scn-cloud-margin-compression",
+      "META|attention_review|impact_packet_review_queue"
+    ],
+    "stale_items": [],
+    "total_items": 3
+  }
+}
