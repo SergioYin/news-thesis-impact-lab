@@ -39,6 +39,7 @@ EXPECTED_COMMANDS = [
 DOC_PATHS = [
     Path("README.md"),
     Path("docs/review-packet.md"),
+    Path("docs/cold-user-walkthrough.md"),
     Path("skills/agent/news-thesis-impact-lab/SKILL.md"),
     Path("CHANGELOG.md"),
 ]
@@ -362,7 +363,7 @@ def readiness_checklist(
     wheel_present = any(record["kind"] == "wheel" and record["exists"] for record in dist_records)
     sdist_present = any(record["kind"] == "sdist" and record["exists"] for record in dist_records)
     return [
-        checklist_item("release", "package_metadata_version_1_0_0", source_metadata["version"] == "1.0.0" and source_metadata["versions_match"]),
+        checklist_item("release", f"package_metadata_version_{source_metadata['version'].replace('.', '_')}", bool(source_metadata["version"]) and source_metadata["versions_match"]),
         checklist_item("release", "zero_runtime_dependencies", source_metadata["zero_runtime_dependencies"]),
         checklist_item("release", "console_script_configured", source_metadata["console_script_present"]),
         checklist_item("release", "advertised_commands_documented", all(item["advertised_in_cli"] and item["advertised_in_readme"] and item["advertised_in_skill"] for item in command_records)),

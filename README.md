@@ -23,6 +23,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 
 ## Demo Artifacts
 
+- [Cold user walkthrough](docs/cold-user-walkthrough.md): first-10-minute clone, install, wheel check, quickstart, expected outputs, troubleshooting, verification, and finance-safety boundaries.
 - [Demo gallery](demo/gallery.html): no-JavaScript landing page for the public artifact set.
 - [Impact packet](demo/impact_packet.md): affected tickers, scores, warnings, and review prompts.
 - [Compare report](demo/compare/compare.md): current versus previous packet deltas.
@@ -125,6 +126,7 @@ PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
 - `demo/bundle/bundle_manifest.json`, `demo/bundle/bundle_manifest.md`, `demo/bundle/bundle_manifest.html`, and `demo/bundle/bundle_copy_list.json`: deterministic plain-file bundle metadata for agent reuse.
 - `demo/bundle/artifacts/`: copied public demo, example, release, documentation, and agent skill artifacts referenced by the bundle manifest.
 - `demo/health/asset_health.json`, `demo/health/asset_health.md`, and `demo/health/asset_health.html`: deterministic asset health report with final release/promote readiness checklist.
+- `docs/cold-user-walkthrough.md`: first-10-minute public walkthrough with clone/install/run commands, wheel install check, expected outputs, troubleshooting, verification, and finance-safety boundaries.
 - `demo/gallery.html`: static no-JavaScript gallery that links the public demo and release artifacts.
 - `release/manifest.json` and `release/manifest.md`: deterministic release manifest with hashes and build placeholders.
 

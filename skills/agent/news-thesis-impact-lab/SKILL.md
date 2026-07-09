@@ -2,6 +2,8 @@
 
 Use this skill when a user needs to create, refresh, or inspect static local finance research packets with `news-thesis-impact-lab`.
 
+For a cold public handoff, start with `docs/cold-user-walkthrough.md`; it covers clone/install/run commands, the README quickstart path, wheel install verification, expected CLI output, troubleshooting, release checks, and the no-advice/no-live-data/no-broker boundaries.
+
 ## Workflow
 
 1. Keep all inputs local JSON files. Do not fetch live market, broker, or news data.
@@ -91,6 +93,7 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
 - `demo/bundle/bundle_manifest.json`, `demo/bundle/bundle_manifest.md`, `demo/bundle/bundle_manifest.html`, and `demo/bundle/bundle_copy_list.json` are deterministic plain-file agent reuse bundle metadata over copied public artifacts under `demo/bundle/artifacts/`.
 - `bundle-inspect --manifest demo/bundle/bundle_manifest.json --format json|md` reports missing or changed bundle artifacts and exits nonzero on mismatch.
 - `demo/health/asset_health.json`, `demo/health/asset_health.md`, and `demo/health/asset_health.html` are deterministic asset health artifacts with package/source metadata, advertised command coverage, generated artifact freshness, wheel/sdist status, repo skill status, local-neutral docs, private-reference scan summary, finance boundary coverage, and a final release/promote checklist.
+- `docs/cold-user-walkthrough.md` gives a first-10-minute public user the exact clone, source install, wheel install, quickstart, validate-release, asset-health, bundle-export, troubleshooting, and finance-safety boundary path.
 - `asset-health --out demo/health` exits successfully when release readiness passes and reports promote readiness separately when wheel and sdist files are present.
 - `validate-release --format json` passes after public artifacts are generated.
 - Tests, selfcheck, privacy scan, and `git diff --check` pass.

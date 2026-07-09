@@ -4,7 +4,7 @@
   "items": [
     {
       "bundle_path": "artifacts/CHANGELOG.md",
-      "bytes": 6008,
+      "bytes": 6558,
       "package_boundary": "package-root",
       "role": "release history",
       "safety_boundary_tags": [
@@ -15,12 +15,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "4562aac749d5992046d90b3a94f68ab7600d286ba764cbb9334234412bf27b91",
+      "sha256": "5fbdc586d8214b5f55032b9c5cbbf30640c3ffbfa0d91c895c0450e079d32fc8",
       "source_path": "CHANGELOG.md"
     },
     {
       "bundle_path": "artifacts/README.md",
-      "bytes": 12106,
+      "bytes": 12505,
       "package_boundary": "package-root",
       "role": "public entrypoint documentation",
       "safety_boundary_tags": [
@@ -31,7 +31,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "5e26b98336813580ad4f2928927da82c5d6e01e69909ae8d24af70224b249e3c",
+      "sha256": "4d7312d4848b3ae811cbf17ba70e57243bedde887acb715e96f75c762ed35445",
       "source_path": "README.md"
     },
     {
@@ -68,7 +68,7 @@
     },
     {
       "bundle_path": "artifacts/demo/evidence/evidence_hub.html",
-      "bytes": 24997,
+      "bytes": 25671,
       "package_boundary": "demo",
       "role": "reviewer evidence hub",
       "safety_boundary_tags": [
@@ -79,12 +79,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "9621a125172af16bab474782704308adb7449ef877f5dba02d85484c94ea7a3f",
+      "sha256": "2fca4a13142b9c99e6c5061612a0aaf555fd8b0bd9b3582b1b22bb19c6611148",
       "source_path": "demo/evidence/evidence_hub.html"
     },
     {
       "bundle_path": "artifacts/demo/evidence/evidence_hub.json",
-      "bytes": 33996,
+      "bytes": 35007,
       "package_boundary": "demo",
       "role": "reviewer evidence hub",
       "safety_boundary_tags": [
@@ -95,12 +95,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "a3bbed80b3ea0e071498e83dabd8cbc73acd53b3687eef75d980d3c7c1797d8b",
+      "sha256": "b7ad3cd224b587b415755a2530896223763de97b4029dc088cfe4098a97be8a1",
       "source_path": "demo/evidence/evidence_hub.json"
     },
     {
       "bundle_path": "artifacts/demo/evidence/evidence_hub.md",
-      "bytes": 19547,
+      "bytes": 20081,
       "package_boundary": "demo",
       "role": "reviewer evidence hub",
       "safety_boundary_tags": [
@@ -111,12 +111,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "2b2e98305ae9c29ee64d13c21073a8bac35fb9b4b9fac1aa3137d9de5d209b6f",
+      "sha256": "5546f958d45c92cff882b91359e23c53c51abebda65a10574abf3204cba27841",
       "source_path": "demo/evidence/evidence_hub.md"
     },
     {
       "bundle_path": "artifacts/demo/gallery.html",
-      "bytes": 6673,
+      "bytes": 6870,
       "package_boundary": "demo",
       "role": "primary demo artifact",
       "safety_boundary_tags": [
@@ -127,7 +127,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "481c202fdc8db31080490a1327f1fc34685fed71d711feb139f6ad2a9c0e6509",
+      "sha256": "56cac6d6f5e14784ad06c4ec9163b53359462a46f1657b19a53a9fdbb24dfc9e",
       "source_path": "demo/gallery.html"
     },
     {
@@ -143,12 +143,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "ce04a227066ad582b133075cd669fe83881d422d7b932e02d1e808445ee4461c",
+      "sha256": "68c3b49ea0896f789ee31afdbbb76b0a57d2edd23b56d4c9998cf1dd879a7c06",
       "source_path": "demo/health/asset_health.html"
     },
     {
       "bundle_path": "artifacts/demo/health/asset_health.json",
-      "bytes": 20248,
+      "bytes": 20399,
       "package_boundary": "demo",
       "role": "asset health and release promotion checklist",
       "safety_boundary_tags": [
@@ -159,7 +159,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "3feff4d2c28d683afb05e7c5ea5a4ae4bb97d861d354a6ec626392862e616efb",
+      "sha256": "425a4ef42c6dc1cdeb4a4d4b7c263c1ab54b2e4e839de368b61c1403d2d6c0ab",
       "source_path": "demo/health/asset_health.json"
     },
     {
@@ -175,7 +175,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "0806ade9b1c0ea06acbc4f7bb5f1f5287dc93537776addbdc80d57afce78b152",
+      "sha256": "fcc5329b6279c705f8b200fd57e43109e5f3a3adb65b7bca0b35b1398ca65bd9",
       "source_path": "demo/health/asset_health.md"
     },
     {
@@ -431,7 +431,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "20d97d23f586a0d62267a25f679fe91b118cd117535bd96951aeffd36ac0c3c2",
+      "sha256": "d495905b45aeabff2d1ff37e3eeee6c435d55610de267d5d916b99ebcce4c548",
       "source_path": "demo/visual/visual_receipt.json"
     },
     {
@@ -447,7 +447,7 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "aa4f287a5cbb83ba97e6fd15bd0768a846d40fd29104f10fa2a4ed6372f61bfe",
+      "sha256": "93414427c55046f64fd8d826bfb4088252c9aec845a6e4b4f45975a987ff3813",
       "source_path": "demo/visual/visual_receipt.md"
     },
     {
@@ -481,6 +481,22 @@
       ],
       "sha256": "b10c47ca31b5336b02dfaafa5b10bd6ee5db94b8ec3d1b2f69ce88da5b2a141d",
       "source_path": "demo/walkthrough/walkthrough.md"
+    },
+    {
+      "bundle_path": "artifacts/docs/cold-user-walkthrough.md",
+      "bytes": 6003,
+      "package_boundary": "docs",
+      "role": "cold-user onboarding documentation",
+      "safety_boundary_tags": [
+        "static-local",
+        "no-live-data",
+        "non-advice",
+        "no-broker",
+        "no-orders",
+        "human-review"
+      ],
+      "sha256": "7aa5048c12eaf37abe336f1d252522d00b84c8227b3e8140a8f045080f16d74e",
+      "source_path": "docs/cold-user-walkthrough.md"
     },
     {
       "bundle_path": "artifacts/docs/review-packet.md",
@@ -655,12 +671,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "b9db8d43871a08a843c7e2812dab741b16e89ddb0c5ead850d1faa1cb8b3fe7e",
+      "sha256": "9af518bb4a1c02f646fdb813ea40a8098056aea8a4ca395028868b6f09c7f9d8",
       "source_path": "pyproject.toml"
     },
     {
       "bundle_path": "artifacts/release/manifest.json",
-      "bytes": 11209,
+      "bytes": 11395,
       "package_boundary": "release",
       "role": "release manifest evidence",
       "safety_boundary_tags": [
@@ -671,12 +687,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "7203f753d4de9588363ec4195c4faef4f4564374c6959e5aeb60b4253bd7b765",
+      "sha256": "78ae54730a31d3ddd8395ca285f2a47a66075f11895a3fbdd0e610d8b66bf095",
       "source_path": "release/manifest.json"
     },
     {
       "bundle_path": "artifacts/release/manifest.md",
-      "bytes": 8572,
+      "bytes": 8691,
       "package_boundary": "release",
       "role": "release manifest evidence",
       "safety_boundary_tags": [
@@ -687,12 +703,12 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "33dd2aca7188cd84a0982143cd47101de5f692d84b0e5ad52d58b8cc72fc1a14",
+      "sha256": "692cf8a0d3e879f4618d55855c702b8219bda1d7046ad58d5d8a1dc364d2bd55",
       "source_path": "release/manifest.md"
     },
     {
       "bundle_path": "artifacts/skills/agent/news-thesis-impact-lab/SKILL.md",
-      "bytes": 8264,
+      "bytes": 8765,
       "package_boundary": "agent-skill",
       "role": "agent reuse skill",
       "safety_boundary_tags": [
@@ -703,13 +719,13 @@
         "no-orders",
         "human-review"
       ],
-      "sha256": "9bfb7e4af1a2f37dfcb2ba4621c8a61383b7e4d0ff7e8b00bbb28d15219bc4f2",
+      "sha256": "aab77a53399c846cff0b170645e812ed26c2cf6ea763f64db6c3807a2a54de5e",
       "source_path": "skills/agent/news-thesis-impact-lab/SKILL.md"
     }
   ],
   "package": {
     "name": "news-thesis-impact-lab",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "schema_version": "1.0"
 }

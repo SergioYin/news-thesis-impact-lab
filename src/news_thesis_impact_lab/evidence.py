@@ -21,6 +21,7 @@ EVIDENCE_FILES = [
 EVIDENCE_INPUTS = [path for path in DEMO_FILES if not path.as_posix().startswith("demo/evidence/")] + HEALTH_FILES + [
     Path("demo/maturity/maturity_report.json"),
     Path("demo/maturity/maturity_report.md"),
+    Path("docs/cold-user-walkthrough.md"),
     Path("release/manifest.json")
 ]
 
@@ -221,6 +222,13 @@ ARTIFACT_CLASSIFICATION = {
         "showcase",
         "static HTML asset health evidence",
         "visual release health surface",
+    ),
+    "docs/cold-user-walkthrough.md": (
+        "cold-user-walkthrough-doc",
+        "Can a public first user clone, install, run, troubleshoot, and understand safety boundaries in 10 minutes?",
+        "runnable",
+        "cold-user source onboarding evidence",
+        "public comprehension evidence",
     ),
 }
 

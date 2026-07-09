@@ -2,7 +2,7 @@
 
 Asset: news-thesis-impact-lab
 Generated: 2026-07-10
-Package: news-thesis-impact-lab 1.0.0
+Package: news-thesis-impact-lab 1.0.1
 
 ## Final Readiness
 
@@ -11,7 +11,7 @@ Package: news-thesis-impact-lab 1.0.0
 
 ## Release/Promote Checklist
 
-- [x] release: package_metadata_version_1_0_0
+- [x] release: package_metadata_version_1_0_1
 - [x] release: zero_runtime_dependencies
 - [x] release: console_script_configured
 - [x] release: advertised_commands_documented
@@ -28,8 +28,8 @@ Package: news-thesis-impact-lab 1.0.0
 
 ## Package Metadata
 
-- source_version: 1.0.0
-- module_version: 1.0.0
+- source_version: 1.0.1
+- module_version: 1.0.1
 - installed_available: true
 - zero_runtime_dependencies: true
 
@@ -64,13 +64,13 @@ Package: news-thesis-impact-lab 1.0.0
 
 | Kind | Path | Exists | SHA-256 | Bytes |
 | --- | --- | --- | --- | ---: |
-| wheel | `dist/news_thesis_impact_lab-1.0.0-py3-none-any.whl` | true | `3f9570bfa85cfbda38e1390966f5ca25c70669ba22b5f47994516b29fb8d0bbc` | 57255 |
-| sdist | `dist/news_thesis_impact_lab-1.0.0.tar.gz` | true | `7ca5ab83c4c96c1cdff8a1702c1da8c547263ce7483a2b7137df95ece19deaee` | 56784 |
+| wheel | `dist/news_thesis_impact_lab-1.0.1-py3-none-any.whl` | true | `5505e1928c41020a6222e2be882c982d261c6ca94cb0e76ea13449712521f280` | 57625 |
+| sdist | `dist/news_thesis_impact_lab-1.0.1.tar.gz` | true | `1b2a9044c241341e1a9ec5259e5817ec311ab318237679359d39c02ad21ee769` | 57592 |
 
 ## Private Reference Scan
 
 - ok: true
-- files_scanned: 75
+- files_scanned: 76
 - finding_count: 0
 
 ## Finance Safety Boundaries

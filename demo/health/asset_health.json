@@ -106,18 +106,18 @@
   "asset": "news-thesis-impact-lab",
   "distributions": [
     {
-      "bytes": 57255,
+      "bytes": 57625,
       "exists": true,
       "kind": "wheel",
-      "path": "dist/news_thesis_impact_lab-1.0.0-py3-none-any.whl",
-      "sha256": "3f9570bfa85cfbda38e1390966f5ca25c70669ba22b5f47994516b29fb8d0bbc"
+      "path": "dist/news_thesis_impact_lab-1.0.1-py3-none-any.whl",
+      "sha256": "5505e1928c41020a6222e2be882c982d261c6ca94cb0e76ea13449712521f280"
     },
     {
-      "bytes": 56784,
+      "bytes": 57592,
       "exists": true,
       "kind": "sdist",
-      "path": "dist/news_thesis_impact_lab-1.0.0.tar.gz",
-      "sha256": "7ca5ab83c4c96c1cdff8a1702c1da8c547263ce7483a2b7137df95ece19deaee"
+      "path": "dist/news_thesis_impact_lab-1.0.1.tar.gz",
+      "sha256": "1b2a9044c241341e1a9ec5259e5817ec311ab318237679359d39c02ad21ee769"
     }
   ],
   "final_readiness": {
@@ -419,6 +419,12 @@
         "exists": true,
         "forbidden_terms": [],
         "local_neutral": true,
+        "path": "docs/cold-user-walkthrough.md"
+      },
+      {
+        "exists": true,
+        "forbidden_terms": [],
+        "local_neutral": true,
         "path": "skills/agent/news-thesis-impact-lab/SKILL.md"
       },
       {
@@ -442,7 +448,7 @@
         "news-thesis-impact-lab=news_thesis_impact_lab.cli:main"
       ],
       "name": "news-thesis-impact-lab",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "version_matches_source": true
     },
     "source": {
@@ -452,16 +458,16 @@
       },
       "dependencies": [],
       "description": "Zero-dependency local CLI for mapping static news catalysts to finance thesis review packets.",
-      "module_version": "1.0.0",
+      "module_version": "1.0.1",
       "name": "news-thesis-impact-lab",
       "requires_python": ">=3.9",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "versions_match": true,
       "zero_runtime_dependencies": true
     }
   },
   "private_ref_scan_summary": {
-    "files_scanned": 75,
+    "files_scanned": 76,
     "finding_count": 0,
     "findings": [],
     "ignored_files": [
@@ -712,7 +718,7 @@
   "readiness_checklist": [
     {
       "gate": "release",
-      "name": "package_metadata_version_1_0_0",
+      "name": "package_metadata_version_1_0_1",
       "ok": true
     },
     {

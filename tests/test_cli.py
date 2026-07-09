@@ -375,8 +375,9 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     readme_bytes = (ROOT / "README.md").read_bytes()
 
     assert "wrote" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "1.0.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "1.0.1"}
     assert artifacts["README.md"]["sha256"] == hashlib.sha256(readme_bytes).hexdigest()
+    assert artifacts["docs/cold-user-walkthrough.md"]["exists"] is True
     assert artifacts["demo/gallery.html"]["exists"] is True
     assert artifacts["demo/trend/trend_history.json"]["exists"] is True
     assert artifacts["demo/scenario/scenario_stress.json"]["exists"] is True
@@ -417,7 +418,7 @@ def test_bundle_export_manifest_contents_and_no_js_html(tmp_path):
     artifacts = {item["source_path"]: item for item in manifest["artifacts"]}
 
     assert "copied" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "1.0.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "1.0.1"}
     assert manifest["bundle_type"] == "plain-file-agent-reuse-packet"
     assert artifacts["demo/impact_packet.json"]["role"] == "primary demo artifact"
     assert artifacts["demo/impact_packet.json"]["bundle_path"] == "artifacts/demo/impact_packet.json"
@@ -425,6 +426,7 @@ def test_bundle_export_manifest_contents_and_no_js_html(tmp_path):
     assert artifacts["demo/impact_packet.json"]["regenerate_command"].endswith("--out demo")
     assert artifacts["demo/journal/decision_journal.json"]["role"] == "research meeting decision journal draft"
     assert artifacts["demo/health/asset_health.json"]["role"] == "asset health and release promotion checklist"
+    assert artifacts["docs/cold-user-walkthrough.md"]["role"] == "cold-user onboarding documentation"
     assert "non-advice" in artifacts["demo/journal/decision_journal.json"]["safety_boundary_tags"]
     assert artifacts["examples/events.json"]["package_boundary"] == "examples"
     assert "no-live-data" in artifacts["examples/events.json"]["safety_boundary_tags"]
@@ -500,6 +502,7 @@ def test_demo_gallery_writes_static_landing_page(tmp_path):
     assert "journal/decision_journal.html" in html
     assert "visual/visual_receipt.md" in html
     assert "walkthrough/walkthrough.md" in html
+    assert "../docs/cold-user-walkthrough.md" in html
     assert "evidence/evidence_hub.md" in html
     assert "health/asset_health.md" in html
     assert "maturity/maturity_report.md" in html
@@ -559,6 +562,33 @@ def test_cold_start_walkthrough_content(tmp_path):
     assert "## Failure Modes And Boundaries" in markdown
 
 
+def test_cold_user_walkthrough_doc_covers_first_ten_minute_path_and_boundaries():
+    text = (ROOT / "docs/cold-user-walkthrough.md").read_text(encoding="utf-8")
+    lowered = text.lower()
+
+    required_snippets = [
+        "git clone <repository-url> news-thesis-impact-lab",
+        "python -m pip install -e .",
+        "python -m build",
+        "python -m pip install --force-reinstall dist/news_thesis_impact_lab-1.0.1-py3-none-any.whl",
+        "README quickstart",
+        "validate-release --format json",
+        "asset-health --out demo/health",
+        "bundle-export --out demo/bundle",
+        "wrote demo/impact_packet.json",
+        "selfcheck passed",
+        "python scripts/privacy_scan.py",
+        "git diff --check",
+    ]
+    for snippet in required_snippets:
+        assert snippet in text
+
+    assert "not investment advice" in lowered
+    assert "no live market data" in lowered
+    assert "no broker integration" in lowered
+    assert "buy, sell, hold" in lowered
+
+
 def test_promotion_outputs_are_deterministic(tmp_path):
     first_visual = tmp_path / "first_visual"
     second_visual = tmp_path / "second_visual"
@@ -582,6 +612,7 @@ def test_evidence_hub_classification_hashes_and_boundaries():
     packet = matrix["demo/impact_packet.json"]
     html = matrix["demo/index.html"]
     manifest = matrix["release/manifest.json"]
+    cold_user = matrix["docs/cold-user-walkthrough.md"]
 
     assert packet["artifact_type"] == "packet-json"
     assert packet["maturity_rubric_category"] == "user_value"
@@ -589,6 +620,9 @@ def test_evidence_hub_classification_hashes_and_boundaries():
     assert packet["boundary_coverage"]["all_present"] is True
     assert html["no_js"] is True
     assert manifest["artifact_type"] == "release-manifest-json"
+    assert cold_user["artifact_type"] == "cold-user-walkthrough-doc"
+    assert cold_user["maturity_rubric_category"] == "runnable"
+    assert "docs/cold-user-walkthrough.md" in hub["release_gate_evidence"]
     assert "release/manifest.json" in hub["release_gate_evidence"]
     assert "demo/visual/visual_receipt.json" in hub["promotion_gate_evidence"]
     assert hub["rubric_scores"]["risk"]["score"] == 5
@@ -622,11 +656,11 @@ def test_asset_health_scoring_private_scan_and_boundaries():
     checklist = {item["name"]: item for item in health["readiness_checklist"]}
     commands = {item["command"]: item for item in health["advertised_commands"]}
 
-    assert health["package"]["source"]["version"] == "1.0.0"
+    assert health["package"]["source"]["version"] == "1.0.1"
     assert health["package"]["source"]["zero_runtime_dependencies"] is True
     assert health["scores"]["release"]["score"] == 100.0
     assert health["final_readiness"]["release_ready"] is True
-    assert checklist["package_metadata_version_1_0_0"]["ok"] is True
+    assert checklist["package_metadata_version_1_0_1"]["ok"] is True
     assert checklist["private_ref_scan_clean"]["ok"] is True
     assert checklist["finance_boundaries_covered"]["ok"] is True
     assert commands["asset-health"]["advertised_in_cli"] is True
@@ -635,6 +669,8 @@ def test_asset_health_scoring_private_scan_and_boundaries():
     assert health["private_ref_scan_summary"]["finding_count"] == 0
     assert "scripts/privacy_scan.py" in health["private_ref_scan_summary"]["ignored_files"]
     assert health["finance_boundary_coverage"]["ok"] is True
+    docs = {item["path"]: item for item in health["local_neutral_docs"]["paths"]}
+    assert docs["docs/cold-user-walkthrough.md"]["local_neutral"] is True
     assert "Not investment advice" in "\n".join(health["finance_safety_boundaries"])
 
 

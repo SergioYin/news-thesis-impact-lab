@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1 - 2026-07-10
+
+- Added `docs/cold-user-walkthrough.md` for first-10-minute public comprehension with clone/install/run commands, wheel install verification, expected outputs, troubleshooting, verification commands, and finance-safety boundaries.
+- Linked the cold-user walkthrough from README, release manifest key artifacts, evidence hub, bundle export, asset health docs coverage, and the repo agent skill.
+- Added tests for walkthrough command coverage and no-advice/no-live-data/no-broker boundaries.
+- Bumped package metadata to 1.0.1.
+
 ## 1.0.0 - 2026-07-10
 
 - Added `asset-health` CLI command for deterministic public showcase hardening artifacts under `demo/health/`.

@@ -86,6 +86,7 @@ KEY_ARTIFACTS = [
     Path("CHANGELOG.md"),
     Path("pyproject.toml"),
     Path("docs/review-packet.md"),
+    Path("docs/cold-user-walkthrough.md"),
     Path("demo/impact_packet.json"),
     Path("demo/impact_packet.md"),
     Path("demo/index.html"),
@@ -117,6 +118,7 @@ BUNDLE_SOURCE_FILES = sorted(
         Path("CHANGELOG.md"),
         Path("pyproject.toml"),
         Path("docs/review-packet.md"),
+        Path("docs/cold-user-walkthrough.md"),
         Path("skills/agent/news-thesis-impact-lab/SKILL.md"),
         *DEMO_FILES,
         *EVIDENCE_FILES,
@@ -411,7 +413,12 @@ def check_referenced_example_files(root: Path) -> Dict[str, Any]:
 
 def find_example_references(root: Path) -> set[str]:
     references: set[str] = set()
-    for path in [root / "README.md", root / "docs/review-packet.md", root / "skills/agent/news-thesis-impact-lab/SKILL.md"]:
+    for path in [
+        root / "README.md",
+        root / "docs/review-packet.md",
+        root / "docs/cold-user-walkthrough.md",
+        root / "skills/agent/news-thesis-impact-lab/SKILL.md",
+    ]:
         if not path.is_file():
             continue
         for token in path.read_text(encoding="utf-8").replace("\\", "/").split():
@@ -670,7 +677,7 @@ def command_to_regenerate(path_key: str) -> str:
             return command
     if path_key.startswith("examples/"):
         return "static fixture input; edit local JSON then rerun regenerate commands"
-    if path_key in {"README.md", "CHANGELOG.md", "pyproject.toml", "docs/review-packet.md"}:
+    if path_key in {"README.md", "CHANGELOG.md", "pyproject.toml", "docs/review-packet.md", "docs/cold-user-walkthrough.md"}:
         return "maintained source documentation or package metadata"
     if path_key.startswith("skills/"):
         return "maintained agent skill documentation"
@@ -708,6 +715,8 @@ def bundle_role(path: Path) -> str:
     if key.startswith("demo/"):
         return "primary demo artifact"
     if key.startswith("docs/"):
+        if key.endswith("cold-user-walkthrough.md"):
+            return "cold-user onboarding documentation"
         return "review documentation"
     if key.startswith("skills/"):
         return "agent reuse skill"
@@ -957,6 +966,7 @@ def render_demo_gallery() -> str:
     <a class="card" href="journal/decision_journal.html"><strong>Decision Journal HTML</strong>No-JavaScript table view for research meeting preparation.</a>
     <a class="card" href="visual/visual_receipt.md"><strong>Visual Receipt</strong>Static capture receipt with hashes, no-script checks, and boundary checks.</a>
     <a class="card" href="walkthrough/walkthrough.md"><strong>Cold-Start Walkthrough</strong>Two-to-five minute first-user path with commands and failure modes.</a>
+    <a class="card" href="../docs/cold-user-walkthrough.md"><strong>Cold User Walkthrough</strong>First-ten-minute clone, install, wheel, quickstart, troubleshooting, and safety-boundary path.</a>
     <a class="card" href="evidence/evidence_hub.md"><strong>Evidence Hub</strong>Reviewer matrix with artifact purpose, gates, hashes, no-script checks, boundary coverage, and limitations.</a>
     <a class="card" href="bundle/bundle_manifest.md"><strong>Bundle Manifest</strong>Plain-file agent reuse bundle with hashes, roles, regenerate commands, package boundaries, and safety tags.</a>
     <a class="card" href="bundle/bundle_copy_list.json"><strong>Bundle Copy List</strong>Deterministic copy list for public artifacts under the bundle artifacts directory.</a>
