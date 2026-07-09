@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0 - 2026-07-10
+
+- Added `visual-receipt` CLI command for deterministic static HTML capture receipts with hashes, no-script checks, boundary checks, and review notes.
+- Added `cold-start-walkthrough` CLI command for a 2-5 minute first-user path with commands, expected artifacts, interpretation guidance, and failure modes.
+- Integrated promotion-readiness artifacts with gallery, release manifest, release validation, maturity evidence, README, review docs, agent skill, and tests.
+
 ## 0.3.0 - 2026-07-10
 
 - Added `trend-history` CLI command for multi-period packet history.

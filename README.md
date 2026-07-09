@@ -19,6 +19,8 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 - [Impact packet](demo/impact_packet.md): affected tickers, scores, warnings, and review prompts.
 - [Compare report](demo/compare/compare.md): current versus previous packet deltas.
 - [Trend history](demo/trend/trend_history.md): multi-period score direction, new/cleared/changed statuses, persistent warnings, exposure trend, and next review queue.
+- [Visual receipt](demo/visual/visual_receipt.md): static HTML capture receipt with hashes, no-script checks, and boundary checks.
+- [Cold-start walkthrough](demo/walkthrough/walkthrough.md): 2-5 minute first-user path with exact commands, expected artifacts, interpretation guide, and failure modes.
 - [Maturity report](demo/maturity/maturity_report.md): release and promotion readiness gates.
 - [Release manifest](release/manifest.md): package version, hashes, regeneration commands, verification commands, boundaries, and distribution placeholders.
 
@@ -55,6 +57,8 @@ news-thesis-impact-lab selfcheck
 news-thesis-impact-lab validate-release
 news-thesis-impact-lab maturity-report --out demo/maturity
 news-thesis-impact-lab demo-gallery --out demo/gallery.html
+news-thesis-impact-lab visual-receipt --out demo/visual
+news-thesis-impact-lab cold-start-walkthrough --out demo/walkthrough
 news-thesis-impact-lab release-manifest --out release
 ```
 
@@ -71,6 +75,8 @@ PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
 - `demo/index.html`: static no-JavaScript demo.
 - `demo/compare/compare.json` and `demo/compare/compare.md`: current versus previous packet deltas.
 - `demo/trend/trend_history.json`, `demo/trend/trend_history.md`, and `demo/trend/trend_history.html`: deterministic multi-period packet history.
+- `demo/visual/visual_receipt.json` and `demo/visual/visual_receipt.md`: deterministic static capture receipt for promotion review.
+- `demo/walkthrough/walkthrough.json` and `demo/walkthrough/walkthrough.md`: first-user walkthrough with commands, artifacts, interpretation, and failure modes.
 - `demo/maturity/maturity_report.json` and `demo/maturity/maturity_report.md`: release and promotion readiness scoring.
 - `demo/gallery.html`: static no-JavaScript gallery that links the public demo and release artifacts.
 - `release/manifest.json` and `release/manifest.md`: deterministic release manifest with hashes and build placeholders.
@@ -88,6 +94,8 @@ PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
 PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
 PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
 PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html
+PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
+PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough
 PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity
 python scripts/privacy_scan.py
 git diff --check

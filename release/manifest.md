@@ -1,6 +1,6 @@
 # Release Manifest
 
-Package: news-thesis-impact-lab 0.3.0
+Package: news-thesis-impact-lab 0.4.0
 Generated: 2026-07-10
 
 ## Finance Safety Boundaries
@@ -14,18 +14,22 @@ Generated: 2026-07-10
 
 | Path | Exists | SHA-256 | Bytes |
 | --- | --- | --- | ---: |
-| `README.md` | true | `fae8e9203fb8be52e29f9f4e69ceb760bdb7a3abb7ff854d60c8e7986ebe2d37` | 4810 |
-| `pyproject.toml` | true | `9a336e42c3a4e37af22799995eb0fe7f8a9fa31cbf6affb8dc99bf69c47ded14` | 876 |
-| `docs/review-packet.md` | true | `d64210a2b701f288a7be8472434f713a057821d71f52b6960a3e40eaf7c15f60` | 2220 |
+| `README.md` | true | `91274e3b9705c30d6085c28d92c594b97df6cc77332d523ba6dcb36101b4efd8` | 5704 |
+| `pyproject.toml` | true | `08998bb24f2a58865db111e1e81e59aca61e6af677d9034ccfe01ac2ca1048ef` | 876 |
+| `docs/review-packet.md` | true | `4f25f2783d6a5649dd01f12505a597520ab51a97a6408c2b16b26eb8b1be84d7` | 3117 |
 | `demo/impact_packet.json` | true | `8f598eee1faf86f0cc0f846f420ecad744d313cec958398907c44ad242fa6073` | 5780 |
 | `demo/impact_packet.md` | true | `59513e6d36d7081df9484642e02740b5a8014e4a5e733636ea98505ec09ced65` | 3597 |
 | `demo/index.html` | true | `593b6e4647d7b56f3f78cb4f6d4b73d80ce647bc729d61370029f2ee6906a10b` | 2940 |
-| `demo/gallery.html` | true | `853a1e2a6e1dea218be90f7a7ea8e8b4f33e86f4ee6f39d84e129c2c1b1a4b0e` | 3213 |
+| `demo/gallery.html` | true | `c4c511c9265c481c3bd58760ea509b0a8365527f46b8f77176325d1b98a883f3` | 3715 |
 | `demo/compare/compare.json` | true | `aff81a073e9c644ddc280649398f1c13bfb159d81061db9c098d2be2f306ddf5` | 1439 |
 | `demo/compare/compare.md` | true | `adc9ac2a4b2744593687353b0f5c3371aa83379fb0215746a1d2898f6f934787` | 712 |
 | `demo/trend/trend_history.json` | true | `ff7b37f9ba163c0d7e863ac785f43e68373cff5b891e4b142c0a6e70714baa58` | 9470 |
 | `demo/trend/trend_history.md` | true | `c95ffd8fe3435bea357eef8185fc782397d65e8e350c79650bba7e5d7ef92abd` | 1521 |
 | `demo/trend/trend_history.html` | true | `6ee5d93b24967925391ec6d981bd5af49bc32efb2648cc89a92e7ae3ebb3186e` | 3354 |
+| `demo/visual/visual_receipt.json` | true | `bf1102ad210347a31590e4c434e0ea8b134480e57ef028e2bff7f3d973b4c490` | 2496 |
+| `demo/visual/visual_receipt.md` | true | `6c7e5082aa58fcf88172989ea73a85e5233ca6207346343ef099f05f8e0ecd46` | 1907 |
+| `demo/walkthrough/walkthrough.json` | true | `8af84b7ffa99e8159485e05b5d4f15e43b3798a29c594980ebe366b977befdb2` | 3079 |
+| `demo/walkthrough/walkthrough.md` | true | `bdcd10d54bca6f59caf89bfe0cae1a2fe452d7fee5aec7d306c78cd33572f9ec` | 2921 |
 | `examples/events.json` | true | `dc506f6452e1d37dc29ffef21ccd894c3e2b15b5e26e6e24bb2b0c5a7c3c0358` | 1410 |
 | `examples/theses.json` | true | `29c80ca03dd125602cb0b19234385132fb5d2ad84c1a6442247d529c93d776c9` | 1824 |
 | `examples/portfolio.json` | true | `c722c6bbe7cb29bf8f502a7d55cf7c3abac76451f3a18a9bb9ea708c268a260d` | 330 |
@@ -38,8 +42,8 @@ Generated: 2026-07-10
 
 | Kind | Path | Exists | SHA-256 | Bytes | Note |
 | --- | --- | --- | --- | ---: | --- |
-| wheel | `dist/news_thesis_impact_lab-0.3.0-py3-none-any.whl` | true | `0ed28a640b679d0d411303379d2911192fe808de94b84c8d39731c1b21393b93` | 21171 |  |
-| sdist | `dist/news_thesis_impact_lab-0.3.0.tar.gz` | true | `f532976de2d5bdb4d28d199c5ff2e5f58ec18bb223a50a12e1815ce21cac311b` | 20250 |  |
+| wheel | `dist/news_thesis_impact_lab-0.4.0-py3-none-any.whl` | true | `3ba16da0721551050c2c4d526a52d3731b49b03e7cd8782d9ea05289c3ae532d` | 24806 |  |
+| sdist | `dist/news_thesis_impact_lab-0.4.0.tar.gz` | true | `9ef4e06d2182be324fe80603b248da9e88f2ce496257bea3cb2e6725bbb23db4` | 23535 |  |
 
 ## Regenerate
 
@@ -57,6 +61,12 @@ PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/matur
 ```
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html
+```
+```bash
+PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
+```
+```bash
+PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough
 ```
 ```bash
 PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
@@ -82,5 +92,5 @@ git diff --check
 
 ## Notes
 
-- Manifest hashes cover public inputs, docs, generated artifacts, and any built distributions under dist/.
+- Manifest hashes cover public inputs, docs, generated artifacts, and current-version distributions under dist/.
 - Wheel and sdist records use placeholders only when the corresponding distribution file is absent.

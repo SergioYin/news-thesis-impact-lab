@@ -8,6 +8,7 @@ from pathlib import Path
 from .engine import build_packet, compare_packets
 from .maturity import write_maturity_report
 from .model import load_events, load_portfolio, load_theses
+from .promotion import write_cold_start_walkthrough, write_visual_receipt
 from .release import validate_release, write_demo_gallery, write_release_manifest
 from .render import (
     render_compare_markdown,
@@ -53,6 +54,12 @@ def main(argv: list[str] | None = None) -> int:
     gallery = subparsers.add_parser("demo-gallery", help="Write a no-JavaScript demo gallery landing page.")
     gallery.add_argument("--out", required=True)
 
+    visual = subparsers.add_parser("visual-receipt", help="Write static HTML visual capture receipt artifacts.")
+    visual.add_argument("--out", required=True)
+
+    walkthrough = subparsers.add_parser("cold-start-walkthrough", help="Write first-user walkthrough artifacts.")
+    walkthrough.add_argument("--out", required=True)
+
     args = parser.parse_args(argv)
     try:
         if args.command == "build-packet":
@@ -71,6 +78,10 @@ def main(argv: list[str] | None = None) -> int:
             return command_release_manifest(args)
         if args.command == "demo-gallery":
             return command_demo_gallery(args)
+        if args.command == "visual-receipt":
+            return command_visual_receipt(args)
+        if args.command == "cold-start-walkthrough":
+            return command_cold_start_walkthrough(args)
     except Exception as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
@@ -172,6 +183,22 @@ def command_demo_gallery(args: argparse.Namespace) -> int:
     out = Path(args.out)
     write_demo_gallery(out)
     print(f"wrote {out}")
+    return 0
+
+
+def command_visual_receipt(args: argparse.Namespace) -> int:
+    out = Path(args.out)
+    receipt = write_visual_receipt(Path.cwd(), out)
+    print(f"wrote {out / 'visual_receipt.json'}")
+    print(f"wrote {out / 'visual_receipt.md'}")
+    return 0 if receipt["summary"]["all_no_script"] and receipt["summary"]["all_boundaries_present"] else 1
+
+
+def command_cold_start_walkthrough(args: argparse.Namespace) -> int:
+    out = Path(args.out)
+    write_cold_start_walkthrough(out)
+    print(f"wrote {out / 'walkthrough.json'}")
+    print(f"wrote {out / 'walkthrough.md'}")
     return 0
 
 

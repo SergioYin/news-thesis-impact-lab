@@ -9,6 +9,7 @@ from typing import Any, Dict, Iterable, List
 from . import __version__
 from .engine import build_packet, compare_packets
 from .model import BOUNDARIES, load_events, load_portfolio, load_theses
+from .promotion import write_cold_start_walkthrough, write_visual_receipt
 from .render import (
     esc,
     render_compare_markdown,
@@ -31,6 +32,10 @@ DEMO_FILES = [
     Path("demo/trend/trend_history.json"),
     Path("demo/trend/trend_history.md"),
     Path("demo/trend/trend_history.html"),
+    Path("demo/visual/visual_receipt.json"),
+    Path("demo/visual/visual_receipt.md"),
+    Path("demo/walkthrough/walkthrough.json"),
+    Path("demo/walkthrough/walkthrough.md"),
 ]
 RELEASE_FILES = [
     Path("release/manifest.json"),
@@ -58,6 +63,10 @@ KEY_ARTIFACTS = [
     Path("demo/trend/trend_history.json"),
     Path("demo/trend/trend_history.md"),
     Path("demo/trend/trend_history.html"),
+    Path("demo/visual/visual_receipt.json"),
+    Path("demo/visual/visual_receipt.md"),
+    Path("demo/walkthrough/walkthrough.json"),
+    Path("demo/walkthrough/walkthrough.md"),
     *EXAMPLE_FILES,
 ]
 REGENERATE_COMMANDS = [
@@ -66,6 +75,8 @@ REGENERATE_COMMANDS = [
     "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
     "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
     "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
+    "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
+    "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
     "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release",
 ]
 VERIFY_COMMANDS = [
@@ -144,6 +155,8 @@ def check_demo_deterministic(root: Path) -> Dict[str, Any]:
         (trend_dir / "trend_history.html").write_text(render_trend_history_html(history), encoding="utf-8")
 
         write_demo_gallery(tmp_path / "gallery.html")
+        write_visual_receipt(root, tmp_path / "visual")
+        write_cold_start_walkthrough(tmp_path / "walkthrough")
 
         changed = [
             path.as_posix()
@@ -210,7 +223,7 @@ def build_release_manifest(root: Path) -> Dict[str, Any]:
             "verify": VERIFY_COMMANDS,
         },
         "notes": [
-            "Manifest hashes cover public inputs, docs, generated artifacts, and any built distributions under dist/.",
+            "Manifest hashes cover public inputs, docs, generated artifacts, and current-version distributions under dist/.",
             "Wheel and sdist records use placeholders only when the corresponding distribution file is absent.",
         ],
     }
@@ -233,8 +246,8 @@ def artifact_record(root: Path, relative_path: Path) -> Dict[str, Any]:
 
 def distribution_records(root: Path) -> List[Dict[str, Any]]:
     dist = root / "dist"
-    wheels = sorted(dist.glob("*.whl")) if dist.is_dir() else []
-    sdists = sorted(dist.glob("*.tar.gz")) if dist.is_dir() else []
+    wheels = sorted(dist.glob(f"news_thesis_impact_lab-{__version__}-*.whl")) if dist.is_dir() else []
+    sdists = sorted(dist.glob(f"news_thesis_impact_lab-{__version__}.tar.gz")) if dist.is_dir() else []
     records = [distribution_record(root, "wheel", path) for path in wheels]
     records.extend(distribution_record(root, "sdist", path) for path in sdists)
     if not wheels:
@@ -324,6 +337,8 @@ def render_demo_gallery() -> str:
             "PYTHONPATH=src python -m news_thesis_impact_lab build-packet --events examples/events.json --theses examples/theses.json --portfolio examples/portfolio.json --out demo",
             "PYTHONPATH=src python -m news_thesis_impact_lab compare --current demo/impact_packet.json --previous examples/previous_packet.json --out demo/compare",
             "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
+            "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
+            "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
             "PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json",
         ]
     )
@@ -359,6 +374,8 @@ def render_demo_gallery() -> str:
     <a class="card" href="compare/compare.md"><strong>Compare Report</strong>Current versus previous packet deltas.</a>
     <a class="card" href="trend/trend_history.md"><strong>Trend History</strong>Multi-period score direction, warning persistence, exposure trend, and review queue.</a>
     <a class="card" href="trend/trend_history.html"><strong>Trend History HTML</strong>No-JavaScript table view for history review.</a>
+    <a class="card" href="visual/visual_receipt.md"><strong>Visual Receipt</strong>Static capture receipt with hashes, no-script checks, and boundary checks.</a>
+    <a class="card" href="walkthrough/walkthrough.md"><strong>Cold-Start Walkthrough</strong>Two-to-five minute first-user path with commands and failure modes.</a>
     <a class="card" href="maturity/maturity_report.md"><strong>Maturity Report</strong>Release and promotion readiness gates.</a>
     <a class="card" href="../release/manifest.md"><strong>Release Manifest</strong>Hashes, commands, boundaries, and distribution placeholders.</a>
   </section>

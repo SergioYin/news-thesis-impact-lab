@@ -6,6 +6,8 @@
       "PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend",
       "PYTHONPATH=src python -m news_thesis_impact_lab maturity-report --out demo/maturity",
       "PYTHONPATH=src python -m news_thesis_impact_lab demo-gallery --out demo/gallery.html",
+      "PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual",
+      "PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough",
       "PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release"
     ],
     "verify": [
@@ -18,18 +20,18 @@
   },
   "distributions": [
     {
-      "bytes": 21171,
+      "bytes": 24806,
       "exists": true,
       "kind": "wheel",
-      "path": "dist/news_thesis_impact_lab-0.3.0-py3-none-any.whl",
-      "sha256": "0ed28a640b679d0d411303379d2911192fe808de94b84c8d39731c1b21393b93"
+      "path": "dist/news_thesis_impact_lab-0.4.0-py3-none-any.whl",
+      "sha256": "3ba16da0721551050c2c4d526a52d3731b49b03e7cd8782d9ea05289c3ae532d"
     },
     {
-      "bytes": 20250,
+      "bytes": 23535,
       "exists": true,
       "kind": "sdist",
-      "path": "dist/news_thesis_impact_lab-0.3.0.tar.gz",
-      "sha256": "f532976de2d5bdb4d28d199c5ff2e5f58ec18bb223a50a12e1815ce21cac311b"
+      "path": "dist/news_thesis_impact_lab-0.4.0.tar.gz",
+      "sha256": "9ef4e06d2182be324fe80603b248da9e88f2ce496257bea3cb2e6725bbb23db4"
     }
   ],
   "finance_safety_boundaries": [
@@ -41,22 +43,22 @@
   "generated_at": "2026-07-10",
   "key_artifacts": [
     {
-      "bytes": 4810,
+      "bytes": 5704,
       "exists": true,
       "path": "README.md",
-      "sha256": "fae8e9203fb8be52e29f9f4e69ceb760bdb7a3abb7ff854d60c8e7986ebe2d37"
+      "sha256": "91274e3b9705c30d6085c28d92c594b97df6cc77332d523ba6dcb36101b4efd8"
     },
     {
       "bytes": 876,
       "exists": true,
       "path": "pyproject.toml",
-      "sha256": "9a336e42c3a4e37af22799995eb0fe7f8a9fa31cbf6affb8dc99bf69c47ded14"
+      "sha256": "08998bb24f2a58865db111e1e81e59aca61e6af677d9034ccfe01ac2ca1048ef"
     },
     {
-      "bytes": 2220,
+      "bytes": 3117,
       "exists": true,
       "path": "docs/review-packet.md",
-      "sha256": "d64210a2b701f288a7be8472434f713a057821d71f52b6960a3e40eaf7c15f60"
+      "sha256": "4f25f2783d6a5649dd01f12505a597520ab51a97a6408c2b16b26eb8b1be84d7"
     },
     {
       "bytes": 5780,
@@ -77,10 +79,10 @@
       "sha256": "593b6e4647d7b56f3f78cb4f6d4b73d80ce647bc729d61370029f2ee6906a10b"
     },
     {
-      "bytes": 3213,
+      "bytes": 3715,
       "exists": true,
       "path": "demo/gallery.html",
-      "sha256": "853a1e2a6e1dea218be90f7a7ea8e8b4f33e86f4ee6f39d84e129c2c1b1a4b0e"
+      "sha256": "c4c511c9265c481c3bd58760ea509b0a8365527f46b8f77176325d1b98a883f3"
     },
     {
       "bytes": 1439,
@@ -111,6 +113,30 @@
       "exists": true,
       "path": "demo/trend/trend_history.html",
       "sha256": "6ee5d93b24967925391ec6d981bd5af49bc32efb2648cc89a92e7ae3ebb3186e"
+    },
+    {
+      "bytes": 2496,
+      "exists": true,
+      "path": "demo/visual/visual_receipt.json",
+      "sha256": "bf1102ad210347a31590e4c434e0ea8b134480e57ef028e2bff7f3d973b4c490"
+    },
+    {
+      "bytes": 1907,
+      "exists": true,
+      "path": "demo/visual/visual_receipt.md",
+      "sha256": "6c7e5082aa58fcf88172989ea73a85e5233ca6207346343ef099f05f8e0ecd46"
+    },
+    {
+      "bytes": 3079,
+      "exists": true,
+      "path": "demo/walkthrough/walkthrough.json",
+      "sha256": "8af84b7ffa99e8159485e05b5d4f15e43b3798a29c594980ebe366b977befdb2"
+    },
+    {
+      "bytes": 2921,
+      "exists": true,
+      "path": "demo/walkthrough/walkthrough.md",
+      "sha256": "bdcd10d54bca6f59caf89bfe0cae1a2fe452d7fee5aec7d306c78cd33572f9ec"
     },
     {
       "bytes": 1410,
@@ -156,12 +182,12 @@
     }
   ],
   "notes": [
-    "Manifest hashes cover public inputs, docs, generated artifacts, and any built distributions under dist/.",
+    "Manifest hashes cover public inputs, docs, generated artifacts, and current-version distributions under dist/.",
     "Wheel and sdist records use placeholders only when the corresponding distribution file is absent."
   ],
   "package": {
     "name": "news-thesis-impact-lab",
-    "version": "0.3.0"
+    "version": "0.4.0"
   },
   "schema_version": "1.0"
 }

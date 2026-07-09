@@ -20,11 +20,11 @@ SCORES = {
 
 RATIONALE = {
     "product": "Clear CLI asset with bounded static research workflow and public package metadata.",
-    "runnable": "Stdlib-only commands, examples, demo artifacts, tests, selfcheck, and privacy scan.",
+    "runnable": "Stdlib-only commands, examples, demo artifacts, visual receipt, cold-start walkthrough, tests, selfcheck, and privacy scan.",
     "user_value": "Maps local catalysts to thesis claims, exposure, warnings, human review prompts, and multi-period drift.",
-    "evidence": "Includes deterministic demo JSON/Markdown/HTML, compare and trend outputs, tests, and release validation.",
+    "evidence": "Includes deterministic demo JSON/Markdown/HTML, compare and trend outputs, visual receipt, walkthrough, tests, and release validation.",
     "engineering": "Typed dataclasses, deterministic rendering, focused CLI surface, and no runtime dependencies.",
-    "showcase": "Demo packet, compare packet, trend history, review doc, and agent skill show the intended workflow.",
+    "showcase": "Demo packet, compare packet, trend history, visual receipt, cold-start walkthrough, review doc, and agent skill show the intended workflow.",
     "risk": "Strong research-only boundaries with no live data, broker access, orders, or advice.",
 }
 

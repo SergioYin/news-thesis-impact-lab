@@ -144,6 +144,8 @@ def test_validate_release_json_reports_expected_checks():
     assert checks["referenced_example_files_exist"]["ok"] is True
     assert "examples/events.json" in checks["referenced_example_files_exist"]["referenced"]
     assert checks["example_files_exist"]["ok"] is True
+    assert "demo/visual/visual_receipt.json" not in checks["demo_artifacts_exist"]["missing"]
+    assert "demo/walkthrough/walkthrough.json" not in checks["demo_artifacts_exist"]["missing"]
 
 
 def test_maturity_report_writes_markdown_and_json(tmp_path):
@@ -179,13 +181,17 @@ def test_release_manifest_writes_hashes_commands_and_placeholders(tmp_path):
     readme_bytes = (ROOT / "README.md").read_bytes()
 
     assert "wrote" in result.stdout
-    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.3.0"}
+    assert manifest["package"] == {"name": "news-thesis-impact-lab", "version": "0.4.0"}
     assert artifacts["README.md"]["sha256"] == hashlib.sha256(readme_bytes).hexdigest()
     assert artifacts["demo/gallery.html"]["exists"] is True
     assert artifacts["demo/trend/trend_history.json"]["exists"] is True
+    assert artifacts["demo/visual/visual_receipt.json"]["exists"] is True
+    assert artifacts["demo/walkthrough/walkthrough.json"]["exists"] is True
     assert artifacts["examples/history/2026-07-10_packet.json"]["exists"] is True
     assert distributions["wheel"].get("placeholder") == "not built" or distributions["wheel"].get("exists") is True
     assert distributions["sdist"].get("placeholder") == "not built" or distributions["sdist"].get("exists") is True
+    assert "visual-receipt --out demo/visual" in "\n".join(manifest["commands"]["regenerate"])
+    assert "cold-start-walkthrough --out demo/walkthrough" in "\n".join(manifest["commands"]["regenerate"])
     assert "validate-release --format json" in "\n".join(manifest["commands"]["verify"])
     assert "Not investment advice" in "\n".join(manifest["finance_safety_boundaries"])
     assert "# Release Manifest" in markdown
@@ -201,7 +207,64 @@ def test_demo_gallery_writes_static_landing_page(tmp_path):
     assert "compare/compare.md" in html
     assert "trend/trend_history.md" in html
     assert "trend/trend_history.html" in html
+    assert "visual/visual_receipt.md" in html
+    assert "walkthrough/walkthrough.md" in html
     assert "maturity/maturity_report.md" in html
     assert "../release/manifest.md" in html
     assert "release-manifest --out release" not in html
     assert "Not investment advice" in html
+
+
+def test_visual_receipt_checks_static_html_boundaries_and_scripts(tmp_path):
+    out = tmp_path / "visual"
+    run_cli("visual-receipt", "--out", str(out))
+
+    receipt = json.loads((out / "visual_receipt.json").read_text(encoding="utf-8"))
+    markdown = (out / "visual_receipt.md").read_text(encoding="utf-8")
+    captures = {item["path"]: item for item in receipt["captures"]}
+
+    assert receipt["summary"]["asset_count"] == 3
+    assert receipt["summary"]["all_no_script"] is True
+    assert receipt["summary"]["all_boundaries_present"] is True
+    assert captures["demo/index.html"]["title"] == "News Thesis Impact Packet"
+    assert captures["demo/gallery.html"]["role"] == "artifact gallery entry point"
+    assert captures["demo/trend/trend_history.html"]["no_script"] is True
+    assert captures["demo/index.html"]["boundaries_present"] is True
+    assert captures["demo/index.html"]["sha256"] == hashlib.sha256((ROOT / "demo/index.html").read_bytes()).hexdigest()
+    assert "static read demo/index.html" in markdown
+    assert "Not investment advice" in markdown
+
+
+def test_cold_start_walkthrough_content(tmp_path):
+    out = tmp_path / "walkthrough"
+    run_cli("cold-start-walkthrough", "--out", str(out))
+
+    walkthrough = json.loads((out / "walkthrough.json").read_text(encoding="utf-8"))
+    markdown = (out / "walkthrough.md").read_text(encoding="utf-8")
+
+    assert walkthrough["duration"] == "2-5 minutes"
+    assert "visual-receipt --out demo/visual" in "\n".join(walkthrough["commands"])
+    assert "cold-start-walkthrough --out demo/walkthrough" in "\n".join(walkthrough["commands"])
+    assert "demo/visual/visual_receipt.json" in walkthrough["expected_artifacts"]
+    assert "demo/walkthrough/walkthrough.md" in walkthrough["expected_artifacts"]
+    assert any("no-script" in item for item in walkthrough["interpretation_guide"])
+    assert any("live market data" in item for item in walkthrough["failure_modes"])
+    assert "No broker integration" in "\n".join(walkthrough["boundaries"])
+    assert "## Failure Modes And Boundaries" in markdown
+
+
+def test_promotion_outputs_are_deterministic(tmp_path):
+    first_visual = tmp_path / "first_visual"
+    second_visual = tmp_path / "second_visual"
+    first_walkthrough = tmp_path / "first_walkthrough"
+    second_walkthrough = tmp_path / "second_walkthrough"
+
+    run_cli("visual-receipt", "--out", str(first_visual))
+    run_cli("visual-receipt", "--out", str(second_visual))
+    run_cli("cold-start-walkthrough", "--out", str(first_walkthrough))
+    run_cli("cold-start-walkthrough", "--out", str(second_walkthrough))
+
+    assert (first_visual / "visual_receipt.json").read_bytes() == (second_visual / "visual_receipt.json").read_bytes()
+    assert (first_visual / "visual_receipt.md").read_bytes() == (second_visual / "visual_receipt.md").read_bytes()
+    assert (first_walkthrough / "walkthrough.json").read_bytes() == (second_walkthrough / "walkthrough.json").read_bytes()
+    assert (first_walkthrough / "walkthrough.md").read_bytes() == (second_walkthrough / "walkthrough.md").read_bytes()

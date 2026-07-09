@@ -28,6 +28,8 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
    ```bash
    python -m pytest -q
    PYTHONPATH=src python -m news_thesis_impact_lab trend-history --packets examples/history/*.json --out demo/trend
+   PYTHONPATH=src python -m news_thesis_impact_lab visual-receipt --out demo/visual
+   PYTHONPATH=src python -m news_thesis_impact_lab cold-start-walkthrough --out demo/walkthrough
    PYTHONPATH=src python -m news_thesis_impact_lab selfcheck
    PYTHONPATH=src python -m news_thesis_impact_lab validate-release --format json
    PYTHONPATH=src python -m news_thesis_impact_lab release-manifest --out release
@@ -49,6 +51,8 @@ Use this skill when a user needs to create, refresh, or inspect static local fin
 - `release/manifest.json` and `release/manifest.md` are deterministic and include package version, key artifact hashes, regenerate commands, verify commands, finance safety boundaries, and wheel/sdist placeholders when `dist/` files are absent.
 - `demo/gallery.html` is static no-JavaScript HTML and links the impact packet, compare report, trend history, maturity report, release manifest, quickstart commands, and finance boundaries.
 - `demo/trend/trend_history.json`, `demo/trend/trend_history.md`, and `demo/trend/trend_history.html` are deterministic outputs from `examples/history/*.json`.
+- `demo/visual/visual_receipt.json` and `demo/visual/visual_receipt.md` are deterministic static HTML capture receipts with no-script and boundary checks.
+- `demo/walkthrough/walkthrough.json` and `demo/walkthrough/walkthrough.md` describe the 2-5 minute first-user path, exact commands, expected artifacts, interpretation guide, and failure modes.
 - `validate-release --format json` passes after public artifacts are generated.
 - Tests, selfcheck, privacy scan, and `git diff --check` pass.
 - No runtime dependencies, workflow files, private references, live data fetches, broker actions, or investment advice are introduced.
